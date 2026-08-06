@@ -1,0 +1,93 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the justtrack Management API
+  version: 1.0.0
+extends: ../openapi/applike-justtrack-management-openapi.yml
+x-generated: '2026-08-06'
+x-method: generated
+x-source: >-
+  Derived from the provider's own OpenAPI document plus https://docs.justtrack.io/api/overview/ and
+  https://docs.justtrack.io/api/management/management-api/. This overlay records API Evangelist's enhancements only;
+  the harvested spec in openapi/ is never mutated.
+x-rationale: >-
+  The published document is a clean oapi-codegen artifact but is missing three things a consumer (and every code
+  generator and agent) needs: an operationId on every operation, a declared server description, and any statement of
+  where the API sits commercially. None of these change behaviour — they annotate what the provider already
+  documents in prose.
+actions:
+  - target: $.info
+    description: Record the documentation home and the commercial gate documented on the API overview page.
+    update:
+      contact:
+        name: justtrack Support
+        email: support@justtrack.io
+        url: https://justtrack.io/contact/
+      x-documentation: https://docs.justtrack.io/api/management/management-api/
+      x-plan-gate: Pro
+      x-plan-note: >-
+        "This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details."
+      x-brand: justtrack
+      x-parent-company: AppLike Group
+
+  - target: $.servers[0]
+    description: Name the production server.
+    update:
+      description: Production
+
+  - target: $.paths['/management/v1/bids'].post
+    description: Add the missing operationId (the published document declares none on any operation).
+    update:
+      operationId: fetchCurrentBidsWithStatus
+
+  - target: $.paths['/management/v1/bids/upload'].post
+    update:
+      operationId: uploadBids
+
+  - target: $.paths['/management/v1/app/{appId}/connection/{partnerId}'].get
+    update:
+      operationId: getAppPartnerConnection
+
+  - target: $.paths['/management/v1/app/{appId}/connection/{partnerId}'].put
+    update:
+      operationId: connectPartner
+
+  - target: $.paths['/management/v1/apps'].post
+    update:
+      operationId: listApps
+
+  - target: $.paths['/management/v1/app'].post
+    update:
+      operationId: createApp
+
+  - target: $.paths['/management/v1/campaigns'].post
+    update:
+      operationId: listCampaigns
+
+  - target: $.paths['/management/v1/campaign'].post
+    update:
+      operationId: createCampaign
+
+  - target: $.paths['/management/v1/partner-configuration/{feature}'].post
+    update:
+      operationId: listConfiguredFeatures
+
+  - target: $.paths['/management/v1/partner-configuration/{feature}'].put
+    update:
+      operationId: configurePartner
+
+  - target: $.paths['/management/v1/partner-configurations'].post
+    update:
+      operationId: listConfigurations
+
+  - target: $.paths['/management/v1/partners'].post
+    update:
+      operationId: listPartners
+
+  - target: $.components.securitySchemes.ApiKeyAuth
+    description: Record how the key is obtained, since the spec names the header but not the issuance path.
+    update:
+      description: >-
+        Organization API key. Generate it in the justtrack dashboard: User profile page > API keys >
+        "Generate new key". There is no scope or permission model — the key carries the organization's full
+        entitlements.
+      x-issuance-url: https://docs.justtrack.io/api/overview/

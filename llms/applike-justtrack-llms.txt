@@ -1,0 +1,336 @@
+# justtrack Documentation
+
+> Product, SDK, and API documentation for justtrack.
+
+
+## search
+
+- [Search the documentation](/search.md)
+
+## api
+
+
+### app-events
+
+- [AppEvent API](/api/app-events/appevent-api.md)
+- [Send a batch of app events to justtrack](/api/app-events/post-app-event-batch.md): Sends batches of batches of events where each inner batch is for a single app and user.
+
+### management
+
+- [App Partner Connection](/api/management/app-partner-connection.md): App Partner Connection
+- [Apps](/api/management/apps.md): Apps
+- [Bids](/api/management/bids.md): Bids
+- [Campaigns](/api/management/campaigns.md): Campaigns
+- [Configure partner](/api/management/configure-partner.md): Configure a feature for a given app and partner.
+- [Connect partner](/api/management/connect-partner.md): Connect your app to a partner. If this app-partner connection already exists, update the connection details.
+- [Create app](/api/management/create-app.md): Create an app.
+- [Create campaign](/api/management/create-campaign.md): Typically, we automatically track campaigns in justtrack when we receive the first click or impression. However, you can also use this API to create a campaign manually.
+- [Fetch current bids with status](/api/management/fetch-current-bids-with-status.md): This API provides with the bids within justtrack. In addition, it exposes the status of the latest operation associated with the bid.
+- [Get app partner connection](/api/management/get-app-partner-connection.md): Get data for existing app partner connection.
+- [List apps](/api/management/list-apps.md): Get a paginated list of your organization's apps.
+- [List campaigns](/api/management/list-campaigns.md): Get a paginated list of campaigns for your organization.
+- [List configurations](/api/management/list-configurations.md): Get a paginated list of keys used to configure features for the partners that are available to your organization. You configure the values for each of these keys with the [Update configurations API](/api/management/configure-partner).
+- [List configured features](/api/management/list-configured-features.md): Get a paginated list of configured features for a given app and partner.
+- [List partners](/api/management/list-partners.md): Get a paginated list of partners available to your organization.
+- [Management API](/api/management/management-api.md): Manage your apps, campaigns, partners, and more.
+- [Partner Configurations](/api/management/partner-configurations.md): Partner Configurations
+- [Partners](/api/management/partners.md): Partners
+- [Upload bids](/api/management/upload-bids.md): With this API you can upload a batch of bids, similar to the CSV upload. The same hierarchy, rules, and limitations apply.
+
+### overview
+
+This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+
+- [API](/api/overview.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+
+### raw-data-export
+
+This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+
+- [Raw Data Export](/api/raw-data-export.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [adImpressionEvent](/api/raw-data-export/event-table-schemas/ad-impression-event.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [attributionEvent](/api/raw-data-export/event-table-schemas/attribution-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [bidChangeEvent](/api/raw-data-export/event-table-schemas/bid-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [clickEvent](/api/raw-data-export/event-table-schemas/click-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [deviceIntegrityEvent](/api/raw-data-export/event-table-schemas/device-integrity-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [experimentAssignmentEvent](/api/raw-data-export/event-table-schemas/experiment-assignment-event.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [goalConversionEvent](/api/raw-data-export/event-table-schemas/goal-conversions.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [installEvent](/api/raw-data-export/event-table-schemas/install-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [payoutEvent](/api/raw-data-export/event-table-schemas/payout-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [postbackEvent](/api/raw-data-export/event-table-schemas/postback-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [revenueEvent](/api/raw-data-export/event-table-schemas/revenue-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [s2sAppEvent](/api/raw-data-export/event-table-schemas/s2s-app-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [sessionEvent](/api/raw-data-export/event-table-schemas/session-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [spendEvent](/api/raw-data-export/event-table-schemas/spend-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [appEvent](/api/raw-data-export/event-table-schemas/user-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [userIdentityEvent](/api/raw-data-export/event-table-schemas/user-identity-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [impressionEvent](/api/raw-data-export/event-table-schemas/view-events.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [apps](/api/raw-data-export/management-table-schemas/apps.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [bids](/api/raw-data-export/management-table-schemas/bids.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [campaigns](/api/raw-data-export/management-table-schemas/campaigns.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [partners](/api/raw-data-export/management-table-schemas/partners.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [postbacks](/api/raw-data-export/management-table-schemas/postback-types.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+
+### reporting-api
+
+This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+
+- [Reporting API](/api/reporting-api.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Acquisition](/api/reporting-api/acquisition.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Cohort](/api/reporting-api/cohort.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Common Objects](/api/reporting-api/common-objects.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Event Drill Down](/api/reporting-api/event-drill-down.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+
+### revenue-events-api
+
+This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+
+- [Revenue Events API](/api/revenue-events-api.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Customers](/api/revenue-events-api/api-for-customers.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Revenue Providers](/api/revenue-events-api/api-for-revenue-providers.md): For many revenue providers justtrack offers a S2S solution to receive revenue postbacks in real-time.
+
+## docs
+
+
+### analyze
+
+You market your app, develop your game, or perform any other function in your organization. You need to export, study, and analyze user acquisition and monetization data. This is the documentation for you.
+
+- [Analyze your data](/docs/analyze.md): You market your app, develop your game, or perform any other function in your organization. You need to export, study, and analyze user acquisition and monetization data. This is the documentation for you.
+- [Cohort Analysis](/docs/analyze/cohort-analysis.md): A cohort is a group of users that installed an app on the same day. You can use the Cohort Analysis page to aggregate, analyze, and visualize trends based on cohorts. For example, you can analyze your app's retention over time and take action to improve that metric based on your findings.
+- [Analyze user retention](/docs/analyze/cohort-analysis/analyze-user-retention.md): One of the most common use cases for Cohort Analysis is analyzing user retention. In this case, you want to understand how often users come back to your app after they first install it.
+- [Cohort analysis table](/docs/analyze/cohort-analysis/overview/cohort-analysis-table.md): The Cohort Analysis table is the primary way to analyze cohort data in justtrack. In this article, you'll learn:
+- [Comparing segmented cohorts](/docs/analyze/cohort-analysis/overview/comparing-segmented-cohorts.md): By default, Cohorts Analysis groups users based on the default user segment: all users. This means that the data in the table shows all users from all countries and partners (or lack-thereof) who install your app.
+- [Configuring your metrics](/docs/analyze/cohort-analysis/overview/configuring-your-metrics.md): There are several options to consider when configuring your cohort metrics on the Cohort Analysis page:
+- [Dashboard](/docs/analyze/dashboard.md): In justtrack, you can customize your dashboard to visualize the data you need to see in the format that's most helpful to you. Options for customization include widgets, segments, and more.
+- [Customize Widgets](/docs/analyze/dashboard/customize-widgets.md): You can customize widgets in your dashboard to present the data you need to see in the format that's most helpful to you.
+- [Data views](/docs/analyze/data-views.md): In the justtrack platform, there are many views with which you can analyze your data. Some views have user interfaces tailored for specific use cases. The following views, however, present data in a consistent way:
+- [Configure charts](/docs/analyze/data-views/configure-charts.md): For the data view charts, you can:
+- [Distinguish between installs](/docs/analyze/data-views/distinguish-between-installs.md): Typically, all installs are aggregated together in the Installs metric. However, on the Statistics page, you can separate installs with the User Type dimension:
+- [Filter data](/docs/analyze/data-views/filter-data.md): Within a data view, you can filter the data shown in the table or charts. You can restrict your data to include or exclude specific values for your dimensions and metrics.
+- [Edit table dimensions](/docs/analyze/data-views/manage-table-dimensions.md): Within a data view table, you can add and remove dimensions. This allows you to:
+- [Edit table metrics](/docs/analyze/data-views/manage-table-metrics.md): Within a data view table, you can add and remove metrics. This allows you to:
+- [Creating an Experiment](/docs/analyze/experiments/experiment-creation.md): The Create experiment wizard guides you through setting up a robust A/B test. To begin, click the Create experiment button in the top right corner of the Experiments page.
+- [Experiments Overview & Management](/docs/analyze/experiments/experiment-list.md): The Experiments feature (A/B testing) allows you to test hypotheses and measure the impact of product changes on user behavior. By comparing different variants against a control group, you can make data-driven decisions to optimize your app's performance.
+- [Analyzing Experiment Results](/docs/analyze/experiments/experiment-results.md): The Experiment Results page provides a comprehensive dashboard to evaluate variant performance and statistical significance.
+- [Funnels](/docs/analyze/funnels.md): A funnel is a data view dedicated to analyzing users' in-app behaviors. It consists of steps that mark key events users trigger as they use your app.
+- [Create a new funnel](/docs/analyze/funnels/create-a-funnel.md): A funnel is a data view dedicated to analyzing users' in-app behaviors. It consists of steps that mark key events users trigger as they use your app. In justtrack, you can create as many funnels as you need.
+- [Manage an existing funnel](/docs/analyze/funnels/manage-an-existing-funnel.md): A funnel is a data view dedicated to analyzing users' in-app behaviors. It consists of steps that mark key events users trigger as they use your app. In justtrack, you can create as many funnels as you need.
+- [View a funnel](/docs/analyze/funnels/view-a-funnel.md): A funnel is a data view dedicated to analyzing users' in-app behaviors. It consists of steps that mark key events users trigger as they use your app. There are two types of funnels you can create:
+- [Monetization](/docs/analyze/monetization.md): In justtrack, you can analyze revenue based on ads and in-app purchases:
+- [Analyze ad revenue](/docs/analyze/monetization/ad-revenue.md): In this guide, you'll learn how to analyze ad revenue in justtrack.
+- [Analyze in-app purchases](/docs/analyze/monetization/in-app-purchases.md): View in-app purchase revenue
+- [Get an overview of your monetization data](/docs/analyze/monetization/overview.md): In this guide you'll learn how to view and modify your monetization overview dashboard.
+- [Notifications](/docs/analyze/notifications.md): justtrack notifies you when it detects a problem with your campaign setup. Notifications appear as errors.
+- [Segments](/docs/analyze/segments.md): In justtrack, you can create segments of users who share common attributes, such as their app, partner, or country. If you create multiple segments, you can compare their advertising statistics, cohorts, monetization data, and more.
+- [Manage your segments](/docs/analyze/segments/manage-your-segments.md): In this guide, you'll learn how to manage user segments in justtrack.
+- [Segment Builder](/docs/analyze/segments/overview/segment-builder.md): With the Segment Builder you can add, clone, and edit segments:
+
+### monetize
+
+You're focused on monetizing your application, selling ad space and in-app purchases. You manage your monetization partners, purchase verification credentials, and more. This is the documentation for you.
+
+- [Monetize your app](/docs/monetize.md): You're focused on monetizing your application, selling ad space and in-app purchases. You manage your monetization partners, purchase verification credentials, and more. This is the documentation for you.
+- [Ad revenue](/docs/monetize/ad-revenue.md): You can allow advertisers to pay to advertise their apps within yours. When you do this, you make money when users view these ads. The viewing of an ad is called an ad impression.
+- [Importing revenue](/docs/monetize/ad-revenue/importing-revenue.md): One way of collecting revenue data from monetization partners is by importing the revenue from their backend service. When we have the revenue data in justtrack, we update the dashboard to display the most up-to-date revenue for the partner.
+- [Integrated monetization partners](/docs/monetize/ad-revenue/partner-integrations.md): Here are the integrations we have for our monetization partners:
+- [Server-to-server push](/docs/monetize/ad-revenue/server-to-server.md): For many monetization partners, justtrack offers a server-to-server (s2s) solution to receive revenue postbacks in real time. In this case, the partner's SDK records the ad impression with their backend. The backend then processes the ad impression. At this stage, you can configure the monetization partner to send an s2s request with the processed revenue data.
+- [Tracking In-App Purchases](/docs/monetize/in-app-purchases.md): With our SDK, you can forward in-app purchases and subscriptions from your app to the justtrack backend. We display the revenue generated from them on the justtrack dashboard.
+- [Forward in-app purchases on Android](/docs/monetize/in-app-purchases/android-iap.md): When users make an in-app purchase, we receive data in three ways:
+- [Forward in-app purchases on iOS](/docs/monetize/in-app-purchases/ios-iap.md): When users make an in-app purchase, we receive data in three ways:
+- [Manage your monetization partners](/docs/monetize/partner-management/manage-partners.md): To track revenue data from your monetization partners, you need to connect them to justtrack. You can do this and more from your app's monetization view.
+
+### promote
+
+You're focused on market growth, attribution, and user acquisition. You manage your campaigns, goals, networks, and more. This is the documentation for you.
+
+- [Overview](/docs/promote.md): You're focused on market growth, attribution, and user acquisition. You manage your campaigns, goals, networks, and more. This is the documentation for you.
+- [App management](/docs/promote/app-management.md): Apps are the subject and foundation of app marketing and are, therefore, one of the most important resources for you to manage in justtrack. When you've connected your app, you can do things like:
+- [Add a new app](/docs/promote/app-management/add-a-new-app.md): In this guide, you'll learn how to create a new app in justtrack.
+- [Edit app details](/docs/promote/app-management/edit-an-app.md): In this guide, you'll learn how to edit an existing app in justtrack.
+- [App hub](/docs/promote/app-management/overview/app-hub.md): In the app hub, you'll find all sorts of information about your application, from app details to connected partners and more. This information is organized into the following sections:
+- [Apps list](/docs/promote/app-management/overview/apps-list.md): With the Apps list, you can review all the apps connected to your organization:
+- [Bid management](/docs/promote/bid-management.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Adjust bids manually](/docs/promote/bid-management/adjust-bids-manually.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Configure bids with a CSV](/docs/promote/bid-management/configure-bids-with-a-csv.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Bid upload CSV format](/docs/promote/bid-management/overview/bid-upload-csv-format.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Bid upload validation](/docs/promote/bid-management/overview/bid-upload-validation.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Bidding hierarchy](/docs/promote/bid-management/overview/bidding-hierarchy.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Partner support for bidding](/docs/promote/bid-management/overview/partner-support-for-bidding.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Campaign management](/docs/promote/campaign-management.md): In justtrack, we automatically track campaigns from all your connected partners when we receive impressions and clicks for those campaigns. In this section of our documentation, you'll learn everything you need to know about how campaigns work in justtrack and how to manage them.
+- [View and edit campaign details](/docs/promote/campaign-management/campaign-details.md): In the Campaign details page, you can view all kinds of information about your campaign, from the configuration to the clicks and impressions and so much more.
+- [Track your campaign](/docs/promote/campaign-management/generate-a-tracking-url.md): When you create a campaign with your ad partner, you may need to provide a justtrack tracking URL so you can analyze click-through and view-through data for the campaign in justtrack.
+- [Configuring tracking URLs for custom partners](/docs/promote/campaign-management/overview/custom-partner-tracking-urls.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Google Ads multi-country support](/docs/promote/campaign-management/overview/google-ads-multi-country.md): The justtrack platform supports multi-country campaigns for Google Ads inclusion lists. However, we don't support exclusion lists. Therefore, if you create a Google Ads campaign that excludes, rather than includes, specific countries, justtrack won't know the campaign countries and won't send attribution postbacks for that campaign.
+- [Channel management](/docs/promote/channel-management.md): A channel is the platform through which you reach your target audience. From the Channels page, you can:
+- [Manage your channels](/docs/promote/channel-management/manage-your-channels.md): In this guide, you'll learn how to:
+- [Spend data management](/docs/promote/cost-data-management.md): The justtrack dashboard provides a single source-of-truth for all of your app's spend data. With it, you can analyze your advertising spend across all your ad partners.
+- [Importing spend](/docs/promote/cost-data-management/importing-costs.md): One way of collecting spend data from ad partners is by importing it from their backend service. In this case, the partner provides a reporting API, from which we can request the spend data. When we have the spend data in justtrack, we update the dashboard to display the most up-to-date spend for the partner.
+- [Real-time spend data](/docs/promote/cost-data-management/real-time-costs.md): For some ad partners, especially custom ones, you can configure click tracking URLs to include spend parameters. These parameters are different for every ad partner that supports them. When users install your app, we can associate the install event to the tracking URL that's responsible for the install. With all this data, we can calculate the spend associated with the install.
+- [Set up real-time spend tracking](/docs/promote/cost-data-management/set-up-real-time-cost-tracking.md): In this guide, you'll learn how to set up real-time spend tracking for your advertising partner.
+- [Forecast](/docs/promote/forecast-management.md): The Forecast dashboard is your command center for estimating campaign performance. Powered by machine learning, it projects your key metrics (like ROAS and Retention Rate) into the future, allowing you to make proactive budget and bidding decisions before your user cohorts fully mature.
+- [Getting started](/docs/promote/forecast-management/getting-started-with-the-forecast-dashboard.md): Overview
+- [Reading your data](/docs/promote/forecast-management/reading-your-data.md): Interpreting the Data Table
+- [Goal management](/docs/promote/goal-management.md): With goals, you can track and report certain behaviors that users take in your application. They group information about an event with extra details about how users trigger that event.
+- [Create a goal](/docs/promote/goal-management/create-a-goal.md): In this guide, you'll learn how to create a new goal for your application. Among other things, this lets you:
+- [Manage existing goals](/docs/promote/goal-management/manage-existing-goals.md): In this guide, you'll learn how to edit and delete existing goals for your application. You may need to edit goals to:
+- [Partner management](/docs/promote/network-management.md): An advertising partner (ad partner), is a platform that distributes ads for your app. It pairs your marketing needs with ad space inventory from content publishers. With an ad partner, you build campaigns to reach the right audience for your application.
+- [Connect a custom partner](/docs/promote/network-management/connect-a-custom-network.md): This feature is available on the Pro pricing plan. Please email support@justtrack.io for more details.
+- [Connect an integrated partner](/docs/promote/network-management/connect-an-integrated-partner.md): Justtrack offers many integrated partners for you to use with your application. You can connect an integrated partner with just four steps using our partner wizard.
+- [Configure an advertising partner](/docs/promote/network-management/manage-ad-network-attributes.md): In this guide, you'll learn to view and edit attributes, such as keys, tokens, and IDs for your connected ad partners.
+- [Integrated Partners](/docs/promote/network-management/partner-overview.md): Partner setup
+- [adjoe](/docs/promote/network-management/partner-overview/adjoe.md): When you set up adjoe as a partner for justtrack, the following configuration will already be automatically set up:
+- [Apple Search Ads](/docs/promote/network-management/partner-overview/apple-search-ads.md): Here's what you'll need to configure this partner in justtrack:
+- [AppLovin](/docs/promote/network-management/partner-overview/applovin.md): AppLovin is a video ad network. When you set up AppLovin as an ad network for justtrack, the following configuration will already be automatically set up:
+- [Aura from Unity](/docs/promote/network-management/partner-overview/aura-from-unity.md): Aura from Unity is an on-device user acquisition platform that helps apps reach high-quality Android users through native app recommendations at key moments in the device lifecycle.
+- [Digital Turbine](/docs/promote/network-management/partner-overview/digital-turbine.md): Here's what you'll need to configure this partner in justtrack:
+- [Fluent](/docs/promote/network-management/partner-overview/fluent.md): Here's what you'll need to configure this partner in justtrack:
+- [Fyber](/docs/promote/network-management/partner-overview/fyber.md): Here's what you'll need to configure this partner in justtrack:
+- [Google Ads](/docs/promote/network-management/partner-overview/google-ads.md): Here's what you'll need to configure these features in justtrack:
+- [Google Firebase](/docs/promote/network-management/partner-overview/google-firebase.md): Firebase App ID
+- [HangMyAds](/docs/promote/network-management/partner-overview/hang-my-ads.md): Here's what you'll need to configure this partner in justtrack:
+- [ironSource](/docs/promote/network-management/partner-overview/ironsource.md): ironSource is a video ad network. When you set up ironSource as an ad network for justtrack, the following configuration will already be automatically set up:
+- [Kayzen](/docs/promote/network-management/partner-overview/kayzen.md): Here's what you'll need to configure this partner in justtrack:
+- [Launch Potato](/docs/promote/network-management/partner-overview/launch-potato.md): Here's what you'll need to configure this partner in justtrack:
+- [Liftoff](/docs/promote/network-management/partner-overview/liftoff.md): Here's what you'll need to configure this partner in justtrack:
+- [Mintegral](/docs/promote/network-management/partner-overview/mintegral.md): Here's what you'll need to configure this partner in justtrack:
+- [Mobvista](/docs/promote/network-management/partner-overview/mobvista.md): Here's what you'll need to configure this partner in justtrack:
+- [Moloco](/docs/promote/network-management/partner-overview/moloco.md): Here's what you'll need to configure this partner in justtrack:
+- [Motive](/docs/promote/network-management/partner-overview/motive.md): Here's what you'll need to configure this partner in justtrack:
+- [Outbrain](/docs/promote/network-management/partner-overview/outbrain.md): Outbrain is a native advertising platform that helps advertisers reach engaged audiences across premium publisher sites on the open web.
+- [Prodege](/docs/promote/network-management/partner-overview/prodege.md): Here's what you'll need to configure this partner in justtrack:
+- [RevU](/docs/promote/network-management/partner-overview/revu.md): RevU is a rewarded advertising platform that connects advertisers with engaged users and helps publishers monetize through offerwall offers.
+- [Taboola](/docs/promote/network-management/partner-overview/taboola.md): Here's what you'll need to configure this partner in justtrack:
+- [Tapjoy](/docs/promote/network-management/partner-overview/tapjoy.md): When you set up Tapjoy as an ad network for justtrack, the following configuration will already be automatically set up:
+- [Unity](/docs/promote/network-management/partner-overview/unity.md): Unity is a video ad network. When you set up Unity as an ad network for justtrack, the following configuration will already be automatically set up:
+- [UnityCTV](/docs/promote/network-management/partner-overview/unityctv.md): Here's what you'll need to configure these features in justtrack:
+- [Vibe](/docs/promote/network-management/partner-overview/vibe.md): Here's what you'll need to configure this partner in justtrack:
+- [W.Digital](/docs/promote/network-management/partner-overview/w-digital.md): Here's what you'll need to configure this partner in justtrack:
+- [YouAppi CTV](/docs/promote/network-management/partner-overview/youappictv.md): Here's what you'll need to configure these features in justtrack:
+- [Test device management](/docs/promote/test-device-management.md): In justtrack, you can specify test devices by adding certain device identifiers to an allowlist. For these test devices, we'll send postbacks even if the user was marked as fraudulent.
+- [Manage test devices](/docs/promote/test-device-management/manage-test-devices.md): In this guide, you'll learn how to:
+- [User management](/docs/promote/user-management.md): As an admin, you have full control over your organization's users from the  page. Here, you can:
+- [Activate or deactivate a user](/docs/promote/user-management/activate-or-deactivate-a-user.md): In this guide, you'll learn how to activate or deactivate a user.
+- [Change a user's settings](/docs/promote/user-management/change-a-users-settings.md): In this guide, you'll learn how to change a user's settings and details. This lets you to update their personal information, grant or revoke permissions, and more.
+- [Create a new user](/docs/promote/user-management/create-a-new-user.md): In this guide, you'll learn how to create a new user for your organization. Among other things, this lets you:
+- [User roles and permissions](/docs/promote/user-management/overview/user-roles-and-permissions.md): There are three roles a user can have in justtrack:
+
+### quickstart
+
+This Quick Start helps you move from signup to first value as quickly as possible.
+
+- [Welcome to justtrack](/docs/quickstart.md): This Quick Start helps you move from signup to first value as quickly as possible.
+- [Connect an App](/docs/quickstart/app.md): This guide shows you how to create a new app in justtrack.
+- [Track Your First Campaign](/docs/quickstart/campaigns.md): This guide shows you how to start tracking advertising campaigns in justtrack.
+- [Work with Your Data](/docs/quickstart/data.md): Before you begin
+- [Monetize Your App](/docs/quickstart/monetize.md): This guide helps you start tracking monetization data in justtrack.
+
+### resources
+
+Here, you'll find general resources that define and describe concepts that are important to our product. These exist independent of product documentation so you can focus on learning the elements of the product in any order or context that's easiest for you.
+
+- [Resources](/docs/resources.md): Here, you'll find general resources that define and describe concepts that are important to our product. These exist independent of product documentation so you can focus on learning the elements of the product in any order or context that's easiest for you.
+- [Glossary](/docs/resources/glossary-and-definitions.md): This category is a collection of definitions and explanations about justtrack's features.
+- [Attribution](/docs/resources/glossary-and-definitions/attribution.md): This documentation describes how tracking and attribution work for both Android and iOS with the justtrack SDK.
+- [Android](/docs/resources/glossary-and-definitions/attribution/android.md): Vital to measure campaign performance is to correctly identify the ad impressions and ad clicks that cause users to install an app. In general, justtrack uses multiple methods to identify these ad impressions and ad clicks as well as a last-click attribution model.
+- [iOS & SKAdNetwork](/docs/resources/glossary-and-definitions/attribution/skadnetwork-for-ios.md): Justtrack supports the iOS 14 SKAdNetwork Integration starting from SDK version 2.4.2
+- [Channels](/docs/resources/glossary-and-definitions/channel.md): A channel, or marketing channel, is the platform through which you reach your target audience. For example, you may use an ad on YouTube, a post on social media, or a banner in a game. These are all channels, which your network can use to market your app.
+- [Churn](/docs/resources/glossary-and-definitions/churn.md): In the context of installs and attribution, churn happens when once-active users don't open the application for a prolonged period of time.
+- [Cohorts](/docs/resources/glossary-and-definitions/cohort.md): A cohort is a group of users that installed an app on the same day. The users may have all installed a single app or installed one of multiple apps, depending on the user segment you're looking at. By grouping users in this way, you can analyze trends in user actions over time.
+- [Dimensions](/docs/resources/glossary-and-definitions/dimensions.md): {/ THIS FILE IS AUTOGENERATED. DON'T EDIT! /}
+- [Funnels](/docs/resources/glossary-and-definitions/funnel.md): A funnel is a data view dedicated to analyzing users' in-app behaviors. It consists of steps that mark key events users trigger as they use your app.
+- [Goals](/docs/resources/glossary-and-definitions/goal.md): With Goals, you can track and report certain behaviors that users take in your application. They group information about an event with extra details about how users trigger that event. These extra details include:
+- [Installs](/docs/resources/glossary-and-definitions/install.md): The Installs metric in the justtrack dashboard is an important metric for understanding campaign performance, especially if you use the cost-per-install (CPI) optimization model. In this document, we'll describe the cases where installs count toward that metric and cases where they don't. Hopefully, this will clarify how and why we arrived at the numbers you see in the dashboard.
+- [Metrics](/docs/resources/glossary-and-definitions/metrics.md): {/ THIS FILE IS AUTOGENERATED. DON'T EDIT! /}
+- [Partners](/docs/resources/glossary-and-definitions/network.md): A partner is a platform that you, as an app developer, work with to accomplish one of two goals:
+- [Organic Installs](/docs/resources/glossary-and-definitions/organic-installs.md): An organic install is one that's not attributed to any ad campaign.
+- [Postbacks](/docs/resources/glossary-and-definitions/postback.md): A postback is when we send attribution data to inform a partner about user events:
+- [Predefined Dimensions](/docs/resources/glossary-and-definitions/predefined-dimensions.md): When tracking app events, you can add dimensions to store additional information about the event. The justtrack SDK provides a set of predefined dimensions that are recognized by the platform and provide standardized data for analytics.
+- [Reattribution Window](/docs/resources/glossary-and-definitions/reattribution-window.md): The reattribution window is a period of time after which we should reattribute a user to a new campaign. This window is important because we don't want to attribute users to new campaigns too often.
+- [Re-engagements](/docs/resources/glossary-and-definitions/reengagement.md): A re-engagement, as opposed to a reinstall, occurs when a user:
+- [Sessions](/docs/resources/glossary-and-definitions/sessions.md): A session starts either when the app starts for the first time or comes back to the foreground after some inactivity.
+- [Sources](/docs/resources/glossary-and-definitions/source.md): A source, or media source, is the website, app, or other media in which an advertisement is placed and showed to users.
+- [Tracking URLs](/docs/resources/glossary-and-definitions/tracking-url.md): A tracking URL specifies where to send data when users view or click your ads as well as what data you want to receive.
+- [App Events](/docs/resources/glossary-and-definitions/user-event.md): App events record in-app or server-sent user behaviors. With these you can analyze how your users are using your app. App events are one of the primary data points that power dashboards, tables, and charts in justtrack. You'll find user event data in many views including:
+
+## sdk
+
+
+### find-your-justtrack-token
+
+In this guide, you'll learn how to find the justtrack token for your app. You'll configure your SDK with this token to send data to the correct app in justtrack.
+
+- [Find your justtrack API token](/sdk/find-your-justtrack-token.md): In this guide, you'll learn how to find the justtrack token for your app. You'll configure your SDK with this token to send data to the correct app in justtrack.
+
+### get-an-advertiser-and-test-group-id
+
+The justtrack SDK can provide the advertiser ID of the user if the user didn't limit ad tracking.
+
+- [Get an advertiser and test group ID](/sdk/get-an-advertiser-and-test-group-id.md): The justtrack SDK can provide the advertiser ID of the user if the user didn't limit ad tracking.
+
+### get-an-attribution
+
+The justtrack SDK automatically determines a user’s identity and attribution after setup.
+
+- [Get attribution info](/sdk/get-an-attribution.md): The justtrack SDK automatically determines a user’s identity and attribution after setup.
+
+### integrations
+
+You can integrate supported third-party SDKs with justtrack:
+
+- [Integrate with third-party SDKs](/sdk/integrations.md): You can integrate supported third-party SDKs with justtrack:
+- [Integrate with AppLovin](/sdk/integrations/applovin.md): If you use AppLovin, you can automatically track Ad Revenue from Impressions with the justtrack SDK.
+- [Integrate with Firebase](/sdk/integrations/firebase.md): If you're using the Firebase SDK alongside the justtrack SDK, you can use the justtrack SDK to send a user's Firebase App Instance ID to the justtrack backend. Later, the justtrack backend can forward events to Firebase, allowing you to measure events happening outside your app. To enable this, the justtrack backend needs the user's Firebase App Instance ID.
+- [Integrate with Google On Device Measurement](/sdk/integrations/google-odm.md): If you use Google Ads, you can integrate Google On Device Measurement (ODM) with the justtrack SDK. The Google ODM adapter fetches on-device conversion data from the Google Ads On Device Conversion SDK and forwards it to the justtrack backend, enabling more accurate attribution of app installs driven by Google Ads campaigns.
+- [Integrate with ironSource](/sdk/integrations/ironsource.md): If you use ironSource, you can automatically track Advertisement revenue from Impressions with justtrack SDK.
+- [Integrate with Unity Ads](/sdk/integrations/unityads.md): If you use Unity Ads, you can automatically track Advertisement revenue from Impressions with justtrack SDK.
+
+### more
+
+- [Changelog](/sdk/more/changelog.md): Version 5.1.2 (Jul 10, 2026)
+- [See an example](/sdk/more/demo.md): Explore our demo application on GitHub
+- [Predefined Events](/sdk/more/predefined_events.md): The SDK provides a list of predefined events as static fields of the AppEvent class. Below you can find a list of these events with their description and what dimensions are expected to be provided with them.
+- [Retargeting users](/sdk/more/retargeting-users.md): Retargeting allows you to re-engage users with your app which already did install the app once in the past. As they already installed the app in the past, you have a high chance to get them to do it again - after all, they did like your app enough to do it once already. Maybe they just did run out of things to do in your game (but you now added new content), focused on something else for some time (but maybe need now another change in their favorite app), or were using your app on their ride to work every day, but then a global pandemic caused everyone to work from home.
+- [MIT License](/sdk/more/third-party-licenses.md): The following libraries are used by the justtrack Android SDK.
+
+### overview
+
+This guide will help you set up and use all features of the justtrack SDK in your application.
+
+- [Overview](/sdk/overview.md): This guide will help you set up and use all features of the justtrack SDK in your application.
+
+### privacy
+
+We offer multiple privacy-preserving methods to manage the data sent to us from your app.
+
+- [Ensure privacy](/sdk/privacy.md): We offer multiple privacy-preserving methods to manage the data sent to us from your app.
+
+### provide-your-own-user-id
+
+If your app already assigns a unique ID to each user, you can share this ID with the justtrack SDK.
+
+- [Set a user ID](/sdk/provide-your-own-user-id.md): If your app already assigns a unique ID to each user, you can share this ID with the justtrack SDK.
+
+### revenue
+
+The justtrack SDK can track advertisement and in-app purchase revenue for you.
+
+- [Track revenue](/sdk/revenue.md): The justtrack SDK can track advertisement and in-app purchase revenue for you.
+
+### run-experiments
+
+Experiments aren't available in the Godot SDK.
+
+- [Run experiments](/sdk/run-experiments.md): Experiments aren't available in the Godot SDK.
+
+### setup
+
+The justtrack SDK provides powerful tracking capabilities for attribution, events, and more.
+
+- [Set up the SDK](/sdk/setup.md): The justtrack SDK provides powerful tracking capabilities for attribution, events, and more.
+
+### track-events
+
+With the justtrack SDK, you can monitor and record user behavior through events.
+
+- [Track events](/sdk/track-events.md): With the justtrack SDK, you can monitor and record user behavior through events.

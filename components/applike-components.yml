@@ -1,0 +1,96 @@
+generated: '2026-08-06'
+method: searched
+source: >-
+  https://docs.adjoe.io/rewarded-solutions/playtime-web-for-ios/intro-to-playtimeweb/integrate-playtimeweb,
+  https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/api-reference,
+  https://docs.adjoe.io/rewarded-solutions/resources/user-level-promos
+summary: >-
+  adjoe ships one genuinely client-side, embeddable surface that is not an SDK: PlaytimeWeb, a hosted rewarded
+  offerwall served from a per-publisher subdomain and embedded in an iOS WebView, SFSafariViewController or iframe.
+  The rest of adjoe's UI (the Playtime offerwall, the Arcade loyalty layer) is rendered by the native SDKs rather
+  than by a separate component library. justtrack ships no embeddable UI components at all — it is a backend
+  attribution platform with a first-party dashboard.
+families:
+- name: PlaytimeWeb
+  brand: adjoe
+  type: hosted-embeddable-surface
+  platform: iOS (web)
+  description: >-
+    A hosted rewarded-gaming offerwall the publisher opens by URL rather than by integrating an SDK. adjoe serves it
+    from a per-publisher subdomain of playtimeweb.com.
+  url_template: https://{your_company_name}.playtimeweb.com/play?user_id={user_id}&idfa={IDFA}
+  embedding:
+    supported:
+    - WebView
+    - SFSafariViewController
+    - iframe
+    note: >-
+      The host app must permit the URL schemes adjoe uses, or "certain functionality - like our support chatbot -
+      will not work". Navigation actions must be configured so App Store URLs open outside the WebView.
+  parameters:
+  - name: user_id
+    required: true
+    description: >-
+      "A custom identifier you can assign to each user. If you haven't set one, adjoe generates it automatically.
+      This ID is necessary for S2S Payouts, thus required. Ensure this value is url-safe."
+  - name: idfa
+    required: false
+    recommended: true
+    description: Apple Identifier for Advertisers; requires the App Tracking Transparency prompt to be accepted.
+  - name: placement
+    required: false
+    description: 'Where the PlaytimeWeb button sits in the app, e.g. "Main Screen", "Shop", "Interstitial".'
+  - name: ua_channel
+    required: false
+    description: User acquisition channel within the network.
+  - name: ua_network
+    required: false
+    description: 'User acquisition network, e.g. Adwords, Facebook, Organic.'
+  - name: ua_subpublisher_encrypted
+    required: false
+    description: Encrypted package name or app id of the sub-publisher app.
+  - name: gender
+    required: false
+    values:
+    - female
+    - male
+    - unknown
+  - name: age
+    required: false
+  - name: pub_sub_id_1
+    required: false
+    description: >-
+      "These are optional identifiers used in your backend. They will be provided back in the S2S payout."
+  - name: pub_sub_id_2
+    required: false
+  - name: pub_sub_id_3
+    required: false
+  - name: pub_sub_id_4
+    required: false
+  - name: pub_sub_id_5
+    required: false
+  reward_flow: >-
+    Currency earned in PlaytimeWeb is paid out through the same server-to-server payout callback documented in
+    asyncapi/applike-webhooks.yml — the pub_sub_id_* values round-trip back to the publisher on that callback.
+  evidence: https://docs.adjoe.io/rewarded-solutions/playtime-web-for-ios/intro-to-playtimeweb/integrate-playtimeweb
+- name: Playtime offerwall
+  brand: adjoe
+  type: sdk-rendered-ui
+  platform: Android, iOS, React Native, Flutter, Unity
+  description: >-
+    The rewarded offerwall the native Playtime SDK renders inside the host app. Not a separately distributable
+    component — it is surfaced through the SDK API (see the SDK API reference).
+  evidence: https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/api-reference
+- name: Arcade
+  brand: adjoe
+  type: sdk-rendered-ui
+  description: >-
+    adjoe's loyalty and engagement layer — missions, rewards and activity-based progression rendered inside the
+    publisher's app.
+  evidence: https://adjoe.io/llms.txt
+absent:
+- brand: justtrack
+  detail: >-
+    No web components, element library, embeddable dashboard or hosted UI surface is published. justtrack's UI is its
+    own dashboard at dashboard.justtrack.io, not an embeddable component.
+- detail: No design system, component npm package or CDN loader script is published by either brand.

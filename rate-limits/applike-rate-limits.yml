@@ -1,0 +1,40 @@
+generated: '2026-08-06'
+method: searched
+source: https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
+summary: >-
+  Only adjoe publishes a rate limit, and only for the SSP Revenue API. justtrack publishes no rate limits, quotas or
+  throttling headers for any of its five API surfaces, and neither justtrack OpenAPI document declares a 429
+  response.
+rate_limits:
+- api: adjoe SSP Revenue API
+  scope: per publisher
+  limit_count: 5
+  limit_period: second
+  burst: 10
+  status_code: 429
+  headers:
+    limit: X-RateLimit-Limit
+    remaining: X-RateLimit-Remaining
+    reset: X-RateLimit-Reset
+    retry_after: Retry-After
+  header_semantics:
+    X-RateLimit-Limit: burst size
+    X-RateLimit-Remaining: requests available
+    X-RateLimit-Reset: seconds until replenishment
+    Retry-After: present on 429 responses only
+  algorithm: token bucket (sustained replenishment rate plus burst capacity)
+  endpoints:
+  - GET /v2/ssp-api/aggregation/daily
+  - GET /v2/ssp-api/aggregation/sdkHash/{sdkHash}/daily
+  evidence: https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
+undocumented:
+- api: justtrack Management API
+  detail: no published limit, no 429 declared in the OpenAPI document
+- api: justtrack Reporting API
+  detail: no published limit
+- api: justtrack AppEvent API
+  detail: no published limit; 502 with "try again after a short backoff" is the only throttling-adjacent guidance
+- api: justtrack Revenue Events API
+  detail: no published limit
+- api: adjoe User Ad Data Report API
+  detail: no rate limits specified on the documentation page

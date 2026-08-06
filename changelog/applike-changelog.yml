@@ -1,0 +1,102 @@
+generated: '2026-08-06'
+method: searched
+source: >-
+  https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/changelog,
+  https://docs.justtrack.io/sdk/more/changelog/
+summary: >-
+  Both brands publish a dated, per-version changelog — but both are SDK changelogs. Neither justtrack nor adjoe
+  publishes a changelog for its HTTP APIs, so a server-side integrator has no record of when
+  /management/v1, /reporting/v2, /appevents/v1 or the SSP endpoints changed. The two OpenAPI documents both sit at
+  info.version "v1.0.0" with no release history behind them.
+changelogs:
+- brand: adjoe
+  product: Playtime SDK
+  url: https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/changelog
+  scheme: semver
+  scope: iOS, Android, React Native, Flutter, Unity — one entry per release, split per platform
+  current_version: 4.5.2
+  dated: true
+  entries:
+  - version: 4.5.2
+    date: '2026-07-24'
+    type: patch
+    breaking: false
+    highlights:
+    - 'Android: fix latency with initialization.'
+    - 'iOS unchanged — remains 4.5.0.'
+    warning: >-
+      Android SDK v4.4.0–v4.5.1 have a known issue causing initialization latency on lower-end Android devices and
+      should not be used.
+  - version: 4.5.1
+    date: '2026-07-03'
+    type: patch
+    breaking: false
+    highlights:
+    - 'Android: fix failing inline installs.'
+    - 'Android: fix bug related to concurrent function calls.'
+  - version: 4.5.0
+    date: '2026-06-26'
+    type: minor
+    breaking: false
+    highlights:
+    - Internal SDK improvements on iOS and Android, no public interface changes.
+  - version: 4.4.0
+    date: '2026-06-01'
+    type: minor
+    breaking: false
+    highlights:
+    - Added Playtime.teardown() to deinitialize the SDK and release internal resources on logout.
+- brand: justtrack
+  product: justtrack SDK
+  url: https://docs.justtrack.io/sdk/more/changelog/
+  scheme: semver
+  scope: per platform (Android, iOS, React Native, Unity, Godot); entries grouped Added / Changed / Removed / Bug-Fixes
+  current_version: 7.1.1
+  dated: true
+  entries:
+  - version: 7.1.1
+    date: '2026-06-09'
+    type: patch
+    breaking: false
+    highlights:
+    - 'Android: added background syncing of events.'
+    - 'Android: the SDK now removes stale assignments after .fetch() completes.'
+    - 'iOS: version bumped for alignment only, no functional changes.'
+  - version: 7.1.0
+    date: '2026-03-06'
+    type: minor
+    breaking: false
+    deprecations:
+    - '.publishEvent() deprecated in favour of the new .track() method.'
+    additions:
+    - Added .track() for publishing events.
+    - Added remote config support with experiment assignments via .getRemoteConfig().
+    - Added .withServerUrl() to configure a custom backend URL.
+    - Added .withLoggingEnabled() to the SDK builder.
+    - Added .withApplicationId() and .withApplicationVersion() for custom package name/version reporting.
+    - Added jt_action type for JtProgressionEvent; view and click action types for JtPurchaseEvent.
+    - Added integration adapters for Meta and Google ODM.
+  - version: 6.0.0
+    date: '2026-01-23'
+    type: major
+    breaking: true
+    breaking_changes:
+    - Removed automatic support for third-party integrations.
+    - Third-party integrations (AppLovin, Firebase, ironSource) decoupled into separate adapter modules.
+    additions:
+    - Support adapters for AppLovin, ironSource and Firebase.
+  - version: 5.1.1
+    date: '2025-09-30'
+    type: patch
+    breaking: false
+    highlights:
+    - Updated Android and iOS native SDKs to 5.1.1.
+  - version: 5.1.0
+    date: '2025-09-08'
+    type: minor
+    breaking: false
+    deprecations:
+    - JusttrackSdk.getTestGroupId() deprecated.
+gaps:
+- No API changelog for any of the six HTTP surfaces.
+- Both published OpenAPI documents are pinned at info.version "v1.0.0" with no release history.

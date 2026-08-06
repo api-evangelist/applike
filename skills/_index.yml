@@ -1,0 +1,52 @@
+generated: '2026-08-06'
+method: generated
+source: >-
+  openapi/applike-justtrack-management-openapi.yml, openapi/applike-justtrack-app-events-openapi.yml,
+  conventions/applike-conventions.yml, errors/applike-problem-types.yml, rate-limits/applike-rate-limits.yml,
+  https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
+note: >-
+  No provider-published Agent Skills or AGENTS.md exist for either brand — these are API Evangelist packaged skills,
+  generated from the harvested OpenAPI documents and the published reporting docs. Every path, parameter, status code
+  and field name below appears in the provider's own material. The justtrack Management API publishes no
+  operationIds, so its steps are grounded on METHOD + PATH; the camelCase names in parentheses are the ones API
+  Evangelist assigns in overlays/applike-justtrack-management-overlay.yaml, not names the provider ships.
+skills:
+- id: applike-ingest-app-events
+  file: applike-ingest-app-events.md
+  name: Ingest in-app events into justtrack
+  api: justtrack AppEvent API
+  grounding: openapi
+  operations:
+  - postAppEventBatch
+- id: applike-onboard-app-and-partner
+  file: applike-onboard-app-and-partner.md
+  name: Onboard an app and connect an advertising partner
+  api: justtrack Management API
+  grounding: openapi
+  operations:
+  - POST /management/v1/app
+  - POST /management/v1/apps
+  - POST /management/v1/partners
+  - PUT /management/v1/app/{appId}/connection/{partnerId}
+  - GET /management/v1/app/{appId}/connection/{partnerId}
+  - POST /management/v1/partner-configurations
+  - PUT /management/v1/partner-configuration/{feature}
+- id: applike-manage-campaign-bids
+  file: applike-manage-campaign-bids.md
+  name: Create a campaign and manage its bids
+  api: justtrack Management API
+  grounding: openapi
+  operations:
+  - POST /management/v1/campaign
+  - POST /management/v1/campaigns
+  - POST /management/v1/bids
+  - POST /management/v1/bids/upload
+- id: applike-pull-adjoe-publisher-revenue
+  file: applike-pull-adjoe-publisher-revenue.md
+  name: Pull adjoe Playtime publisher revenue and user ad data
+  api: adjoe SSP Revenue API, adjoe User Ad Data Report API
+  grounding: documentation
+  operations:
+  - GET /v2/ssp-api/aggregation/daily
+  - GET /v2/ssp-api/aggregation/sdkHash/{sdkHash}/daily
+  - GET /v3/ssp-api/user-ad-data-report/sdk/{sdkHash}

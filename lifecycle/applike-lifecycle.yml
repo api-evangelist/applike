@@ -1,0 +1,98 @@
+generated: '2026-08-06'
+method: searched
+source: >-
+  https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/changelog,
+  https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/migrate-to-playtime-sdk-v4,
+  https://docs.justtrack.io/sdk/more/changelog/, https://status.justtrack.io/, https://status.adjoe.io/,
+  openapi/applike-justtrack-management-openapi.yml
+versioning:
+  style: path-segment
+  lockstep: false
+  detail: >-
+    Each surface carries its own major version in the URL path and they move independently:
+    justtrack Management /management/v1, justtrack Reporting /reporting/v2 (v1 still documented side by side),
+    justtrack AppEvent /appevents/v1, justtrack Revenue sink /monetization/v0, adjoe SSP revenue /v2/ssp-api,
+    adjoe user ad data report /v3/ssp-api. The revenue sink is still on v0.
+  sdk_versioning: semver, per platform, with the native Android/iOS versions kept aligned
+  spec_version: both published OpenAPI documents declare info.version "v1.0.0"
+
+deprecation:
+  policy_published: partial
+  http_headers:
+    sunset: not sent
+    deprecation: not sent
+    rfc8594: false
+  detail: >-
+    There is no written deprecation policy for the HTTP APIs — no notice period, no Sunset/Deprecation headers, and
+    no `deprecated: true` flag on any operation in either OpenAPI document. What the group does publish is an
+    SDK-level sunset, with a hard date and named versions, plus method-level deprecations announced in the
+    changelogs.
+  announced_sunsets:
+  - brand: adjoe
+    product: Playtime SDK
+    effective: '2026-09-01'
+    scope: 'Android <= v3.4.0; iOS <= v1.9.1'
+    statement: >-
+      "From 1st September 2026, we will stop supporting these older SDK versions and sunset them. Failure to upgrade
+      ahead of this window may result in Playtime SDK build failures."
+    migration_guide: https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/migrate-to-playtime-sdk-v4
+    evidence: https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/changelog
+  advisories:
+  - brand: adjoe
+    scope: 'Android SDK v4.4.0 - v4.5.1'
+    statement: >-
+      Known issue causing initialization latency on lower-end Android devices; these versions "should not be used".
+    fixed_in: 4.5.2
+  deprecated_methods:
+  - brand: justtrack
+    symbol: .publishEvent()
+    deprecated_in: 7.1.0
+    replacement: .track()
+    date: '2026-03-06'
+  - brand: justtrack
+    symbol: JusttrackSdk.getTestGroupId()
+    deprecated_in: 5.1.0
+    date: '2025-09-08'
+  breaking_releases:
+  - brand: justtrack
+    version: 6.0.0
+    date: '2026-01-23'
+    change: Automatic third-party integration support removed; AppLovin/Firebase/ironSource split into adapter modules.
+  deprecated_operations_in_spec: []
+
+status_pages:
+- brand: justtrack
+  url: https://status.justtrack.io/
+  http_status: 200
+  observed_state: All systems Operational
+  machine_readable_feed: >-
+    none found — /api/v2/status.json and /history.rss both 404, so this is not an Atlassian Statuspage and exposes
+    no polling endpoint
+- brand: adjoe
+  url: https://status.adjoe.io/
+  http_status: 200
+  observed_state: Operational
+  machine_readable_feed: none found — /api/v2/status.json returns 404
+- brand: adjoe
+  url: https://adjoe.statuspage.io/
+  http_status: 200
+  note: separate Atlassian-hosted host also resolves; status.adjoe.io is the branded entry point
+
+sla:
+  published: false
+  detail: >-
+    No uptime commitment, support-response target or credit policy is published on any public page. Both APIs are
+    gated behind commercial plans (justtrack Pro; adjoe publisher agreements) where an SLA would sit in the contract.
+
+support:
+  channels:
+  - email: support@justtrack.io
+    scope: justtrack API and platform, named directly in the OpenAPI 500 response description
+  - url: https://justtrack.io/contact/
+  - url: https://adjoe.io/contact/
+  - channel: named Account Manager
+    scope: adjoe publishers, per the SDK sunset notice
+
+changelog:
+  see: changelog/applike-changelog.yml
+  api_changelog_published: false

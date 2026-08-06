@@ -1,0 +1,80 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the justtrack AppEvent API
+  version: 1.0.0
+extends: ../openapi/applike-justtrack-app-events-openapi.yml
+x-generated: '2026-08-06'
+x-method: generated
+x-source: >-
+  Derived from the provider's own OpenAPI document plus https://docs.justtrack.io/api/app-events/appevent-api/ and
+  https://docs.justtrack.io/api/overview/. Records API Evangelist's enhancements only; the harvested spec is never
+  mutated.
+x-rationale: >-
+  This document already carries an operationId and a well-shaped 207 partial-success contract. What it does not say
+  is that batchId and the per-event id ARE the idempotency mechanism — which is the single most important fact for
+  anyone writing a retry loop against a 502. The overlay makes that explicit and tags the operation so it is
+  discoverable.
+actions:
+  - target: $.info
+    description: Fill in the empty description, add contact, and record the commercial gate.
+    update:
+      description: >-
+        Server-to-server batch ingestion for in-app events. Send an array of AppEventBatch objects, each scoped to
+        one app/user combination. Each batch carries a caller-supplied uuid4 batchId and each event a caller-supplied
+        uuid4 id; both are the deduplication keys, so a failed or partially failed request can be replayed verbatim.
+        A 207 response returns per-batch errors keyed by batchId — retry only those.
+      contact:
+        name: justtrack Support
+        email: support@justtrack.io
+        url: https://justtrack.io/contact/
+      x-documentation: https://docs.justtrack.io/api/app-events/appevent-api/
+      x-plan-gate: Pro
+      x-brand: justtrack
+      x-parent-company: AppLike Group
+
+  - target: $.servers[0]
+    description: Name the production server.
+    update:
+      description: Production
+
+  - target: $.paths['/appevents/v1'].post
+    description: >-
+      Tag the operation (the published document declares none) and state the idempotency and retry contract that the
+      schemas imply but never spell out.
+    update:
+      tags:
+        - App Events
+      x-idempotency:
+        supported: true
+        style: client-supplied-dedup-key
+        batch_key: batchId
+        item_key: events[].id
+        header: null
+        safe_to_replay: true
+        note: >-
+          A verbatim replay after 500/502 is safe because both keys are supplied by the caller. There is no
+          Idempotency-Key header; the identifiers live in the payload.
+      x-retry:
+        on:
+          - 500
+          - 502
+        strategy: exponential backoff with jitter
+        provider_guidance: '"Bad Gateway while committing the events, please try again after a short backoff."'
+      x-partial-success:
+        status: 207
+        keyed_by: batchId
+        action: retry only the batchIds present in the response array
+
+  - target: $.components.securitySchemes.ApiKeyAuth
+    update:
+      description: >-
+        Organization API key, generated in the justtrack dashboard under User profile > API keys. An unauthenticated
+        request to any app-events.justtrack.io path returns 401 with {"apiKey":"no api key provided"}.
+      x-issuance-url: https://docs.justtrack.io/api/overview/
+
+  - target: $.components.schemas.AppEventBatch
+    update:
+      x-idempotency-key: batchId
+      x-atomicity: >-
+        All-or-nothing per batch. If one event in the batch is invalid, the whole batch is rejected and reported
+        under its batchId in the 207 response.

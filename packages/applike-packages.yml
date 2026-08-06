@@ -1,0 +1,189 @@
+generated: '2026-08-06'
+method: searched
+source: >-
+  https://github.com/justtrackio, https://github.com/adjoeio, https://registry.npmjs.org,
+  https://trunk.cocoapods.org, https://docs.justtrack.io/sdk/setup/,
+  https://docs.adjoe.io/rewarded-solutions/integration/playtime-sdk-for-android
+note: >-
+  AppLike Group ships client SDKs under two brands — justtrack (attribution / UA automation) and adjoe (Playtime
+  rewarded monetization). Neither brand publishes a server-side API client library for the REST APIs; every package
+  below is a mobile client SDK. Android artifacts are served from brand-operated Maven repositories
+  (https://sdk.justtrack.io/maven, https://releases.adjoe.io/maven), not Maven Central.
+packages:
+- name: io.justtrack:justtrack-android-sdk
+  language: kotlin
+  registry: maven
+  registry_url: https://sdk.justtrack.io/maven
+  version: 7.1.0
+  official: true
+  source: https://github.com/justtrackio/justtrack-android-sdk
+  docs: https://docs.justtrack.io/sdk/setup/
+  brand: justtrack
+  evidence: https://github.com/justtrackio/justtrack-android-sdk
+- name: JustTrackSDK
+  language: swift
+  registry: cocoapods
+  registry_url: https://cocoapods.org/pods/JustTrackSDK
+  version: 7.1.0
+  official: true
+  source: https://github.com/justtrackio/justtrack-ios-sdk
+  docs: https://docs.justtrack.io/sdk/setup/
+  brand: justtrack
+  evidence: https://trunk.cocoapods.org/api/v1/pods/JustTrackSDK
+- name: justtrack-sdk-spm
+  language: swift
+  registry: swift-package-manager
+  registry_url: https://github.com/justtrackio/justtrack-sdk-spm
+  official: true
+  source: https://github.com/justtrackio/justtrack-sdk-spm
+  brand: justtrack
+  evidence: https://github.com/justtrackio/justtrack-sdk-spm
+- name: io.justtrack.justtrack-unity-sdk
+  language: csharp
+  registry: npm
+  registry_url: https://www.npmjs.com/package/io.justtrack.justtrack-unity-sdk
+  version: 8.0.0-rc1
+  official: true
+  source: https://github.com/justtrackio/justtrack-unity-sdk
+  brand: justtrack
+  note: Distributed as a Unity Package Manager scoped registry package under the io.justtrack scope.
+  evidence: https://registry.npmjs.org/io.justtrack.justtrack-unity-sdk
+- name: react-native-justtrack-sdk
+  language: javascript
+  registry: npm
+  registry_url: https://www.npmjs.com/package/react-native-justtrack-sdk
+  version: 8.0.0-rc1
+  official: true
+  source: https://github.com/justtrackio/justtrack-react-native-sdk
+  docs: https://docs.justtrack.io/sdk/setup/
+  brand: justtrack
+  evidence: https://registry.npmjs.org/-/v1/search?text=justtrack
+- name: justtrack-adapter-applovin
+  language: javascript
+  registry: npm
+  version: 2.0.3
+  official: true
+  brand: justtrack
+  note: React Native adapter that forwards AppLovin ad-revenue data into the justtrack SDK.
+  evidence: https://registry.npmjs.org/-/v1/search?text=justtrack
+- name: justtrack-adapter-ironsource
+  language: javascript
+  registry: npm
+  version: 2.0.2
+  official: true
+  brand: justtrack
+  note: React Native adapter for ironSource.
+  evidence: https://registry.npmjs.org/-/v1/search?text=justtrack
+- name: justtrack-adapter-firebase
+  language: javascript
+  registry: npm
+  version: 1.0.3
+  official: true
+  brand: justtrack
+  note: React Native adapter for Firebase.
+  evidence: https://registry.npmjs.org/-/v1/search?text=justtrack
+- name: justtrack-adapter-google-odm
+  language: javascript
+  registry: npm
+  version: 1.0.1
+  official: true
+  brand: justtrack
+  note: React Native adapter for Google On Device Measurement.
+  evidence: https://registry.npmjs.org/-/v1/search?text=justtrack
+- name: justtrack-adapter-facebook
+  language: javascript
+  registry: npm
+  version: 1.0.0-rc5
+  official: true
+  brand: justtrack
+  note: React Native adapter for Meta/Facebook.
+  evidence: https://registry.npmjs.org/-/v1/search?text=justtrack
+- name: justtrack-godot-sdk
+  language: gdscript
+  registry: github
+  registry_url: https://github.com/justtrackio/justtrack-godot-sdk
+  official: true
+  brand: justtrack
+  note: Godot engine wrapper; distributed from the repository, not a package registry.
+  evidence: https://github.com/justtrackio/justtrack-godot-sdk
+- name: io.adjoe:adjoe-sdk-android
+  language: kotlin
+  registry: maven
+  registry_url: https://releases.adjoe.io/maven
+  version: 4.5.2
+  official: true
+  docs: https://docs.adjoe.io/rewarded-solutions/integration/playtime-sdk-for-android
+  brand: adjoe
+  evidence: https://docs.adjoe.io/rewarded-solutions/integration/playtime-sdk-for-android
+- name: PlaytimeMonetize
+  language: swift
+  registry: cocoapods
+  registry_url: https://github.com/adjoeio/PlaytimeSpecExternal
+  official: true
+  source: https://github.com/adjoeio/PlaytimeSpecExternal
+  brand: adjoe
+  note: >-
+    Published from adjoe's own CocoaPods spec repository (PlaytimeSpecExternal), added as an extra pod source rather
+    than through the CocoaPods trunk.
+  evidence: https://github.com/adjoeio/PlaytimeSpecExternal
+- name: adjoe-monetize-spm
+  language: swift
+  registry: swift-package-manager
+  registry_url: https://github.com/adjoeio/adjoe-monetize-spm
+  official: true
+  brand: adjoe
+  evidence: https://github.com/adjoeio/adjoe-monetize-spm
+- name: adjoe-programmatic-spm
+  language: swift
+  registry: swift-package-manager
+  registry_url: https://github.com/adjoeio/adjoe-programmatic-spm
+  official: true
+  brand: adjoe
+  evidence: https://github.com/adjoeio/adjoe-programmatic-spm
+- name: adjoe-rewards-connect-spm
+  language: swift
+  registry: swift-package-manager
+  registry_url: https://github.com/adjoeio/adjoe-rewards-connect-spm
+  official: true
+  brand: adjoe
+  evidence: https://github.com/adjoeio/adjoe-rewards-connect-spm
+- name: adjoe-flutter-sdk
+  language: dart
+  registry: github
+  registry_url: https://github.com/adjoeio/adjoe-flutter-sdk
+  official: true
+  brand: adjoe
+  note: Flutter wrapper; consumed as a git dependency from the repository, not from pub.dev.
+  evidence: https://github.com/adjoeio/adjoe-flutter-sdk
+- name: adjoe-cordova-sdk
+  language: javascript
+  registry: github
+  registry_url: https://github.com/adjoeio/adjoe-cordova-sdk
+  official: true
+  brand: adjoe
+  docs: https://docs.adjoe.io/adjoe-sdk/apache-cordova/setting-up-the-sdk
+  note: Cordova/Capacitor wrapper; installed from the repository.
+  evidence: https://github.com/adjoeio/adjoe-cordova-sdk
+- name: adjoe-react-native-sdk
+  language: javascript
+  registry: github
+  registry_url: https://github.com/adjoeio/adjoe-react-native-sdk
+  official: true
+  brand: adjoe
+  note: >-
+    React Native wrapper. No adjoe-published package was found on the npm registry — the iOS half lives in a separate
+    repository (adjoeio/adjoe-react-native-sdk-ios).
+  evidence: https://registry.npmjs.org/-/v1/search?text=adjoe
+negative_findings:
+- registry: npm
+  query: adjoe
+  result: no first-party adjoe package published
+- registry: pypi
+  result: not probed — no Python surface is documented for either brand
+- registry: maven-central
+  query: justtrack, adjoe
+  result: >-
+    no artifacts; both brands serve Android artifacts from their own Maven repositories
+    (sdk.justtrack.io/maven, releases.adjoe.io/maven)
+- registry: nuget
+  result: no first-party package found

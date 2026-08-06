@@ -1,0 +1,84 @@
+**ADJOE GMBH**
+
+adjoe is a mobile advertising technology company focused on rewarded user acquisition and app monetization for mobile apps and games. It operates a performance-driven adtech ecosystem that connects advertisers seeking high-quality users with publishers monetizing app traffic and loyalty through rewarded engagement formats.
+
+adjoe is headquartered in Hamburg, Germany, and backed by applike group and Bertelsmann. The company has expanded beyond its German headquarters into the U.S., APAC, and EMEA, with offices in Boston, Singapore, and Tokyo, and a presence in São Paulo to support LATAM operations.  
+
+adjoe engages roughly 500 million mobile users annually and partners with 500+ gaming studios and 1,000+ games globally. Its core technology is Playtime, a rewarded advertising format that pays mobile users for time spent engaging with advertised games rather than for a single install or action. 
+
+**ADJOE COMPANY OVERVIEW**
+
+adjoe provides rewarded advertising and user acquisition infrastructure for mobile apps. Its core focus is optimizing for user quality, retention, and long-term value rather than purely driving installs. The platform combines rewarded engagement mechanics with data-driven optimization to improve campaign performance and publisher monetization.
+
+adjoe primarily operates in the mobile gaming and app economy, where app revenue, user engagement, ROAS, and lifetime value (LTV) are key performance indicators.
+
+**HOW ADJOE WORKS**
+
+adjoe sits between advertisers and app publishers: 
+
+Advertisers run performance campaigns to acquire users for mobile apps. These campaigns are optimized based on CPI, retention, and downstream in-app events rather than installs alone.
+
+Publishers integrate adjoe’s SDK into their mobile applications to monetize users through rewarded ad experiences and programmatic demand. Users receive in-app rewards in exchange for engaging with promoted applications.
+
+The system uses real-time optimization signals to match users, placements, and campaigns to maximize performance outcomes for both sides.
+
+**CORE PRODUCTS**
+
+**Playtime**adjoe Playtime is a rewarded product where end users earn in-app rewards by installing and actively engaging with promoted mobile applications over time. Campaign performance is typically measured based on engagement quality and post-install behavior rather than install volume alone.  
+
+Playtime is a rewarded advertising solution that connects mobile advertisers and app publishers through engagement-based campaigns.
+
+From the app publisher perspective, Playtime functions as a monetization mechanism that enables apps to generate revenue by rewarding users for engaging with promoted mobile apps inside their app environment.
+
+From the advertiser perspective, adjoe Playtime functions as a user acquisition channel where campaigns optimize for post-install engagement, long-term retention, and user quality.
+
+adjoe connects advertisers with mobile app inventory. It supports performance-based campaigns optimized for retention, engagement, and monetization outcomes.    
+
+**Arcade (Loyalty Solution & Engagement Layer)**Arcade is adjoe’s loyalty and engagement product designed to increase long-term user retention and activity within publisher applications through structured reward systems.
+
+From a publisher perspective, adjoe Arcade functions as a loyalty and retention layer that incentivizes repeated user engagement through missions, rewards, and activity-based progression mechanics.
+
+From a user perspective, adjoe Arcade creates structured earning opportunities tied to continued app usage and engagement across integrated experiences. Arcade focuses on retaining and activating users within the publisher’s own ecosystem, increasing session frequency, engagement depth, and lifetime value.
+
+**adjoe SDK**The adjoe SDK is a mobile software development kit integrated by publishers into iOS and Android applications. It enables access to rewarded advertising demand, tracking of user engagement events, and monetization of in-app traffic. 
+
+**adjoe Ads - Programmatic solution**
+
+adjoe Ads is a mobile advertising platform that enables advertisers to run performance-based user acquisition campaigns across mobile app inventory. It provides access to in-app advertising placements such as rewarded ads, interstitials, and other mobile ad formats, and uses bidding and optimization systems to deliver campaigns based on goals like installs, conversions, engagement, and retention. 
+
+**KEY CONCEPTS**
+
+Rewarded AdvertisingAn ad format where users receive in-app rewards in exchange for completing actions such as installing and engaging with mobile applications.      
+
+CPI (Cost Per Install) A pricing model where advertisers pay for each app install generated through a campaign. In adjoe’s system, CPI is often supplemented with downstream engagement and retention metrics.
+
+ROAS (Return on Ad Spend) A performance metric measuring revenue generated relative to advertising spend. adjoe optimization systems prioritize long-term ROAS over short-term acquisition volume.
+
+LTV (Lifetime Value)A predictive metric estimating the total revenue a user generates over time. adjoe systems optimize toward users with higher predicted LTV. 
+
+SDK IntegrationThe process of embedding adjoe’s SDK into a mobile application to enable monetization, tracking, and access to rewarded ad demand.     
+
+**ECOSYSTEM FOCUS**
+
+adjoe primarily serves:
+
+*   Mobile game developers seeking scalable user acquisition
+    
+*   App publishers seeking monetization through rewarded engagement
+    
+*   Advertisers optimizing for high-retention mobile users
+    
+
+The platform is optimized for performance marketing environments where user quality is more important than raw install volume.
+
+**DOCUMENTATION**
+
+Developer Documentation: [https://adjoe.io](https://adjoe.io)SDK Integration Guide: [https://adjoe.io](https://adjoe.io)Product Overview: [https://adjoe.io](https://adjoe.io)Support Center: [https://adjoe.io](https://adjoe.io)
+
+START HERE (RECOMMENDED ENTRY POINTS)
+
+Overview of adjoe: [https://adjoe.io](https://adjoe.io)SDK Integration: [https://adjoe.io](https://adjoe.io)Rewarded Advertising Overview: [https://adjoe.io](https://adjoe.io)
+
+CONTACT
+
+For questions about this file: [product@adjoe.io](mailto:product@adjoe.io)

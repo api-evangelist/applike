@@ -1,0 +1,180 @@
+generated: '2026-08-06'
+method: probed
+source: direct HTTP probes of every AppLike Group brand host and API host
+note: >-
+  Nothing was found. Every /.well-known/* path probed across the group's marketing, docs and API hosts returned 404 or
+  an authentication error. docs.adjoe.io answers 200 with the Docusaurus HTML shell for EVERY unknown path, including
+  every /.well-known/* path — those 200s are a catch-all, not a published document, and are recorded as soft_404
+  below rather than as hits. A control probe (docs.adjoe.io/.../use-the-sdk.md) returned the same 4662-byte shell,
+  which is how the false positive was confirmed.
+hosts:
+- host: applike-group.com
+  probes:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+- host: adjoe.io
+  probes:
+  - path: /llms.txt
+    status: 200
+    content_type: text/plain
+    file: ../llms/applike-adjoe-llms.txt
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: justtrack.io
+  probes:
+  - path: /llms.txt
+    status: 404
+    file: null
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: docs.justtrack.io
+  probes:
+  - path: /llms.txt
+    status: 200
+    content_type: text/plain
+    file: ../llms/applike-justtrack-llms.txt
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: docs.adjoe.io
+  soft_404: true
+  soft_404_note: >-
+    Docusaurus catch-all. Every unknown path returns HTTP 200 with the same 4662-byte HTML shell, so a 200 here is
+    not evidence a document exists. Confirmed against a control path.
+  probes:
+  - path: /llms.txt
+    status: 200
+    content_type: text/html
+    verdict: soft-404 HTML shell — not an llms.txt
+    file: null
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    verdict: soft-404 HTML shell
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    verdict: soft-404 HTML shell — not an AgentCard
+    file: null
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    verdict: soft-404 HTML shell — not an AgentCard
+    file: null
+- host: api.justtrack.io
+  probes:
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /openapi.json
+    status: 404
+    file: null
+- host: app-events.justtrack.io
+  probes:
+  - path: /.well-known/agent-card.json
+    status: 401
+    body: '{"apiKey":"no api key provided"}'
+    file: null
+  - path: /.well-known/agent.json
+    status: 401
+    body: '{"apiKey":"no api key provided"}'
+    file: null
+  - path: /openapi.json
+    status: 401
+    file: null
+- host: prod.adjoe.zone
+  probes:
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /openapi.json
+    status: 404
+    file: null
+summary:
+  security_txt: not published on any host
+  openid_configuration: not published — neither brand runs an OAuth/OIDC provider for API access
+  api_catalog: not published
+  ai_plugin: not published
+  agent_card: not published (see a2a — nothing written, correctly)
+  llms_txt: >-
+    published on two hosts — adjoe.io/llms.txt (prose company/product brief) and docs.justtrack.io/llms.txt
+    (a full link index of the documentation, one entry per page, with .md twins)

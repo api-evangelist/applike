@@ -1,0 +1,238 @@
+generated: '2026-08-06'
+method: derived
+source: >-
+  openapi/applike-justtrack-management-openapi.yml, openapi/applike-justtrack-app-events-openapi.yml,
+  https://docs.justtrack.io/api/raw-data-export/
+note: >-
+  Derived from the $ref graph and id-reference fields of the two published OpenAPI documents, with entity names and
+  the export tables cross-checked against the justtrack Raw Data Export schema index. Relationships are inferred from
+  foreign-key style id fields (appId, partnerId, campaignId) because the specs express no hypermedia links. adjoe's
+  SSP surface publishes no schemas, so no adjoe entities are modelled here.
+id_conventions:
+  appId: string identifier, required on most resources
+  partnerId: unsigned integer >= 1
+  campaignId: identifier, optional on output (auto-tracked campaigns may not carry one)
+  batchId: uuid4, exactly 36 characters, client-supplied
+  event id: uuid4, client-supplied, "globally unique id of the event"
+  no_prefixed_ids: >-
+    justtrack does not use type-prefixed identifiers (no app_..., camp_...), so an identifier is not
+    self-describing outside the field that carries it.
+entities:
+- name: App
+  schema: AppOutput
+  api: justtrack Management API
+  description: A mobile application registered in a justtrack organization.
+  fields:
+  - id (RequiredAppId)
+  - name (RequiredAppName)
+  - bundleId (RequiredBundleId)
+  - platform (RequiredPlatform)
+  - storeId (RequiredStoreId)
+  - createdAt / updatedAt (RequiredDateTime)
+  operations:
+  - POST /management/v1/apps (list)
+  - POST /management/v1/app (create)
+  relationships:
+  - has_many: Campaign
+    via: Campaign.appId
+  - has_many: AppPartnerConnection
+    via: path {appId}
+  - has_many: PartnerConfigurationFeature
+    via: PartnerConfigurationFeatureOutput.appId
+- name: Partner
+  schema: PartnerOutput
+  api: justtrack Management API
+  description: >-
+    An advertising or monetization partner available to the organization. Roughly thirty integrated partners are
+    documented (AppLovin, ironSource, Unity, Google Ads, Apple Search Ads, Moloco, Liftoff, Mintegral, adjoe, ...).
+  fields:
+  - id (integer, >= 1)
+  - name
+  - createdAt / updatedAt
+  operations:
+  - POST /management/v1/partners (list)
+  relationships:
+  - has_many: Campaign
+    via: Campaign.partnerId
+  - has_many: AppPartnerConnection
+    via: path {partnerId}
+  - has_many: PartnerConfiguration
+    via: PartnerConfigurationOutput.partnerId
+- name: AppPartnerConnection
+  schema: AppPartnerConnection
+  api: justtrack Management API
+  description: The join between one App and one Partner, carrying the connection's tracking and campaign settings.
+  fields:
+  - campaignTypes[] — "List of campaign types this partner can run."
+  - defaultChannelId — "justtrack internal ID for the channel used by default to create campaigns"
+  - multiCountryCampaignAllowed (boolean)
+  - trackingUrlSlug — "a unique string to identify this partner among others on tracking urls"
+  operations:
+  - GET /management/v1/app/{appId}/connection/{partnerId}
+  - PUT /management/v1/app/{appId}/connection/{partnerId}
+  relationships:
+  - belongs_to: App
+    via: path {appId}
+  - belongs_to: Partner
+    via: path {partnerId}
+  - references: Channel
+    via: defaultChannelId
+- name: Campaign
+  schema: CampaignOutput
+  api: justtrack Management API
+  description: >-
+    A marketing campaign. Normally auto-tracked on first click or impression; can also be created explicitly.
+  fields:
+  - id (CampaignId)
+  - name
+  - appId / partnerId
+  - platform
+  - type (RequiredCampaignType)
+  - countryCodes[] (CountryCode)
+  - goalName (GoalName)
+  - optimizationType (OptimizationType)
+  - promoCode (PromoCode)
+  - createdAt / updatedAt
+  operations:
+  - POST /management/v1/campaigns (list)
+  - POST /management/v1/campaign (create)
+  relationships:
+  - belongs_to: App
+    via: appId
+  - belongs_to: Partner
+    via: partnerId
+  - has_many: Bid
+    via: BidOutput.campaignId
+  - references: Goal
+    via: goalName
+- name: Bid
+  schema: BidOutput / UploadBidInput
+  api: justtrack Management API
+  description: >-
+    A bid value in USD for a campaign/partner combination, optionally narrowed by country, ad set or source. Bids are
+    uploaded in batches (the API mirrors the dashboard CSV upload) and carry the status of the latest operation.
+  fields:
+  - value (Bid — number, double, minimum 0, "bid value in USD")
+  - campaignId / partnerId
+  - countryCode / adSetId / sourceId
+  - status — "current status of the latest bid operation"
+  operations:
+  - POST /management/v1/bids (fetch current bids with status)
+  - POST /management/v1/bids/upload
+  relationships:
+  - belongs_to: Campaign
+    via: campaignId
+  - belongs_to: Partner
+    via: partnerId
+  - references: AdSet
+    via: adSetId
+  - references: Source
+    via: sourceId
+- name: PartnerConfiguration
+  schema: PartnerConfigurationOutput
+  api: justtrack Management API
+  description: >-
+    The catalog of configurable feature keys for a partner. Reading it tells you which keys exist; writing values is
+    done through PartnerConfigurationFeature.
+  fields:
+  - key (PartnerConfigurationFeatureKey)
+  - partnerId
+  - features[] (Feature)
+  operations:
+  - POST /management/v1/partner-configurations
+  relationships:
+  - belongs_to: Partner
+    via: partnerId
+  - has_many: PartnerConfigurationFeature
+    via: key
+- name: PartnerConfigurationFeature
+  schema: PartnerConfigurationFeatureOutput
+  api: justtrack Management API
+  description: A configured key/value for one app and one partner.
+  fields:
+  - appId / partnerId
+  - key (PartnerConfigurationFeatureKey)
+  - value (PartnerConfigurationFeatureValue)
+  operations:
+  - POST /management/v1/partner-configuration/{feature} (list configured)
+  - PUT /management/v1/partner-configuration/{feature} (configure)
+  relationships:
+  - belongs_to: App
+    via: appId
+  - belongs_to: Partner
+    via: partnerId
+  - belongs_to: PartnerConfiguration
+    via: key
+- name: AppEventBatch
+  schema: AppEventBatch
+  api: justtrack AppEvent API
+  description: >-
+    "A batch of AppEvents, all for one app user combination. If one event is invalid, the whole batch is rejected."
+  fields:
+  - batchId (uuid4, client-supplied)
+  - app (App — bundle/platform identity)
+  - user (User)
+  - events[] (AppEvent)
+  operations:
+  - POST /appevents/v1
+  relationships:
+  - has_many: AppEvent
+    via: events[]
+  - references: App
+    via: app
+  - references: User
+    via: user
+- name: AppEvent
+  schema: AppEvent
+  api: justtrack AppEvent API
+  description: A single in-app event with a value expressed either as a unit quantity or as a currency amount.
+  fields:
+  - id (uuid4, "Globally unique id of the event.")
+  - event (name, e.g. level_success)
+  - value
+  - unit (count | seconds | milliseconds) — mutually exclusive with currency
+  - currency (ISO 4217) — mutually exclusive with unit
+  - dimensions (free-form object)
+  - happenedAt (ISO 8601)
+  relationships:
+  - belongs_to: AppEventBatch
+    via: batchId
+- name: User
+  schema: User
+  api: justtrack AppEvent API
+  description: The subject of an event batch — a justtrack user id or a customer-provided custom user id.
+  relationships:
+  - has_many: AppEventBatch
+external_entities:
+  note: >-
+    Named in the Raw Data Export table index but not modelled in any published OpenAPI. Listed so the graph is not
+    read as complete.
+  event_tables:
+  - adImpressionEvent
+  - attributionEvent
+  - bidChangeEvent
+  - clickEvent
+  - deviceIntegrityEvent
+  - experimentAssignmentEvent
+  - goalConversionEvent
+  - installEvent
+  - payoutEvent
+  - postbackEvent
+  - revenueEvent
+  - s2sAppEvent
+  - sessionEvent
+  - spendEvent
+  - userEvent
+  - userIdentityEvent
+  - viewEvent
+  management_tables:
+  - apps
+  - bids
+  - campaigns
+  - partners
+  - postbackTypes
+  evidence: https://docs.justtrack.io/api/raw-data-export/
+gaps:
+- No hypermedia links or embedded relations in any response — every relationship must be resolved by the client.
+- Identifiers are not type-prefixed, so ids are ambiguous outside their field.
+- adjoe publishes no schemas at all for its SSP surface, so half the group's API estate has no derivable data model.

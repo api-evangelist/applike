@@ -1,0 +1,160 @@
+generated: '2026-08-06'
+method: searched
+source: >-
+  https://docs.adjoe.io/rewarded-solutions/setting-up-rewarding/server-to-server-payouts,
+  https://docs.adjoe.io/rewarded-solutions/setting-up-rewarding/rich-install-postbacks,
+  https://docs.justtrack.io/api/revenue-events-api/api-for-revenue-providers/,
+  https://docs.justtrack.io/api/revenue-events-api/api-for-customers/,
+  https://docs.justtrack.io/docs/monetize/ad-revenue/server-to-server/
+asyncapi_published: false
+note: >-
+  Neither brand publishes an AsyncAPI document, and no /asyncapi.yaml exists on any host. The event surface below is
+  real and documented in prose: both brands run server-to-server postback flows in both directions — inbound sinks
+  they operate, and outbound callbacks they send to the integrator's endpoint. Captured as a webhook catalog
+  (type: Webhooks). NOT fabricated into an AsyncAPI document.
+transport: HTTP GET with query-string parameters (both brands)
+webhooks:
+- id: adjoe-rewarded-payout-callback
+  direction: outbound
+  brand: adjoe
+  name: Server-to-server rewarded payout callback
+  description: >-
+    adjoe calls the publisher's own endpoint to credit a user with virtual currency after a rewarded Playtime event.
+  method: GET
+  endpoint: publisher-configured URL
+  url_template: >-
+    https://example.com/example?sid={sid}&trans_uuid={trans_uuid}&user_uuid={user_uuid}&currency={currency}&coin_amount={coin_amount}&device_id={device_id}
+  customizable_parameter_names: true
+  required_parameters:
+  - name: user_uuid
+    description: Identifies the user eligible for rewards
+  - name: sid
+    description: The request signature, used to verify request authenticity
+  - name: trans_uuid
+    description: The unique transaction ID
+  - name: coin_amount
+    description: The amount of virtual currency the user should get
+  - name: currency
+    description: The name of the virtual currency
+  optional_parameters_count: 30+
+  optional_parameter_families:
+  - user acquisition data
+  - reward details
+  - custom identifiers
+  security:
+    mechanism: shared-secret signature
+    parameter: sid
+    algorithm: SHA-1
+    construction: sha1(concatenate(trans_uuid, user_uuid, currency, coin_amount, device_id, sdk_app_id, s2s_token))
+    verification: recompute with your s2s_token and compare
+  delivery:
+    expected_response: HTTP 200
+    failure_definition: any status other than 200
+    retry_schedule:
+    - after 10 minutes
+    - after a further 10 minutes
+    - every 2 hours thereafter
+    retry_window: approximately 12 hours
+    idempotency_key: trans_uuid
+    consumer_obligation: >-
+      Deduplicate on trans_uuid. With this retry schedule a non-deduplicating consumer will double-credit users.
+  evidence: https://docs.adjoe.io/rewarded-solutions/setting-up-rewarding/server-to-server-payouts
+- id: adjoe-rich-install-postbacks
+  direction: outbound
+  brand: adjoe
+  name: Rich install postbacks (and CPA rich install postbacks)
+  description: >-
+    Install-level postbacks adjoe sends to the integrating partner. Documented as two variants — rich install
+    postbacks and CPA rich install postbacks.
+  method: GET
+  evidence:
+  - https://docs.adjoe.io/rewarded-solutions/setting-up-rewarding/rich-install-postbacks
+  - https://docs.adjoe.io/rewarded-solutions/setting-up-rewarding/cpa-rich-install-postbacks
+- id: justtrack-revenue-postback-provider
+  direction: inbound
+  brand: justtrack
+  name: Revenue Events API for revenue providers
+  description: >-
+    Monetization partners push processed ad-revenue events into justtrack in real time. justtrack operates the
+    receiving sink; the partner is the sender.
+  method: GET
+  endpoint: https://sink.justtrack.io/monetization/v0/{provider}/{platform}/{packageId}
+  path_parameters:
+  - name: provider
+    description: Short handle of the provider name
+  - name: platform
+    description: ios or android
+  - name: packageId
+    description: The Package ID / Bundle ID of the app
+  known_provider_handles:
+    AdColony: adcolony
+    AdGem: adgem
+    AppLovin: applovin
+    BitLabs: bitlabs
+    Cint: cint
+    CPX Research: cpxresearch
+    Dalia: dalia
+    Fyber: fyber
+    inBrain: inbrain
+    Torox: offertoro
+    Pollfish: pollfish
+    Revenue Universe: revenueuniverse
+    TapResearch: tapresearch
+  example: https://sink.justtrack.io/monetization/v0/fyber/android/app.package.id
+  evidence: https://docs.justtrack.io/api/revenue-events-api/api-for-revenue-providers/
+- id: justtrack-revenue-postback-customer
+  direction: inbound
+  brand: justtrack
+  name: Revenue Events API for customers
+  description: Customers push their own revenue events into justtrack.
+  method: GET
+  endpoint: https://sink.justtrack.io/monetization/v0/jt
+  auth: apikey query parameter
+  required_parameters:
+  - apikey
+  - platform
+  - packageid
+  - transactionid
+  - userid
+  - value
+  idempotency_key: transactionid
+  idempotency_statement: '"Unique transaction ID that can be used to trace and deduplicate events"'
+  optional_parameters:
+  - monetizationnetwork
+  - monetizationprovider
+  - monetizationbundleid
+  - monetizationinstancename
+  - monetizationplacement
+  - monetizationsegment
+  - testgroup
+  - adtype
+  - happenedat
+  evidence: https://docs.justtrack.io/api/revenue-events-api/api-for-customers/
+- id: justtrack-revenue-forwarding
+  direction: outbound
+  brand: justtrack
+  name: Revenue event forwarding
+  description: >-
+    "After receiving and processing the revenue events, justtrack can forward the events to an API of your choice.
+    Thus, for every provider and app a 'Forward URL' can be configured via the justtrack dashboard. We will forward
+    the revenue postback as we received it and only replace domain and path."
+  method: GET
+  endpoint: customer-configured Forward URL
+  configuration: justtrack dashboard, per provider and per app
+  security:
+    mechanism: none documented — no signature, no shared secret, no signing header
+  evidence: https://docs.justtrack.io/api/revenue-events-api/api-for-revenue-providers/
+- id: justtrack-attribution-postbacks
+  direction: outbound
+  brand: justtrack
+  name: Attribution postbacks to ad partners
+  description: >-
+    justtrack sends attribution postbacks to connected ad partners on install/conversion. Test devices can be
+    allowlisted so postbacks fire even when the user is flagged as fraudulent.
+  evidence: https://docs.justtrack.io/docs/promote/test-device-management/
+gaps:
+- No AsyncAPI or CloudEvents document for any of these flows.
+- No webhook signing on the justtrack side at all — neither on the inbound sinks nor on revenue forwarding.
+- adjoe signs with unkeyed SHA-1 concatenation rather than HMAC.
+- No replay-window, timestamp-tolerance or nonce guidance published for any callback.
+- No event-type registry or versioning scheme for callback payloads.

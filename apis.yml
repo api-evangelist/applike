@@ -1,23 +1,256 @@
 aid: applike
 name: AppLike Group
-description: 'AppLike Group is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  AppLike Group is a Hamburg, Germany-based company builder in the mobile app economy, founded in 2015 by Jonas
+  Thiemann and Carlo Szelinsky and backed by Bertelsmann. The group operates four independent businesses that cover
+  the mobile app value chain: adjoe (rewarded user acquisition, the Playtime engagement ad format, the Arcade loyalty
+  layer and a programmatic ads platform), justtrack (mobile attribution, user-acquisition automation, cohort and
+  monetization analytics), JustDice (app-discovery products for mobile gamers) and Sunday (mobile game development
+  and publishing). Two of the four brands publish public developer surfaces: justtrack ships OpenAPI 3.1 contracts
+  for its Management and AppEvent APIs plus documented Reporting, Revenue Events and Raw Data Export interfaces, and
+  adjoe publishes SSP reporting APIs and a server-to-server rewarded-payout callback alongside Android, iOS, Unity,
+  Flutter, React Native and Cordova SDKs.
+image: https://applike-group.com/wp-content/uploads/2025/04/Applike-Group-881x1024.png
 url: https://raw.githubusercontent.com/api-evangelist/applike/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+specificationVersion: '0.21'
 created: '2026-08-06'
 modified: '2026-08-06'
 tags:
-- Company
-apis: []
+- mobile-attribution
+- user-acquisition
+- adtech
+- mobile-advertising
+- app-monetization
+- rewarded-advertising
+- mobile-sdk
+- mobile-analytics
+- marketing-attribution
+- mobile-games
+- event-tracking
+- company
+apis:
+- name: justtrack Management API
+  description: >-
+    REST API to manage justtrack apps, campaigns, partners, partner-feature configurations and bids. Published as an
+    OpenAPI 3.1.0 contract (v1.0.0) covering twelve operations across six tags, authenticated with an X-API-Key
+    header and paginated with an offset/limit page object. Available on the justtrack Pro plan.
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - user-acquisition
+  - mobile-attribution
+  - campaign-management
+  - adtech
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-justtrack-management-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Overlay
+    url: overlays/applike-justtrack-management-overlay.yaml
+- name: justtrack AppEvent API
+  description: >-
+    Server-to-server batch ingestion API for in-app events. A single POST /appevents/v1 operation accepts an array of
+    per-app/per-user event batches, each carrying a client-supplied uuid4 batchId and per-event uuid4 id used for
+    deduplication, and answers 207 with a per-batch error array on partial success. Published as OpenAPI 3.1.0.
+  humanURL: https://docs.justtrack.io/api/app-events/appevent-api/
+  baseURL: https://app-events.justtrack.io
+  tags:
+  - event-tracking
+  - mobile-analytics
+  - server-to-server
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-justtrack-app-events-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: Overlay
+    url: overlays/applike-justtrack-app-events-overlay.yaml
+- name: justtrack Reporting API
+  description: >-
+    Reporting API exposing the metrics behind the justtrack dashboard — acquisition tables, cohort analysis and event
+    drill-down — as POST endpoints under /reporting/v2 (v1 also documented). Requests carry cohort, interval, metrics,
+    dimensions, filters, pagination and orderBy objects. Authenticated with X-API-Key. Documented in prose only; no
+    OpenAPI contract is published for this API.
+  humanURL: https://docs.justtrack.io/api/reporting-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - mobile-analytics
+  - reporting
+  - cohort-analysis
+  properties:
+  - type: Documentation
+    url: https://docs.justtrack.io/api/reporting-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/reporting-api/acquisition/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+- name: justtrack Revenue Events API
+  description: >-
+    Server-to-server revenue postback sink. Monetization partners and customers send real-time revenue events as GET
+    requests with query parameters to https://sink.justtrack.io/monetization/v0/{provider}/{platform}/{packageId},
+    with a per-event transactionid used to trace and deduplicate. Thirteen named revenue providers have short handles;
+    received postbacks can be forwarded on to a customer-configured URL.
+  humanURL: https://docs.justtrack.io/api/revenue-events-api/
+  baseURL: https://sink.justtrack.io
+  tags:
+  - app-monetization
+  - event-tracking
+  - webhooks
+  properties:
+  - type: Documentation
+    url: https://docs.justtrack.io/api/revenue-events-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/revenue-events-api/api-for-revenue-providers/
+  - type: Webhooks
+    url: asyncapi/applike-webhooks.yml
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+- name: adjoe SSP Revenue API
+  description: >-
+    Publisher-facing reporting API returning daily aggregated Playtime revenue, eCPM, offerwall shows, SDK bootups,
+    first impressions, coin sums and view counts, groupable by up to eighteen dimensions. Two GET endpoints under
+    https://prod.adjoe.zone/v2/ssp-api, authenticated with the publisher token in an X-API-KEY header, rate limited to
+    5 requests/second sustained with a burst of 10 and X-RateLimit-* headers.
+  humanURL: https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
+  baseURL: https://prod.adjoe.zone
+  tags:
+  - app-monetization
+  - rewarded-advertising
+  - reporting
+  - adtech
+  properties:
+  - type: Documentation
+    url: https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
+  - type: APIReference
+    url: https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: RateLimits
+    url: rate-limits/applike-rate-limits.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+- name: adjoe User Ad Data Report API
+  description: >-
+    Per-user ad data report download for Playtime publishers. A single GET
+    /v3/ssp-api/user-ad-data-report/sdk/{sdkHash} endpoint returns a text/csv report for a given date, answering 202
+    with a JSON body while the report is still being generated. Authenticated with the publisher token in an
+    X-API-KEY header.
+  humanURL: https://docs.adjoe.io/rewarded-solutions/reporting-apis/user-ad-data-report-api
+  baseURL: https://prod.adjoe.zone
+  tags:
+  - app-monetization
+  - reporting
+  - adtech
+  properties:
+  - type: Documentation
+    url: https://docs.adjoe.io/rewarded-solutions/reporting-apis/user-ad-data-report-api
+  - type: APIReference
+    url: https://docs.adjoe.io/rewarded-solutions/reporting-apis/user-ad-data-report-api
+  - type: Authentication
+    url: authentication/applike-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/applike-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/applike-stock
+  url: https://applike-group.com/
+- type: DeveloperPortal
+  url: https://docs.justtrack.io/
+- type: Documentation
+  url: https://docs.justtrack.io/
+- type: APIReference
+  url: https://docs.justtrack.io/api/overview/
+- type: GettingStarted
+  url: https://docs.justtrack.io/sdk/setup/
+- type: Support
+  url: https://justtrack.io/contact/
+- type: Blog
+  url: https://adjoe.io/blog/
+- type: GitHubOrganization
+  url: https://github.com/justtrackio
+- type: Pricing
+  url: https://justtrack.io/pricing/
+- type: Login
+  url: https://dashboard.justtrack.io/
+- type: TermsOfService
+  url: https://justtrack.io/terms-of-service/
+- type: PrivacyPolicy
+  url: https://justtrack.io/privacy-notice/
+- type: StatusPage
+  url: https://status.justtrack.io/
+- type: ChangeLog
+  url: https://docs.justtrack.io/sdk/more/changelog/
+- type: Compliance
+  url: conformance/applike-conformance.yml
+- type: Packages
+  url: packages/applike-packages.yml
+- type: SDKs
+  url: packages/applike-packages.yml
+- type: LLMsTxt
+  url: llms/applike-justtrack-llms.txt
+- type: LLMsTxt
+  url: llms/applike-adjoe-llms.txt
+- type: WellKnown
+  url: well-known/applike-well-known.yml
+- type: Authentication
+  url: authentication/applike-authentication.yml
+- type: Conventions
+  url: conventions/applike-conventions.yml
+- type: Idempotency
+  url: conventions/applike-conventions.yml
+- type: RateLimits
+  url: rate-limits/applike-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/applike-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/applike-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/applike-lifecycle.yml
+- type: Conformance
+  url: conformance/applike-conformance.yml
+- type: DataModel
+  url: data-model/applike-data-model.yml
+- type: Webhooks
+  url: asyncapi/applike-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: ChangeLog
+  url: changelog/applike-changelog.yml
+- type: TrustCenter
+  url: security/applike-trust-center.yml
+- type: Components
+  url: components/applike-components.yml
+- type: Overlay
+  url: overlays/applike-justtrack-management-overlay.yaml
+- type: Overlay
+  url: overlays/applike-justtrack-app-events-overlay.yaml
+x-enrichment:
+  date: '2026-08-06'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v1

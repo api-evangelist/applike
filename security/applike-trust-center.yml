@@ -1,0 +1,60 @@
+generated: '2026-08-06'
+method: searched
+source: https://justtrack.io/security/, https://adjoe.io/
+note: >-
+  Neither brand runs a hosted trust center (no trust.<domain>, no Vanta/Drata/SafeBase portal, no downloadable audit
+  report). What exists is a marketing security page per brand naming one certification each. probe-security-programs.py
+  returned trust=none because it probes only the hosts declared in apis.yml + OpenAPI servers; the pages below were
+  found by reading each brand's own footer.
+trust_pages:
+- brand: justtrack
+  url: https://justtrack.io/security/
+  http_status: 200
+  certifications:
+  - name: ISO/IEC 27001:2022
+    scope: information security management system
+    statement: >-
+      "justtrack maintains ISO/IEC 27001:2022 certification for the information security management system."
+    certificate_published: false
+    auditor_named: false
+  claims:
+  - >-
+      "We are dedicated to maintaining the highest standards of data security, user privacy, and global regulatory
+      adherence."
+- brand: adjoe
+  url: https://adjoe.io/
+  http_status: 200
+  certifications:
+  - name: ISO 27001
+    scope: not stated
+    statement: >-
+      "adjoe holds the ISO 27001 certification, the most recognized international standard for protecting
+      information. This confirms that security is a non-negotiable component engineered into every layer of our
+      complete technology environment."
+    certificate_published: false
+    auditor_named: false
+    version_specified: false
+  note: >-
+    The claim sits in a homepage section headed "Security Engineered In. Certified Worldwide." There is no dedicated
+    adjoe security or trust page; /trust-center returns 404 and trust.adjoe.io does not resolve.
+data_protection:
+- brand: justtrack
+  dpa: https://justtrack.io/dpa/
+  privacy_notice: https://justtrack.io/privacy-notice/
+  sdk_privacy_controls: https://docs.justtrack.io/sdk/privacy/
+  detail: >-
+    The SDK documents manual-start, stop-tracking and anonymize controls so publishers can gate collection on user
+    consent — a real, documented consent surface for a company whose product is mobile attribution.
+- brand: adjoe
+  privacy: https://adjoe.io/privacy/
+  google_play_data_safety: https://docs.adjoe.io/rewarded-solutions/playtime-sdk-integration/android/google-play-data-safety-guidance
+absent:
+  soc2: not claimed by either brand
+  pci_dss: not applicable / not claimed
+  hipaa: not applicable
+  fedramp: not applicable
+  penetration_test_summary: not published
+  subprocessor_list: not found on a public page
+  status_of_certificates: >-
+    Neither brand publishes the certificate itself, the certification body, the certificate number or the scope
+    statement — the ISO 27001 claim is unverifiable from the public surface on both sides.

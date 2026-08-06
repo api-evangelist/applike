@@ -1,0 +1,150 @@
+generated: '2026-08-06'
+method: derived
+source: >-
+  openapi/applike-justtrack-management-openapi.yml, openapi/applike-justtrack-app-events-openapi.yml,
+  https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api,
+  https://docs.adjoe.io/rewarded-solutions/reporting-apis/user-ad-data-report-api
+format: proprietary-json
+rfc9457: false
+note: >-
+  Neither brand publishes a named error-code registry — there is no error-code reference page and no machine-readable
+  error taxonomy. Errors are HTTP status codes plus a free-text `error` string. The catalog below is derived from the
+  4xx/5xx responses declared in the two OpenAPI documents and from the status codes documented on the adjoe
+  reporting pages. Titles are the providers' own response descriptions, quoted where available.
+envelope:
+  media_type: application/json
+  schema: |
+    { "error": "<string, description of the error>" }
+  batch_variant:
+    media_type: application/json
+    status: 207
+    schema: |
+      [ { "batchId": "<uuid4>", "statusCode": <int>, "error": "<string>" } ]
+problem_types:
+- status: 400
+  name: bad-request
+  title: Bad request input. Check the response for details.
+  envelope: '{"error": "..."}'
+  apis:
+  - justtrack Management API
+  - justtrack AppEvent API
+  - adjoe SSP Revenue API
+  - adjoe User Ad Data Report API
+  remediation: >-
+    Validate the request body against the schema before sending. The justtrack contracts carry oapi-codegen binding
+    tags (required, uuid4, iso4217, gte/lte bounds) that state exactly what will be rejected. On adjoe, check the
+    YYYY-MM-DD date format and that the date is not in the future.
+  operations:
+  - POST /management/v1/bids
+  - POST /management/v1/bids/upload
+  - GET /management/v1/app/{appId}/connection/{partnerId}
+  - PUT /management/v1/app/{appId}/connection/{partnerId}
+  - POST /management/v1/apps
+  - POST /management/v1/app
+  - POST /management/v1/partner-configuration/{feature}
+  - PUT /management/v1/partner-configuration/{feature}
+  - POST /management/v1/partner-configurations
+  - POST /management/v1/partners
+  - POST /appevents/v1
+- status: 401
+  name: unauthorized
+  title: Unauthorized. Please check you authentication details.
+  envelope: '{"error": "..."} (AppEvent API); no body declared on Management API 401'
+  apis:
+  - justtrack Management API
+  - justtrack AppEvent API
+  - adjoe SSP Revenue API
+  - adjoe User Ad Data Report API
+  remediation: >-
+    Send the API key in X-API-Key (justtrack) or X-API-KEY (adjoe). A bare request to any app-events.justtrack.io
+    path returns {"apiKey":"no api key provided"}. On adjoe, confirm the publisher token from
+    Monetize Dashboard > MY PROFILE > Publisher token.
+  note: >-
+    The Management API declares 401 with no response body schema — a client cannot distinguish "no key" from
+    "revoked key" from the payload.
+- status: 403
+  name: forbidden
+  title: Forbidden
+  apis:
+  - justtrack Management API
+  operations:
+  - POST /management/v1/app
+  - POST /management/v1/partner-configuration/{feature}
+  - PUT /management/v1/partner-configuration/{feature}
+  remediation: >-
+    The key's organization is not permitted to create the resource or configure that partner feature. The API key
+    model has no scopes, so this is an organization-level entitlement, typically the Pro plan gate.
+- status: 404
+  name: not-found
+  title: Not found
+  apis:
+  - justtrack Management API
+  - adjoe SSP Revenue API
+  - adjoe User Ad Data Report API
+  operations:
+  - GET /management/v1/app/{appId}/connection/{partnerId}
+  - GET /v2/ssp-api/aggregation/sdkHash/{sdkHash}/daily
+  - GET /v3/ssp-api/user-ad-data-report/sdk/{sdkHash}
+  remediation: >-
+    On adjoe, the sdkHash must belong to your account — a hash owned by another publisher returns 404, not 403.
+- status: 429
+  name: rate-limited
+  title: Too Many Requests
+  apis:
+  - adjoe SSP Revenue API
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  - Retry-After
+  remediation: >-
+    Honour Retry-After. The published budget is 5 requests/second sustained per publisher with a burst of 10.
+  note: >-
+    No justtrack operation declares 429 in either OpenAPI document and no justtrack rate limit is published, so a
+    client cannot code defensively against throttling there.
+- status: 500
+  name: internal-error
+  title: >-
+    Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+  envelope: '{"error": "..."}'
+  apis:
+  - justtrack Management API
+  - justtrack AppEvent API
+  - adjoe SSP Revenue API
+  - adjoe User Ad Data Report API
+  remediation: Retry with backoff; escalate to support@justtrack.io (justtrack) if persistent.
+- status: 502
+  name: bad-gateway
+  title: Bad Gateway while committing the events, please try again after a short backoff.
+  apis:
+  - justtrack AppEvent API
+  operations:
+  - POST /appevents/v1
+  remediation: >-
+    Retry the same batch. Because every AppEventBatch carries a caller-supplied uuid4 batchId and every event a
+    uuid4 id, a straight replay is safe.
+partial_success:
+- status: 207
+  name: multi-status
+  title: Partial Success. Some events were not processed successfully. Check the response for details.
+  apis:
+  - justtrack AppEvent API
+  envelope: 'array of {batchId, statusCode, error}'
+  remediation: >-
+    Retry only the batchIds present in the response array. Every other batch in the request committed. A whole
+    AppEventBatch is rejected if any single event inside it is invalid.
+non_error_states:
+- status: 202
+  name: report-pending
+  title: report is pending generation
+  apis:
+  - adjoe User Ad Data Report API
+  envelope: '{"error": "report is pending generation"}'
+  note: >-
+    Returned under the `error` key even though it is a success-path state. Clients must not treat the presence of
+    `error` as failure on this endpoint; poll instead.
+gaps:
+- No error-code registry or stable machine-readable error identifiers on any surface — only HTTP status plus free text.
+- No RFC 9457 application/problem+json anywhere.
+- Management API 401 and 403 declare no response body.
+- justtrack publishes no 429 semantics at all.
