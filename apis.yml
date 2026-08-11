@@ -31,67 +31,12 @@ tags:
 - event-tracking
 - company
 apis:
-- name: justtrack Management API
-  description: >-
-    REST API to manage justtrack apps, campaigns, partners, partner-feature configurations and bids. Published as an
-    OpenAPI 3.1.0 contract (v1.0.0) covering twelve operations across six tags, authenticated with an X-API-Key
-    header and paginated with an offset/limit page object. Available on the justtrack Pro plan.
-  humanURL: https://docs.justtrack.io/api/management/management-api/
-  baseURL: https://api.justtrack.io
-  tags:
-  - user-acquisition
-  - mobile-attribution
-  - campaign-management
-  - adtech
-  properties:
-  - type: OpenAPI
-    url: openapi/applike-justtrack-management-openapi.yml
-  - type: Documentation
-    url: https://docs.justtrack.io/api/management/management-api/
-  - type: APIReference
-    url: https://docs.justtrack.io/api/management/management-api/
-  - type: Authentication
-    url: authentication/applike-authentication.yml
-  - type: Conventions
-    url: conventions/applike-conventions.yml
-  - type: ErrorCatalog
-    url: errors/applike-problem-types.yml
-  - type: DataModel
-    url: data-model/applike-data-model.yml
-  - type: Overlay
-    url: overlays/applike-justtrack-management-overlay.yaml
-- name: justtrack AppEvent API
-  description: >-
-    Server-to-server batch ingestion API for in-app events. A single POST /appevents/v1 operation accepts an array of
-    per-app/per-user event batches, each carrying a client-supplied uuid4 batchId and per-event uuid4 id used for
-    deduplication, and answers 207 with a per-batch error array on partial success. Published as OpenAPI 3.1.0.
-  humanURL: https://docs.justtrack.io/api/app-events/appevent-api/
-  baseURL: https://app-events.justtrack.io
-  tags:
-  - event-tracking
-  - mobile-analytics
-  - server-to-server
-  properties:
-  - type: OpenAPI
-    url: openapi/applike-justtrack-app-events-openapi.yml
-  - type: Documentation
-    url: https://docs.justtrack.io/api/app-events/appevent-api/
-  - type: APIReference
-    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
-  - type: Authentication
-    url: authentication/applike-authentication.yml
-  - type: Conventions
-    url: conventions/applike-conventions.yml
-  - type: ErrorCatalog
-    url: errors/applike-problem-types.yml
-  - type: Overlay
-    url: overlays/applike-justtrack-app-events-overlay.yaml
 - name: justtrack Reporting API
   description: >-
-    Reporting API exposing the metrics behind the justtrack dashboard — acquisition tables, cohort analysis and event
-    drill-down — as POST endpoints under /reporting/v2 (v1 also documented). Requests carry cohort, interval, metrics,
-    dimensions, filters, pagination and orderBy objects. Authenticated with X-API-Key. Documented in prose only; no
-    OpenAPI contract is published for this API.
+    Reporting API exposing the metrics behind the justtrack dashboard — acquisition tables, cohort analysis
+    and event drill-down — as POST endpoints under /reporting/v2 (v1 also documented). Requests carry
+    cohort, interval, metrics, dimensions, filters, pagination and orderBy objects. Authenticated with
+    X-API-Key. Documented in prose only; no OpenAPI contract is published for this API.
   humanURL: https://docs.justtrack.io/api/reporting-api/
   baseURL: https://api.justtrack.io
   tags:
@@ -107,10 +52,10 @@ apis:
     url: authentication/applike-authentication.yml
 - name: justtrack Revenue Events API
   description: >-
-    Server-to-server revenue postback sink. Monetization partners and customers send real-time revenue events as GET
-    requests with query parameters to https://sink.justtrack.io/monetization/v0/{provider}/{platform}/{packageId},
-    with a per-event transactionid used to trace and deduplicate. Thirteen named revenue providers have short handles;
-    received postbacks can be forwarded on to a customer-configured URL.
+    Server-to-server revenue postback sink. Monetization partners and customers send real-time revenue
+    events as GET requests with query parameters to https://sink.justtrack.io/monetization/v0/{provider}/{platform}/{packageId},
+    with a per-event transactionid used to trace and deduplicate. Thirteen named revenue providers have
+    short handles; received postbacks can be forwarded on to a customer-configured URL.
   humanURL: https://docs.justtrack.io/api/revenue-events-api/
   baseURL: https://sink.justtrack.io
   tags:
@@ -128,10 +73,11 @@ apis:
     url: authentication/applike-authentication.yml
 - name: adjoe SSP Revenue API
   description: >-
-    Publisher-facing reporting API returning daily aggregated Playtime revenue, eCPM, offerwall shows, SDK bootups,
-    first impressions, coin sums and view counts, groupable by up to eighteen dimensions. Two GET endpoints under
-    https://prod.adjoe.zone/v2/ssp-api, authenticated with the publisher token in an X-API-KEY header, rate limited to
-    5 requests/second sustained with a burst of 10 and X-RateLimit-* headers.
+    Publisher-facing reporting API returning daily aggregated Playtime revenue, eCPM, offerwall shows,
+    SDK bootups, first impressions, coin sums and view counts, groupable by up to eighteen dimensions.
+    Two GET endpoints under https://prod.adjoe.zone/v2/ssp-api, authenticated with the publisher token
+    in an X-API-KEY header, rate limited to 5 requests/second sustained with a burst of 10 and X-RateLimit-*
+    headers.
   humanURL: https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
   baseURL: https://prod.adjoe.zone
   tags:
@@ -152,10 +98,9 @@ apis:
     url: conventions/applike-conventions.yml
 - name: adjoe User Ad Data Report API
   description: >-
-    Per-user ad data report download for Playtime publishers. A single GET
-    /v3/ssp-api/user-ad-data-report/sdk/{sdkHash} endpoint returns a text/csv report for a given date, answering 202
-    with a JSON body while the report is still being generated. Authenticated with the publisher token in an
-    X-API-KEY header.
+    Per-user ad data report download for Playtime publishers. A single GET /v3/ssp-api/user-ad-data-report/sdk/{sdkHash}
+    endpoint returns a text/csv report for a given date, answering 202 with a JSON body while the report
+    is still being generated. Authenticated with the publisher token in an X-API-KEY header.
   humanURL: https://docs.adjoe.io/rewarded-solutions/reporting-apis/user-ad-data-report-api
   baseURL: https://prod.adjoe.zone
   tags:
@@ -169,6 +114,262 @@ apis:
     url: https://docs.adjoe.io/rewarded-solutions/reporting-apis/user-ad-data-report-api
   - type: Authentication
     url: authentication/applike-authentication.yml
+- aid: applike:applike-app-partner-connection-api
+  name: AppLike Group App Partner Connection API
+  description: >-
+    With the App Partner Connection API, you can:
+
+
+    - View details about an app partner connection
+
+    - Create a partner connection for an app (This is the API equivalent of connecting a partner in the
+    dashboard)
+
+    - Update details about an app partner connection
+
+
+    :::info
+
+
+    Without an app partner connection, justtrack can't operate for most of its features, including campaign
+    creation, tracking, and more.
+
+
+    :::
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - App Partner Connection
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-app-partner-connection-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+- aid: applike:applike-appevents-api
+  name: AppLike Group Appevents API
+  description: The Appevents API from AppLike Group — 1 operation(s) for appevents.
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - Appevents
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-appevents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+- aid: applike:applike-apps-api
+  name: AppLike Group Apps API
+  description: >-
+    With the App API, you can:
+
+
+    - View your list of apps
+
+    - Create an app
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - Apps
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-apps-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+- aid: applike:applike-bids-api
+  name: AppLike Group Bids API
+  description: >-
+    Bidding operates as a distributed transaction. The sequential flow is as follows:
+      1. you upload a bid
+      2. we store it in justtrack -> status: pending
+      3. we try to apply it on partner side <br/>
+        a. if successful -> status: success <br/>
+        b. if error: we rollback the change by fetching the current value from partner -> status: rollback-error
+    <br/>
+          b.1. rollback succeeded -> status: rollback-error <br/>
+          b.2. rollback-failed -> status: error <br/>
+      4. We update the bid based on the returning status. In the case of newly creation bids, this includes
+    deleting them to ensure a consistent state between justtrack and the partner.
+
+    This process can take up to 30 minutes for rollbacks. Only then you will see a stable status.
+
+
+    **NOTE:** We gather bids and apply them on the partner side in batches. This increases throughput
+    and overall speed in which changes are applied. As a downside, if one bid in one batch fails, mostly
+    the entire batch is rejected and enters the rollback process.
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - Bids
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-bids-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+- aid: applike:applike-campaigns-api
+  name: AppLike Group Campaigns API
+  description: The Campaigns API from AppLike Group — 2 operation(s) for campaigns.
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+- aid: applike:applike-partner-configurations-api
+  name: AppLike Group Partner Configurations API
+  description: >-
+    In justtrack, you integrate your app with the advertising partners that run your campaigns. Depending
+    on the integrated partner, we exchange data for at least one of the following features:
+
+
+    * `attribution`: Attribution tracking
+
+    * `campaign`: Bid and campaign automation
+
+    * `skad-import`: SKAd imports or tracking event-based SKAd data
+
+    * `spend-import`: Spend imports or tracking event-based spend data
+
+    * `tracking`: Tracking parameter macros (custom partners only)
+
+    * `postback`: Send data to the partner via postbacks
+
+
+    In order to properly exchange data with the partner, you need to configure specific partner settings.
+    With this API, you can do this programmatically. More specifically, you can:
+
+
+    - View all configurations we require to integrate a partner feature
+
+    - Configure features for an app-partner combination
+
+    - View all configured values for a given feature for an app-partner combination
+
+
+    Because you configure features for every app-partner combination, if you want to configure features
+    for multiple apps, you must call this endpoint for each app. For every feature, you must also configure
+    all configurable settings.
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - Partner Configurations
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-partner-configurations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+- aid: applike:applike-partners-api
+  name: AppLike Group Partners API
+  description: The Partners API from AppLike Group — 1 operation(s) for partners.
+  humanURL: https://docs.justtrack.io/api/management/management-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - Partners
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-partners-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
