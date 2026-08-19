@@ -14,7 +14,7 @@ image: https://applike-group.com/wp-content/uploads/2025/04/Applike-Group-881x10
 url: https://raw.githubusercontent.com/api-evangelist/applike/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.21'
+specificationVersion: '0.23'
 created: '2026-08-06'
 modified: '2026-08-06'
 tags:
