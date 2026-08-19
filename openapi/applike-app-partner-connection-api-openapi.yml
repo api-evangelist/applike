@@ -1,0 +1,183 @@
+openapi: 3.2.0
+info:
+  title: Management App Partner Connection API
+  version: v1.0.0
+  summary: API to fetch and upload bids processed through justtrack
+  description: Manage your apps, campaigns, partners, and more.
+servers:
+- url: https://api.justtrack.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: App Partner Connection
+  description: 'With the App Partner Connection API, you can:
+
+
+    - View details about an app partner connection
+
+    - Create a partner connection for an app (This is the API equivalent of connecting a partner in the dashboard)
+
+    - Update details about an app partner connection
+
+
+    :::info
+
+
+    Without an app partner connection, justtrack can''t operate for most of its features, including campaign creation, tracking, and more.
+
+
+    :::'
+paths:
+  /management/v1/app/{appId}/connection/{partnerId}:
+    get:
+      summary: Get app partner connection
+      description: Get data for existing app partner connection.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: justtrack's identifier for the app
+        schema:
+          type: integer
+          format: uint
+      - name: partnerId
+        in: path
+        required: true
+        description: justtrack's identifier for the advertising partner
+        schema:
+          type: integer
+          format: uint
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppPartnerConnection'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - App Partner Connection
+    put:
+      summary: Connect partner
+      description: Connect your app to a partner. If this app-partner connection already exists, update the connection details.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        description: justtrack's identifier for the app
+        schema:
+          type: integer
+          format: uint
+      - name: partnerId
+        in: path
+        required: true
+        description: justtrack's identifier for the advertising partner
+        schema:
+          type: integer
+          format: uint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppPartnerConnection'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppPartnerConnection'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - App Partner Connection
+components:
+  schemas:
+    RequiredCampaignType:
+      type: string
+      enum:
+      - acquisition
+      - retargeting
+      - ctv
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=acquisition retargeting ctv
+      description: The type of campaign you're running. Retargeting campaigns require special set up on partner side to target only existing users.
+      example: acquisition
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    AppPartnerConnection:
+      type: object
+      required:
+      - campaignTypes
+      - defaultChannelId
+      - multiCountryCampaignAllowed
+      - trackingUrlSlug
+      properties:
+        campaignTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequiredCampaignType'
+          minItems: 1
+          description: List of campaign types this partner can run.
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1,dive
+        defaultChannelId:
+          type: integer
+          format: uint
+          minimum: 1
+          description: justtrack internal ID for the channel used by default to create campaigns
+          example: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        multiCountryCampaignAllowed:
+          type: boolean
+          description: if you want to allow creation of campaigns with multiple countries for this partner
+        trackingUrlSlug:
+          type: string
+          minLength: 1
+          description: a unique string to identify this partner among others on tracking urls
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

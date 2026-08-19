@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppEvent Appevents API",
+    "version": "v1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Appevents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a batch of app events to justtrack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app-events.justtrack.io/appevents/v1",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends batches of batches of events where each inner batch is for a single app and user.\nFollows a bulk processing paradigm where individual AppEventBatches in the InputBatch are processed\nindependently from each other. If an AppEventBatch fails to be processed, this does not affect the processing\nof the other AppEventBatches in the InputBatch. For all AppEventBatches that fail an individual error status is\nset for its batchId for the \"207\" status code. An individual AppEventBatch is processed \"a"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

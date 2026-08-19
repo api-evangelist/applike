@@ -1,0 +1,471 @@
+{
+  "item": [
+    {
+      "id": "ab2231cb-ccf8-4089-9789-1cab6aa24481",
+      "name": "Bids",
+      "description": {
+        "content": "Bidding operates as a distributed transaction. The sequential flow is as follows:\n  1. you upload a bid\n  2. we store it in justtrack -> status: pending\n  3. we try to apply it on partner side <br/>\n    a. if successful -> status: success <br/>\n    b. if error: we rollback the change by fetching the current value from partner -> status: rollback-error <br/>\n      b.1. rollback succeeded -> status: rollback-error <br/>\n      b.2. rollback-failed -> status: error <br/>\n  4. We update the bid based on the returning status. In the case of newly creation bids, this includes deleting them to ensure a consistent state between justtrack and the partner.\n\nThis process can take up to 30 minutes for rollbacks. Only then you will see a stable status.\n\n**NOTE:** We gather bids and apply them on the partner side in batches. This increases throughput and overall speed in which changes are applied. As a downside, if one bid in one batch fails, mostly the entire batch is rejected and enters the rollback process.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6577da4e-83fd-4fd7-b8dd-bac942e3b6bb",
+          "name": "Fetch current bids with status",
+          "request": {
+            "name": "Fetch current bids with status",
+            "description": {
+              "content": "This API provides with the bids within justtrack. In addition, it exposes the status of the latest operation associated with the bid.\nThe following filter combinations are eligible:\n - networkId + campaignId\n - networkId + campaignId + countryCode\n - networkId + campaignId + countryCode + sourceId\n - networkId + adSetId\n - networkId + adSetId + countryCode\n - networkId + adSetId + countryCode + sourceId",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "management",
+                "v1",
+                "bids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"page\": {\n    \"offset\": \"<uint>\",\n    \"limit\": \"<uint>\"\n  },\n  \"filter\": {\n    \"partnerId\": \"<uint>\",\n    \"campaignId\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"sourceId\": \"<string>\",\n    \"adSetId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fbd7a21d-7560-4e82-aeb2-ebfcc0b43d7a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "bids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"page\": {\n    \"offset\": \"<uint>\",\n    \"limit\": 100\n  },\n  \"filter\": {\n    \"partnerId\": 1,\n    \"campaignId\": \"<string>\",\n    \"countryCode\": \"US\",\n    \"sourceId\": \"<string>\",\n    \"adSetId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"partnerId\": 1,\n      \"campaignId\": \"string\",\n      \"status\": \"string\",\n      \"value\": 451.4824701667719,\n      \"countryCode\": \"US\",\n      \"adSetId\": \"<string>\",\n      \"sourceId\": \"<string>\"\n    },\n    {\n      \"partnerId\": 1,\n      \"campaignId\": \"string\",\n      \"status\": \"string\",\n      \"value\": 6715.332135560909,\n      \"countryCode\": \"US\",\n      \"adSetId\": \"<string>\",\n      \"sourceId\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "372e3bab-6d55-4c3c-97a3-eddf391cf7c3",
+              "name": "Bad request input. Check the response for details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "bids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"page\": {\n    \"offset\": \"<uint>\",\n    \"limit\": 100\n  },\n  \"filter\": {\n    \"partnerId\": 1,\n    \"campaignId\": \"<string>\",\n    \"countryCode\": \"US\",\n    \"sourceId\": \"<string>\",\n    \"adSetId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da0ba7e1-fe9a-42aa-8fdb-eb45da1364b3",
+              "name": "Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "bids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"page\": {\n    \"offset\": \"<uint>\",\n    \"limit\": 100\n  },\n  \"filter\": {\n    \"partnerId\": 1,\n    \"campaignId\": \"<string>\",\n    \"countryCode\": \"US\",\n    \"sourceId\": \"<string>\",\n    \"adSetId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0769d03-6f76-403c-8843-403bcc4194e7",
+          "name": "Upload bids",
+          "request": {
+            "name": "Upload bids",
+            "description": {
+              "content": "With this API you can upload a batch of bids, similar to the CSV upload. The same hierarchy, rules, and limitations apply.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "management",
+                "v1",
+                "bids",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"campaignId\": \"<string>\",\n    \"delete\": \"<boolean>\",\n    \"optimalBidUsd\": \"<double>\",\n    \"partnerId\": \"<uint>\",\n    \"adSetId\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"sourceId\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b191af5-cbc4-400a-8fd5-c3c598c32065",
+              "name": "Bids are accepted and will be processed asynchronously",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "bids",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"campaignId\": \"<string>\",\n    \"delete\": \"<boolean>\",\n    \"optimalBidUsd\": \"<double>\",\n    \"partnerId\": 1,\n    \"adSetId\": \"<string>\",\n    \"countryCode\": \"US\",\n    \"sourceId\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28206142-6f9a-4da3-8f77-c4123616f530",
+              "name": "Invalid bids provided. Check the response for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "bids",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"campaignId\": \"<string>\",\n    \"delete\": \"<boolean>\",\n    \"optimalBidUsd\": \"<double>\",\n    \"partnerId\": 1,\n    \"adSetId\": \"<string>\",\n    \"countryCode\": \"US\",\n    \"sourceId\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"bidsValidation\": [\n    {\n      \"campaignId\": \"<string>\",\n      \"partnerId\": 1,\n      \"partnerName\": \"Ironsource\",\n      \"status\": \"string\",\n      \"message\": \"string\",\n      \"adSetId\": \"<string>\",\n      \"countryCode\": \"US\",\n      \"sourceId\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "367d327a-fb38-4abc-b4c8-bbe67ee88e99",
+              "name": "Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "bids",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"campaignId\": \"<string>\",\n    \"delete\": \"<boolean>\",\n    \"optimalBidUsd\": \"<double>\",\n    \"partnerId\": 1,\n    \"adSetId\": \"<string>\",\n    \"countryCode\": \"US\",\n    \"sourceId\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.justtrack.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "264fcc2d-534a-4c8e-a3f7-45e22262dfda",
+    "name": "Management Bids API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage your apps, campaigns, partners, and more.",
+      "type": "text/plain"
+    }
+  }
+}

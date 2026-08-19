@@ -1,0 +1,402 @@
+{
+  "item": [
+    {
+      "id": "5767d70a-23d9-4f8b-b8f7-f62c97f94d8b",
+      "name": "Appevents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c38be64b-890b-49dd-8d00-3f77aec6fc84",
+          "name": "Send a batch of app events to justtrack",
+          "request": {
+            "name": "Send a batch of app events to justtrack",
+            "description": {
+              "content": "Sends batches of batches of events where each inner batch is for a single app and user.\nFollows a bulk processing paradigm where individual AppEventBatches in the InputBatch are processed\nindependently from each other. If an AppEventBatch fails to be processed, this does not affect the processing\nof the other AppEventBatches in the InputBatch. For all AppEventBatches that fail an individual error status is\nset for its batchId for the \"207\" status code. An individual AppEventBatch is processed \"all or nothing\".\nAfter acceptance of a batch, there is delayed processing of it in subsequent components where additional validation happens.\nThis means that even though a batch was successfully accepted, not necessarily all events will pass processing.\nThis subsequent processing includes but is not limited to:\n- deduplication\n- additional semantic validation\n- user identity resolution\nUser Identity is determined once for the whole batch for an app user combination, using the newest information which predates the newest event in the batch.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appevents",
+                "v1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"batchId\": \"<uuid>\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  },\n  {\n    \"batchId\": \"<uuid>\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4a12101e-49f4-492b-8865-3406a9f7a79d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appevents",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  },\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ef20db6-7251-44da-91a1-8cb5fbe0def1",
+              "name": "Partial Success. Some events were not processed successfully. Check the response for details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appevents",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  },\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"statusCode\": 400,\n    \"error\": \"validation failed\"\n  },\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"statusCode\": 400,\n    \"error\": \"validation failed\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebc2bd48-7db3-4a12-8f03-2bfa57d95c4f",
+              "name": "Bad Request Input. Check the response for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appevents",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  },\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation failed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f44f029f-b7a6-48b9-91c8-5ceb23e6dd78",
+              "name": "Unauthorized. Please check you authentication details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appevents",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  },\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation failed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d9f7ea6-8dd8-40f6-b551-abff971405ac",
+              "name": "Internal Server Error. Please try again or contact us if the error persists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appevents",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  },\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation failed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c80f671d-a273-48e8-8d6a-d51e8b57962a",
+              "name": "Bad Gateway while committing the events, please try again after a short backoff.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appevents",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  },\n  {\n    \"batchId\": \"efe0d8d2-164b-49b8-b0cd-99e0bb4dca56\",\n    \"app\": {\n      \"storeId\": \"<string>\",\n      \"version\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"user\": {},\n    \"events\": []\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app-events.justtrack.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e2c017a8-050e-469a-82f1-b28552649aae",
+    "name": "AppEvent Appevents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

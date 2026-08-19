@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Management Bids API",
+    "version": "v1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bids",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch current bids with status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.justtrack.io/management/v1/bids",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API provides with the bids within justtrack. In addition, it exposes the status of the latest operation associated with the bid.\nThe following filter combinations are eligible:\n - networkId + campaignId\n - networkId + campaignId + countryCode\n - networkId + campaignId + countryCode + sourceId\n - networkId + adSetId\n - networkId + adSetId + countryCode\n - networkId + adSetId + countryCode + sourceId"
+        },
+        {
+          "info": {
+            "name": "Upload bids",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.justtrack.io/management/v1/bids/upload",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "With this API you can upload a batch of bids, similar to the CSV upload. The same hierarchy, rules, and limitations apply."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,250 @@
+openapi: 3.2.0
+info:
+  title: Management Apps API
+  version: v1.0.0
+  summary: API to fetch and upload bids processed through justtrack
+  description: Manage your apps, campaigns, partners, and more.
+servers:
+- url: https://api.justtrack.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Apps
+  description: 'With the App API, you can:
+
+
+    - View your list of apps
+
+    - Create an app'
+paths:
+  /management/v1/apps:
+    post:
+      summary: List apps
+      description: Get a paginated list of your organization's apps.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListAppsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAppsResponse'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Apps
+  /management/v1/app:
+    post:
+      summary: Create app
+      description: 'Create an app.
+
+
+        :::info
+
+
+        We validate the following constraints when creating an app:
+
+
+        - The bundle ID must be unique to your organization, though multiple apps within your organization can have the same bundle ID if the platform is different.
+
+        - A (bundle ID, platform) pair must be unique within your organization.
+
+        - A (name, platform) pair must be unique within your organization.
+
+        - The store ID must be unique across all organizations.
+
+
+        :::'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAppRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppOutput'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Apps
+components:
+  schemas:
+    RequiredPlatform:
+      type: string
+      description: identifier of the platform
+      enum:
+      - android
+      - ios
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=android ios
+      example: android
+    CreateAppRequest:
+      type: object
+      required:
+      - bundleId
+      - iconUrl
+      - name
+      - platform
+      - storeId
+      properties:
+        bundleId:
+          $ref: '#/components/schemas/RequiredBundleId'
+        iconUrl:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        name:
+          $ref: '#/components/schemas/RequiredAppName'
+        platform:
+          $ref: '#/components/schemas/RequiredPlatform'
+        storeId:
+          $ref: '#/components/schemas/RequiredStoreId'
+    RequiredPage:
+      type: object
+      required:
+      - offset
+      - limit
+      properties:
+        offset:
+          type: integer
+          format: uint
+          minimum: 0
+          description: The number of resources to skip for this filter
+          x-oapi-codegen-extra-tags:
+            binding: gte=0
+        limit:
+          type: integer
+          format: uint
+          minimum: 0
+          maximum: 1000
+          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
+          x-oapi-codegen-extra-tags:
+            binding: min=0,lte=1000
+          example: 100
+      x-oapi-codegen-extra-tags:
+        binding: required
+    RequiredDateTime:
+      type: string
+      format: date-time
+      x-oapi-codegen-extra-tags:
+        binding: required,datetime=2006-01-02T15:16:17Z
+    RequiredAppName:
+      type: string
+      description: the name given to this app
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    RequiredAppId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the app
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
+    ListAppsResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
+    RequiredStoreId:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    RequiredBundleId:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    AppOutput:
+      type: object
+      required:
+      - createdAt
+      - bundleId
+      - id
+      - name
+      - platform
+      - storeId
+      - updatedAt
+      properties:
+        createdAt:
+          $ref: '#/components/schemas/RequiredDateTime'
+        bundleId:
+          $ref: '#/components/schemas/RequiredBundleId'
+        id:
+          $ref: '#/components/schemas/RequiredAppId'
+        name:
+          $ref: '#/components/schemas/RequiredAppName'
+        platform:
+          $ref: '#/components/schemas/RequiredPlatform'
+        storeId:
+          $ref: '#/components/schemas/RequiredStoreId'
+        updatedAt:
+          $ref: '#/components/schemas/RequiredDateTime'
+    ListAppsRequest:
+      type: object
+      required:
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

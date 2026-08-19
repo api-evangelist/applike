@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Management Partner Configurations API",
+    "version": "v1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Partner Configurations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List configured features",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.justtrack.io/management/v1/partner-configuration/:feature",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a paginated list of configured features for a given app and partner."
+        },
+        {
+          "info": {
+            "name": "Configure partner",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.justtrack.io/management/v1/partner-configuration/:feature",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Configure a feature for a given app and partner.\n\n:::warning\n\nYou must provide values for all keys listed by [List partner configurations](/api/management/list-configurations).\n\n:::\n\n:::info\n\nFor attribution viewEventTimeFrame and clickEventTimeFrame, use [ISO8601 duration-only ](https://en.m.wikipedia.org/wiki/ISO_8601#Time_intervals)format, i.e. `P1DT0H0M`\n\n:::"
+        },
+        {
+          "info": {
+            "name": "List configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.justtrack.io/management/v1/partner-configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a paginated list of keys used to configure features for the partners that are available to your organization. You configure the values for each of these keys with the [Update configurations API](/api/management/configure-partner).\n\n:::warning\n\nWhen you configure a partner feature, you must provide values for all keys associated with that feature from this API. Without them, justtrack wouldn't be able to successfully operate or integrate with the partner.\n\n:::\n\nA configuration key may appear "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

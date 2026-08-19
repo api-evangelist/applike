@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Management Apps API",
+    "version": "v1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Apps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List apps",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.justtrack.io/management/v1/apps",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a paginated list of your organization's apps."
+        },
+        {
+          "info": {
+            "name": "Create app",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.justtrack.io/management/v1/app",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an app.\n\n:::info\n\nWe validate the following constraints when creating an app:\n\n- The bundle ID must be unique to your organization, though multiple apps within your organization can have the same bundle ID if the platform is different.\n- A (bundle ID, platform) pair must be unique within your organization.\n- A (name, platform) pair must be unique within your organization.\n- The store ID must be unique across all organizations.\n\n:::"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

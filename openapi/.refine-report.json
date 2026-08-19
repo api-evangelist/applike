@@ -1,0 +1,35 @@
+{
+  "provider": "applike",
+  "sources": [
+    "applike-app-partner-connection-api-openapi.yml",
+    "applike-appevents-api-openapi.yml",
+    "applike-apps-api-openapi.yml",
+    "applike-bids-api-openapi.yml",
+    "applike-campaigns-api-openapi.yml",
+    "applike-partner-configurations-api-openapi.yml",
+    "applike-partners-api-openapi.yml"
+  ],
+  "outputs": [
+    "applike-app-partner-connection-api-openapi.yml",
+    "applike-appevents-api-openapi.yml",
+    "applike-apps-api-openapi.yml",
+    "applike-bids-api-openapi.yml",
+    "applike-campaigns-api-openapi.yml",
+    "applike-partner-configurations-api-openapi.yml",
+    "applike-partners-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "applike-app-partner-connection-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "applike-appevents-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "applike-apps-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "applike-bids-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "applike-campaigns-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "applike-partner-configurations-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "applike-partners-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

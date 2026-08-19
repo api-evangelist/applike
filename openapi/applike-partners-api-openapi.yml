@@ -1,0 +1,147 @@
+openapi: 3.2.0
+info:
+  title: Management Partners API
+  version: v1.0.0
+  summary: API to fetch and upload bids processed through justtrack
+  description: Manage your apps, campaigns, partners, and more.
+servers:
+- url: https://api.justtrack.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Partners
+paths:
+  /management/v1/partners:
+    post:
+      summary: List partners
+      description: Get a paginated list of partners available to your organization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListPartnersRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPartnersResponse'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Partners
+components:
+  schemas:
+    ListPartnersFilter:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: omitempty,min=1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty
+    ListPartnersResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartnerOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
+    PartnerOutput:
+      type: object
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: integer
+          format: uint
+          minimum: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        name:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        createdAt:
+          $ref: '#/components/schemas/RequiredDateTime'
+        updatedAt:
+          $ref: '#/components/schemas/RequiredDateTime'
+    RequiredPage:
+      type: object
+      required:
+      - offset
+      - limit
+      properties:
+        offset:
+          type: integer
+          format: uint
+          minimum: 0
+          description: The number of resources to skip for this filter
+          x-oapi-codegen-extra-tags:
+            binding: gte=0
+        limit:
+          type: integer
+          format: uint
+          minimum: 0
+          maximum: 1000
+          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
+          x-oapi-codegen-extra-tags:
+            binding: min=0,lte=1000
+          example: 100
+      x-oapi-codegen-extra-tags:
+        binding: required
+    RequiredDateTime:
+      type: string
+      format: date-time
+      x-oapi-codegen-extra-tags:
+        binding: required,datetime=2006-01-02T15:16:17Z
+    ListPartnersRequest:
+      type: object
+      required:
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+        filter:
+          $ref: '#/components/schemas/ListPartnersFilter'
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

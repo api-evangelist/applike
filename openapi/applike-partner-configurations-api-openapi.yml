@@ -1,0 +1,395 @@
+openapi: 3.2.0
+info:
+  title: Management Partner Configurations API
+  version: v1.0.0
+  summary: API to fetch and upload bids processed through justtrack
+  description: Manage your apps, campaigns, partners, and more.
+servers:
+- url: https://api.justtrack.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Partner Configurations
+  description: 'In justtrack, you integrate your app with the advertising partners that run your campaigns. Depending on the integrated partner, we exchange data for at least one of the following features:
+
+
+    * `attribution`: Attribution tracking
+
+    * `campaign`: Bid and campaign automation
+
+    * `skad-import`: SKAd imports or tracking event-based SKAd data
+
+    * `spend-import`: Spend imports or tracking event-based spend data
+
+    * `tracking`: Tracking parameter macros (custom partners only)
+
+    * `postback`: Send data to the partner via postbacks
+
+
+    In order to properly exchange data with the partner, you need to configure specific partner settings. With this API, you can do this programmatically. More specifically, you can:
+
+
+    - View all configurations we require to integrate a partner feature
+
+    - Configure features for an app-partner combination
+
+    - View all configured values for a given feature for an app-partner combination
+
+
+    Because you configure features for every app-partner combination, if you want to configure features for multiple apps, you must call this endpoint for each app. For every feature, you must also configure all configurable settings.'
+paths:
+  /management/v1/partner-configuration/{feature}:
+    post:
+      summary: List configured features
+      description: Get a paginated list of configured features for a given app and partner.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListPartnerConfigurationFeaturesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPartnerConfigurationFeaturesResponse'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Partner Configurations
+    put:
+      summary: Configure partner
+      description: 'Configure a feature for a given app and partner.
+
+
+        :::warning
+
+
+        You must provide values for all keys listed by [List partner configurations](/api/management/list-configurations).
+
+
+        :::
+
+
+        :::info
+
+
+        For attribution viewEventTimeFrame and clickEventTimeFrame, use [ISO8601 duration-only ](https://en.m.wikipedia.org/wiki/ISO_8601#Time_intervals)format, i.e. `P1DT0H0M`
+
+
+        :::'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertPartnerConfigurationFeaturesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpsertPartnerConfigurationFeaturesResponse'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Partner Configurations
+  /management/v1/partner-configurations:
+    post:
+      summary: List configurations
+      description: 'Get a paginated list of keys used to configure features for the partners that are available to your organization. You configure the values for each of these keys with the [Update configurations API](/api/management/configure-partner).
+
+
+        :::warning
+
+
+        When you configure a partner feature, you must provide values for all keys associated with that feature from this API. Without them, justtrack wouldn''t be able to successfully operate or integrate with the partner.
+
+
+        :::
+
+
+        A configuration key may appear for multiple features. **You must provide a value for each feature.**'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListPartnerConfigurationsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPartnerConfigurationsResponse'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Partner Configurations
+components:
+  schemas:
+    RequiredPage:
+      type: object
+      required:
+      - offset
+      - limit
+      properties:
+        offset:
+          type: integer
+          format: uint
+          minimum: 0
+          description: The number of resources to skip for this filter
+          x-oapi-codegen-extra-tags:
+            binding: gte=0
+        limit:
+          type: integer
+          format: uint
+          minimum: 0
+          maximum: 1000
+          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
+          x-oapi-codegen-extra-tags:
+            binding: min=0,lte=1000
+          example: 100
+      x-oapi-codegen-extra-tags:
+        binding: required
+    PartnerConfigurationOutput:
+      type: object
+      required:
+      - features
+      - key
+      - partnerId
+      properties:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequiredFeature'
+        key:
+          $ref: '#/components/schemas/PartnerConfigurationFeatureKey'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+    ListPartnerConfigurationsResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartnerConfigurationOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
+    UpsertPartnerConfigurationFeaturesRequest:
+      type: object
+      required:
+      - appId
+      - configurations
+      - partnerId
+      properties:
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        configurations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartnerConfigurationFeature'
+          minItems: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1,dive
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+    UpsertPartnerConfigurationFeaturesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PartnerConfigurationFeatureOutput'
+      minItems: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1,dive
+    Feature:
+      type: string
+      enum:
+      - attribution
+      - campaign
+      - creative
+      - spend-import
+      - skad-import
+      - postback
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,oneof=attribution campaign creative spend-import skad-import postback
+    RequiredFeature:
+      type: string
+      enum:
+      - attribution
+      - campaign
+      - creative
+      - spend-import
+      - skad-import
+      - postback
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=attribution campaign creative spend-import skad-import postback
+    ListPartnerConfigurationsRequest:
+      type: object
+      required:
+      - page
+      properties:
+        filter:
+          $ref: '#/components/schemas/ListPartnerConfigurationsFilter'
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+    PartnerConfigurationFeatureValue:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    RequiredAppId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the app
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    PartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+      example: 1
+    ListPartnerConfigurationFeaturesResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartnerConfigurationFeatureOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
+    ListPartnerConfigurationsFilter:
+      type: object
+      properties:
+        partnerId:
+          $ref: '#/components/schemas/PartnerId'
+        feature:
+          $ref: '#/components/schemas/Feature'
+      x-oapi-codegen-extra-tags:
+        binding: omitempty
+    PartnerConfigurationFeature:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          $ref: '#/components/schemas/PartnerConfigurationFeatureKey'
+        value:
+          $ref: '#/components/schemas/PartnerConfigurationFeatureValue'
+    RequiredPartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
+    PartnerConfigurationFeatureOutput:
+      type: object
+      required:
+      - appId
+      - partnerId
+      - key
+      - value
+      properties:
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        key:
+          $ref: '#/components/schemas/PartnerConfigurationFeatureKey'
+        value:
+          $ref: '#/components/schemas/PartnerConfigurationFeatureValue'
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    ListPartnerConfigurationFeaturesFilter:
+      type: object
+      required:
+      - appId
+      - partnerId
+      properties:
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+    PartnerConfigurationFeatureKey:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    ListPartnerConfigurationFeaturesRequest:
+      type: object
+      required:
+      - page
+      - filter
+      properties:
+        filter:
+          $ref: '#/components/schemas/ListPartnerConfigurationFeaturesFilter'
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

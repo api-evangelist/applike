@@ -1,0 +1,759 @@
+{
+  "item": [
+    {
+      "id": "3c2eb930-c189-442c-b9fb-f55954c99eee",
+      "name": "App Partner Connection",
+      "description": {
+        "content": "With the App Partner Connection API, you can:\n\n- View details about an app partner connection\n- Create a partner connection for an app (This is the API equivalent of connecting a partner in the dashboard)\n- Update details about an app partner connection\n\n:::info\n\nWithout an app partner connection, justtrack can't operate for most of its features, including campaign creation, tracking, and more.\n\n:::",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c78ad74d-a1a7-4c56-bdd5-b04387bae686",
+          "name": "Get app partner connection",
+          "request": {
+            "name": "Get app partner connection",
+            "description": {
+              "content": "Get data for existing app partner connection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "management",
+                "v1",
+                "app",
+                ":appId",
+                "connection",
+                ":partnerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint>",
+                  "key": "appId",
+                  "description": "(Required) justtrack's identifier for the app"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint>",
+                  "key": "partnerId",
+                  "description": "(Required) justtrack's identifier for the advertising partner"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03496d75-56da-4141-9b1c-a423e65e9e03",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaignTypes\": [\n    \"acquisition\"\n  ],\n  \"defaultChannelId\": 1,\n  \"multiCountryCampaignAllowed\": false,\n  \"trackingUrlSlug\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c96c3d5f-f7b2-436c-81db-4e09fa6623bc",
+              "name": "Bad request input. Check the response for details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc8f25be-b4e8-487b-bf20-6b13d9224cb7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d2574be2-3722-4923-87aa-300752d8c572",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36c9aa11-ad47-4427-87a8-2cb6dc9ff045",
+              "name": "Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7aff5908-8e3b-45cc-afd4-b7542097979c",
+          "name": "Connect partner",
+          "request": {
+            "name": "Connect partner",
+            "description": {
+              "content": "Connect your app to a partner. If this app-partner connection already exists, update the connection details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "management",
+                "v1",
+                "app",
+                ":appId",
+                "connection",
+                ":partnerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint>",
+                  "key": "appId",
+                  "description": "(Required) justtrack's identifier for the app"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint>",
+                  "key": "partnerId",
+                  "description": "(Required) justtrack's identifier for the advertising partner"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignTypes\": [\n    \"<string>\"\n  ],\n  \"defaultChannelId\": \"<uint>\",\n  \"multiCountryCampaignAllowed\": \"<boolean>\",\n  \"trackingUrlSlug\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ba3bd71-4214-4c69-886f-9a7824fdd356",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignTypes\": [\n    \"acquisition\"\n  ],\n  \"defaultChannelId\": 1,\n  \"multiCountryCampaignAllowed\": \"<boolean>\",\n  \"trackingUrlSlug\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaignTypes\": [\n    \"acquisition\"\n  ],\n  \"defaultChannelId\": 1,\n  \"multiCountryCampaignAllowed\": \"<boolean>\",\n  \"trackingUrlSlug\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f58e2fe-a489-49b7-92cb-8c2eb9a789fc",
+              "name": "Bad request input. Check the response for details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignTypes\": [\n    \"acquisition\"\n  ],\n  \"defaultChannelId\": 1,\n  \"multiCountryCampaignAllowed\": \"<boolean>\",\n  \"trackingUrlSlug\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4bc1fb9-0904-4ebd-8675-fe55ea80eaaf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignTypes\": [\n    \"acquisition\"\n  ],\n  \"defaultChannelId\": 1,\n  \"multiCountryCampaignAllowed\": \"<boolean>\",\n  \"trackingUrlSlug\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2d83ca68-1695-43d9-999b-51e2afcf8ee3",
+              "name": "Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "management",
+                    "v1",
+                    "app",
+                    ":appId",
+                    "connection",
+                    ":partnerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "appId",
+                      "description": "(Required) justtrack's identifier for the app"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint>",
+                      "key": "partnerId",
+                      "description": "(Required) justtrack's identifier for the advertising partner"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignTypes\": [\n    \"acquisition\"\n  ],\n  \"defaultChannelId\": 1,\n  \"multiCountryCampaignAllowed\": \"<boolean>\",\n  \"trackingUrlSlug\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.justtrack.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1cf5b424-60d4-4d7a-8997-54e78336ca65",
+    "name": "Management App Partner Connection API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage your apps, campaigns, partners, and more.",
+      "type": "text/plain"
+    }
+  }
+}

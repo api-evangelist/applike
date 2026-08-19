@@ -1,0 +1,314 @@
+openapi: 3.2.0
+info:
+  title: Management Bids API
+  version: v1.0.0
+  summary: API to fetch and upload bids processed through justtrack
+  description: Manage your apps, campaigns, partners, and more.
+servers:
+- url: https://api.justtrack.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Bids
+  description: "Bidding operates as a distributed transaction. The sequential flow is as follows:\n  1. you upload a bid\n  2. we store it in justtrack -> status: pending\n  3. we try to apply it on partner side <br/>\n    a. if successful -> status: success <br/>\n    b. if error: we rollback the change by fetching the current value from partner -> status: rollback-error <br/>\n      b.1. rollback succeeded -> status: rollback-error <br/>\n      b.2. rollback-failed -> status: error <br/>\n  4. We update the bid based on the returning status. In the case of newly creation bids, this includes deleting them to ensure a consistent state between justtrack and the partner.\n\nThis process can take up to 30 minutes for rollbacks. Only then you will see a stable status.\n\n**NOTE:** We gather bids and apply them on the partner side in batches. This increases throughput and overall speed in which changes are applied. As a downside, if one bid in one batch fails, mostly the entire batch is rejected and enters the rollback process."
+paths:
+  /management/v1/bids:
+    post:
+      summary: Fetch current bids with status
+      description: "This API provides with the bids within justtrack. In addition, it exposes the status of the latest operation associated with the bid.\nThe following filter combinations are eligible:\n - networkId + campaignId\n - networkId + campaignId + countryCode\n - networkId + campaignId + countryCode + sourceId\n - networkId + adSetId\n - networkId + adSetId + countryCode\n - networkId + adSetId + countryCode + sourceId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListBidsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBidsResponse'
+        '400':
+          description: Bad request input. Check the response for details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bids
+  /management/v1/bids/upload:
+    post:
+      summary: Upload bids
+      description: With this API you can upload a batch of bids, similar to the CSV upload. The same hierarchy, rules, and limitations apply.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadBidsRequest'
+      responses:
+        '204':
+          description: Bids are accepted and will be processed asynchronously
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                example: {}
+        '400':
+          description: Invalid bids provided. Check the response for details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadBidsInvalidBidResponse'
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bids
+components:
+  schemas:
+    RequiredCampaignId:
+      type: string
+      description: The identifier for the campaign that originated with the partner
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    BidOutput:
+      type: object
+      required:
+      - partnerId
+      - campaignId
+      - status
+      - value
+      properties:
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        campaignId:
+          $ref: '#/components/schemas/RequiredCampaignId'
+        value:
+          $ref: '#/components/schemas/Bid'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        adSetId:
+          $ref: '#/components/schemas/AdSetId'
+        sourceId:
+          $ref: '#/components/schemas/SourceId'
+        status:
+          type: string
+          description: current status of the latest bid operation
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+    ListBidsRequest:
+      type: object
+      required:
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+        filter:
+          $ref: '#/components/schemas/ListBidsFilter'
+    ListBidsResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BidOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
+    CountryCode:
+      type: string
+      minLength: 2
+      maxLength: 2
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,iso3166_1_alpha2
+      description: ISO 3166-1 alpha-2 of your country, e.g. 'US'
+      example: US
+    SourceId:
+      type: string
+      description: identifier provided by the ad network to target specific source app
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+        mold: trim
+    UploadBidsRequest:
+      type: array
+      items:
+        $ref: '#/components/schemas/UploadBidInput'
+      minItems: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1,dive
+    Bid:
+      type: number
+      format: double
+      minimum: 0
+      description: bid value in USD
+      x-oapi-codegen-extra-tags:
+        binding: min=0
+    ListBidsFilter:
+      type: object
+      required:
+      - partnerId
+      properties:
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        campaignId:
+          $ref: '#/components/schemas/CampaignId'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        sourceId:
+          $ref: '#/components/schemas/SourceId'
+        adSetId:
+          $ref: '#/components/schemas/AdSetId'
+      x-oapi-codegen-extra-tags:
+        binding: omitempty
+    RequiredPage:
+      type: object
+      required:
+      - offset
+      - limit
+      properties:
+        offset:
+          type: integer
+          format: uint
+          minimum: 0
+          description: The number of resources to skip for this filter
+          x-oapi-codegen-extra-tags:
+            binding: gte=0
+        limit:
+          type: integer
+          format: uint
+          minimum: 0
+          maximum: 1000
+          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
+          x-oapi-codegen-extra-tags:
+            binding: min=0,lte=1000
+          example: 100
+      x-oapi-codegen-extra-tags:
+        binding: required
+    CampaignId:
+      type: string
+      description: The identifier for the campaign that originated with the partner
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    AdSetId:
+      type: string
+      description: partner's ID for this adset
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+    UploadBidsInvalidBidResponse:
+      type: object
+      required:
+      - error
+      - bidsValidation
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        bidsValidation:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidBidOutput'
+          minItems: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1,dive
+    UploadBidInput:
+      type: object
+      required:
+      - campaignId
+      - delete
+      - optimalBidUsd
+      - partnerId
+      properties:
+        adSetId:
+          $ref: '#/components/schemas/AdSetId'
+        campaignId:
+          $ref: '#/components/schemas/RequiredCampaignId'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        delete:
+          type: boolean
+          description: true, if you want to delete the bid. Defaults to false
+        optimalBidUsd:
+          $ref: '#/components/schemas/Bid'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        sourceId:
+          $ref: '#/components/schemas/SourceId'
+    InvalidBidOutput:
+      type: object
+      required:
+      - campaignId
+      - partnerId
+      - partnerName
+      - status
+      - message
+      properties:
+        adSetId:
+          $ref: '#/components/schemas/AdSetId'
+        campaignId:
+          $ref: '#/components/schemas/RequiredCampaignId'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        partnerName:
+          type: string
+          description: the name given to this ad partner
+          example: Ironsource
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        sourceId:
+          $ref: '#/components/schemas/SourceId'
+        status:
+          type: string
+          minLength: 1
+          description: error status for the bid
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        message:
+          type: string
+          description: error message why the bid is invalid
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+    RequiredPartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

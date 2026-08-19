@@ -1,0 +1,296 @@
+openapi: 3.2.0
+info:
+  title: Management Campaigns API
+  version: v1.0.0
+  summary: API to fetch and upload bids processed through justtrack
+  description: Manage your apps, campaigns, partners, and more.
+servers:
+- url: https://api.justtrack.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Campaigns
+paths:
+  /management/v1/campaigns:
+    post:
+      summary: List campaigns
+      description: Get a paginated list of campaigns for your organization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListCampaignsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignOutput'
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Campaigns
+  /management/v1/campaign:
+    post:
+      summary: Create campaign
+      description: Typically, we automatically track campaigns in justtrack when we receive the first click or impression. However, you can also use this API to create a campaign manually.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCampaignRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignOutput'
+        '500':
+          description: Internal server error. Please try again, or contact us at support@justtrack.io if the error persists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Campaigns
+components:
+  schemas:
+    RequiredPlatform:
+      type: string
+      description: identifier of the platform
+      enum:
+      - android
+      - ios
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=android ios
+      example: android
+    ListCampaignsRequest:
+      type: object
+      required:
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+        filter:
+          $ref: '#/components/schemas/ListCampaignsFilter'
+    RequiredPage:
+      type: object
+      required:
+      - offset
+      - limit
+      properties:
+        offset:
+          type: integer
+          format: uint
+          minimum: 0
+          description: The number of resources to skip for this filter
+          x-oapi-codegen-extra-tags:
+            binding: gte=0
+        limit:
+          type: integer
+          format: uint
+          minimum: 0
+          maximum: 1000
+          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
+          x-oapi-codegen-extra-tags:
+            binding: min=0,lte=1000
+          example: 100
+      x-oapi-codegen-extra-tags:
+        binding: required
+    RequiredCampaignType:
+      type: string
+      enum:
+      - acquisition
+      - retargeting
+      - ctv
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=acquisition retargeting ctv
+      description: The type of campaign you're running. Retargeting campaigns require special set up on partner side to target only existing users.
+      example: acquisition
+    CreateCampaignRequest:
+      type: object
+      required:
+      - appId
+      - countryCodes
+      - id
+      - optimizationType
+      - name
+      - partnerId
+      - type
+      properties:
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        countryCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1,dive
+        goalName:
+          $ref: '#/components/schemas/GoalName'
+        id:
+          $ref: '#/components/schemas/RequiredCampaignId'
+        name:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        optimizationType:
+          $ref: '#/components/schemas/RequiredOptimizationType'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        promoCode:
+          $ref: '#/components/schemas/PromoCode'
+        type:
+          $ref: '#/components/schemas/RequiredCampaignType'
+    RequiredOptimizationType:
+      type: string
+      example: cpi
+      minLength: 1
+      description: towards what the partner is optimizing this campaign
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    OptimizationType:
+      type: string
+      example: cpi
+      minLength: 1
+      description: towards what the partner is optimizing this campaign
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+    GoalName:
+      type: string
+      example: install
+      minLength: 1
+      description: the name of your app goal in justtrack
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+    RequiredDateTime:
+      type: string
+      format: date-time
+      x-oapi-codegen-extra-tags:
+        binding: required,datetime=2006-01-02T15:16:17Z
+    RequiredAppId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the app
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    PromoCode:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+    PartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+      example: 1
+    CampaignId:
+      type: string
+      description: The identifier for the campaign that originated with the partner
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+    CampaignOutput:
+      type: object
+      required:
+      - appId
+      - countryCodes
+      - createdAt
+      - name
+      - partnerId
+      - platform
+      - type
+      - updatedAt
+      properties:
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        countryCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1,dive
+        createdAt:
+          $ref: '#/components/schemas/RequiredDateTime'
+        goalName:
+          $ref: '#/components/schemas/GoalName'
+        id:
+          $ref: '#/components/schemas/CampaignId'
+        name:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        optimizationType:
+          $ref: '#/components/schemas/OptimizationType'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        platform:
+          $ref: '#/components/schemas/RequiredPlatform'
+        promoCode:
+          $ref: '#/components/schemas/PromoCode'
+        type:
+          $ref: '#/components/schemas/RequiredCampaignType'
+        updatedAt:
+          $ref: '#/components/schemas/RequiredDateTime'
+    RequiredPartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    RequiredCampaignId:
+      type: string
+      description: The identifier for the campaign that originated with the partner
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    CountryCode:
+      type: string
+      minLength: 2
+      maxLength: 2
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,iso3166_1_alpha2
+      description: ISO 3166-1 alpha-2 of your country, e.g. 'US'
+      example: US
+    ListCampaignsFilter:
+      type: object
+      properties:
+        campaignId:
+          $ref: '#/components/schemas/CampaignId'
+        partnerId:
+          $ref: '#/components/schemas/PartnerId'
+      x-oapi-codegen-extra-tags:
+        binding: omitempty
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
