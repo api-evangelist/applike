@@ -18,6 +18,19 @@ specificationVersion: '0.23'
 created: '2026-08-06'
 modified: '2026-08-06'
 tags:
+- Mobile Attribution
+- User Acquisition
+- AdTech
+- Mobile Advertising
+- App Monetization
+- rewarded-advertising
+- Mobile SDK
+- Mobile Analytics
+- Marketing Attribution
+- Mobile Games
+- Event Tracking
+- Company
+tags_raw:
 - mobile-attribution
 - user-acquisition
 - adtech
@@ -40,6 +53,10 @@ apis:
   humanURL: https://docs.justtrack.io/api/reporting-api/
   baseURL: https://api.justtrack.io
   tags:
+  - Mobile Analytics
+  - Reporting
+  - cohort-analysis
+  tags_raw:
   - mobile-analytics
   - reporting
   - cohort-analysis
@@ -59,6 +76,10 @@ apis:
   humanURL: https://docs.justtrack.io/api/revenue-events-api/
   baseURL: https://sink.justtrack.io
   tags:
+  - App Monetization
+  - Event Tracking
+  - Webhook
+  tags_raw:
   - app-monetization
   - event-tracking
   - webhooks
@@ -81,6 +102,11 @@ apis:
   humanURL: https://docs.adjoe.io/rewarded-solutions/reporting-apis/revenue-api
   baseURL: https://prod.adjoe.zone
   tags:
+  - App Monetization
+  - rewarded-advertising
+  - Reporting
+  - AdTech
+  tags_raw:
   - app-monetization
   - rewarded-advertising
   - reporting
@@ -104,6 +130,10 @@ apis:
   humanURL: https://docs.adjoe.io/rewarded-solutions/reporting-apis/user-ad-data-report-api
   baseURL: https://prod.adjoe.zone
   tags:
+  - App Monetization
+  - Reporting
+  - AdTech
+  tags_raw:
   - app-monetization
   - reporting
   - adtech
@@ -165,6 +195,8 @@ apis:
   humanURL: https://docs.justtrack.io/api/management/management-api/
   baseURL: https://api.justtrack.io
   tags:
+  - AppEvents
+  tags_raw:
   - Appevents
   properties:
   - type: OpenAPI
@@ -197,6 +229,8 @@ apis:
   humanURL: https://docs.justtrack.io/api/management/management-api/
   baseURL: https://api.justtrack.io
   tags:
+  - Application
+  tags_raw:
   - Apps
   properties:
   - type: OpenAPI
