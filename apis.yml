@@ -10,6 +10,18 @@ description: >-
   for its Management and AppEvent APIs plus documented Reporting, Revenue Events and Raw Data Export interfaces, and
   adjoe publishes SSP reporting APIs and a server-to-server rewarded-payout callback alongside Android, iOS, Unity,
   Flutter, React Native and Cordova SDKs.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://applike-group.com/wp-content/uploads/2025/04/Applike-Group-881x1024.png
 url: https://raw.githubusercontent.com/api-evangelist/applike/refs/heads/main/apis.yml
 x-type: company
