@@ -422,6 +422,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/applike-capability-edges.yml
+  name: AppLike Group Business Capability Map
 - type: DomainSecurity
   url: security/applike-domain-security.yml
 - type: Website
