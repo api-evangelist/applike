@@ -215,34 +215,6 @@ apis:
     url: https://docs.justtrack.io/api/app-events/appevent-api/
   - type: APIReference
     url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
-- aid: applike:applike-appevents-api
-  name: AppLike Group Appevents API
-  description: The Appevents API from AppLike Group — 1 operation(s) for appevents.
-  humanURL: https://docs.justtrack.io/api/management/management-api/
-  baseURL: https://api.justtrack.io
-  tags:
-  - AppEvents
-  tags_raw:
-  - Appevents
-  properties:
-  - type: OpenAPI
-    url: openapi/applike-appevents-api-openapi.yml
-  - type: Documentation
-    url: https://docs.justtrack.io/api/management/management-api/
-  - type: APIReference
-    url: https://docs.justtrack.io/api/management/management-api/
-  - type: Authentication
-    url: authentication/applike-authentication.yml
-  - type: Conventions
-    url: conventions/applike-conventions.yml
-  - type: ErrorCatalog
-    url: errors/applike-problem-types.yml
-  - type: DataModel
-    url: data-model/applike-data-model.yml
-  - type: Documentation
-    url: https://docs.justtrack.io/api/app-events/appevent-api/
-  - type: APIReference
-    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
 - aid: applike:applike-apps-api
   name: AppLike Group Apps API
   description: >-
@@ -414,6 +386,32 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/applike-partners-api-openapi.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/management/management-api/
+  - type: Authentication
+    url: authentication/applike-authentication.yml
+  - type: Conventions
+    url: conventions/applike-conventions.yml
+  - type: ErrorCatalog
+    url: errors/applike-problem-types.yml
+  - type: DataModel
+    url: data-model/applike-data-model.yml
+  - type: Documentation
+    url: https://docs.justtrack.io/api/app-events/appevent-api/
+  - type: APIReference
+    url: https://docs.justtrack.io/api/app-events/post-app-event-batch/
+- aid: applike:applike-app-events-api
+  name: AppLike Group App Events API
+  description: The App Events API from AppLike Group — 1 operation(s) for app events.
+  humanURL: https://docs.justtrack.io/api/reporting-api/
+  baseURL: https://api.justtrack.io
+  tags:
+  - App Events
+  properties:
+  - type: OpenAPI
+    url: openapi/applike-app-events-api-openapi.yml
   - type: Documentation
     url: https://docs.justtrack.io/api/management/management-api/
   - type: APIReference
