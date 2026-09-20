@@ -14,7 +14,8 @@ capability_model:
 edge_count: 1
 edges:
 - tag: Appevents
-  spec_file: applike-appevents-api-openapi.yml
+  spec_file: applike-app-events-api-openapi.yml
+  reanchored_from: applike-appevents-api-openapi.yml
   capability_id: BC-4280.10
   capability_id_l1: BC-4280
   capability_name: Product Telemetry Instrumentation
