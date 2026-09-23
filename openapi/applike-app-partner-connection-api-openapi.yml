@@ -72,6 +72,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       tags:
       - App Partner Connection
+      operationId: getManagementV1AppByAppIdConnectionByPartnerId
+      x-operation-id-source: derived
     put:
       summary: Connect partner
       description: Connect your app to a partner. If this app-partner connection already exists, update the connection details.
@@ -118,25 +120,10 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       tags:
       - App Partner Connection
+      operationId: putManagementV1AppByAppIdConnectionByPartnerId
+      x-operation-id-source: derived
 components:
   schemas:
-    RequiredCampaignType:
-      type: string
-      enum:
-      - acquisition
-      - retargeting
-      - ctv
-      x-oapi-codegen-extra-tags:
-        binding: required,oneof=acquisition retargeting ctv
-      description: The type of campaign you're running. Retargeting campaigns require special set up on partner side to target only existing users.
-      example: acquisition
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
     AppPartnerConnection:
       type: object
       required:
@@ -170,6 +157,23 @@ components:
           description: a unique string to identify this partner among others on tracking urls
           x-oapi-codegen-extra-tags:
             binding: required,min=1
+    RequiredCampaignType:
+      type: string
+      enum:
+      - acquisition
+      - retargeting
+      - ctv
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=acquisition retargeting ctv
+      description: The type of campaign you're running. Retargeting campaigns require special set up on partner side to target only existing users.
+      example: acquisition
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
     Error:
       type: string
       minLength: 1

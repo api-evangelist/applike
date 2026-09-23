@@ -49,6 +49,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       tags:
       - Apps
+      operationId: postManagementV1Apps
+      x-operation-id-source: derived
   /management/v1/app:
     post:
       summary: Create app
@@ -101,17 +103,10 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       tags:
       - Apps
+      operationId: postManagementV1App
+      x-operation-id-source: derived
 components:
   schemas:
-    RequiredPlatform:
-      type: string
-      description: identifier of the platform
-      enum:
-      - android
-      - ios
-      x-oapi-codegen-extra-tags:
-        binding: required,oneof=android ios
-      example: android
     CreateAppRequest:
       type: object
       required:
@@ -134,6 +129,14 @@ components:
           $ref: '#/components/schemas/RequiredPlatform'
         storeId:
           $ref: '#/components/schemas/RequiredStoreId'
+    RequiredAppId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the app
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
     RequiredPage:
       type: object
       required:
@@ -158,53 +161,20 @@ components:
           example: 100
       x-oapi-codegen-extra-tags:
         binding: required
-    RequiredDateTime:
-      type: string
-      format: date-time
-      x-oapi-codegen-extra-tags:
-        binding: required,datetime=2006-01-02T15:16:17Z
-    RequiredAppName:
-      type: string
-      description: the name given to this app
-      minLength: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-    RequiredAppId:
-      type: integer
-      format: uint
-      description: justtrack's internal ID for the app
-      minimum: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-      example: 1
-    ListAppsResponse:
-      type: object
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppOutput'
-          x-oapi-codegen-extra-tags:
-            binding: required,dive
     RequiredStoreId:
       type: string
       minLength: 1
       x-oapi-codegen-extra-tags:
         binding: required,min=1
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    RequiredBundleId:
+    RequiredPlatform:
       type: string
-      minLength: 1
+      description: identifier of the platform
+      enum:
+      - android
+      - ios
       x-oapi-codegen-extra-tags:
-        binding: required,min=1
+        binding: required,oneof=android ios
+      example: android
     AppOutput:
       type: object
       required:
@@ -230,6 +200,46 @@ components:
           $ref: '#/components/schemas/RequiredStoreId'
         updatedAt:
           $ref: '#/components/schemas/RequiredDateTime'
+    ListAppsResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
+    RequiredAppName:
+      type: string
+      description: the name given to this app
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    RequiredDateTime:
+      type: string
+      format: date-time
+      x-oapi-codegen-extra-tags:
+        binding: required,datetime=2006-01-02T15:16:17Z
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    RequiredBundleId:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
     ListAppsRequest:
       type: object
       required:
@@ -237,12 +247,6 @@ components:
       properties:
         page:
           $ref: '#/components/schemas/RequiredPage'
-    Error:
-      type: string
-      minLength: 1
-      description: description of the error
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -1,0 +1,1 @@
+{"resource":"https://mcp.justtrack.io/mcp","authorization_servers":["https://zitadel.justtrack.io"],"scopes_supported":["openid","profile","email"],"bearer_methods_supported":["header"],"resource_name":"justtrack MCP Server"}

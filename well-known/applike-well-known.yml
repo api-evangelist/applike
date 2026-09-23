@@ -1,12 +1,17 @@
-generated: '2026-08-06'
+generated: '2026-09-19'
 method: probed
 source: direct HTTP probes of every AppLike Group brand host and API host
-note: >-
-  Nothing was found. Every /.well-known/* path probed across the group's marketing, docs and API hosts returned 404 or
-  an authentication error. docs.adjoe.io answers 200 with the Docusaurus HTML shell for EVERY unknown path, including
-  every /.well-known/* path — those 200s are a catch-all, not a published document, and are recorded as soft_404
-  below rather than as hits. A control probe (docs.adjoe.io/.../use-the-sdk.md) returned the same 4662-byte shell,
-  which is how the false positive was confirmed.
+note: 'Nothing was found. Every /.well-known/* path probed across the group''s marketing, docs and API
+  hosts returned 404 or an authentication error. docs.adjoe.io answers 200 with the Docusaurus HTML shell
+  for EVERY unknown path, including every /.well-known/* path — those 200s are a catch-all, not a published
+  document, and are recorded as soft_404 below rather than as hits. A control probe (docs.adjoe.io/.../use-the-sdk.md)
+  returned the same 4662-byte shell, which is how the false positive was confirmed.
+
+
+  MCP-host OAuth discovery added 2026-09-19 (roadmap#321/#337): the harvest visits a provider''s primary
+  hosts, and RFC 9728 protected-resource metadata lives on the MCP host, so these documents existed and
+  were invisible to the scorer. Fetched live and validated on `resource`/`issuer`; one negative control
+  per host.'
 hosts:
 - host: applike-group.com
   probes:
@@ -110,9 +115,8 @@ hosts:
     file: null
 - host: docs.adjoe.io
   soft_404: true
-  soft_404_note: >-
-    Docusaurus catch-all. Every unknown path returns HTTP 200 with the same 4662-byte HTML shell, so a 200 here is
-    not evidence a document exists. Confirmed against a control path.
+  soft_404_note: Docusaurus catch-all. Every unknown path returns HTTP 200 with the same 4662-byte HTML
+    shell, so a 200 here is not evidence a document exists. Confirmed against a control path.
   probes:
   - path: /llms.txt
     status: 200
@@ -169,12 +173,37 @@ hosts:
   - path: /openapi.json
     status: 404
     file: null
+- host: https://mcp.justtrack.io
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: applike-mcp-oauth-protected-resource.json
+    bytes: 225
+  path_echo_control: passed
+- host: https://zitadel.justtrack.io
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: applike-zitadel-openid-configuration.json
+    bytes: 2383
+  path_echo_control: passed
 summary:
   security_txt: not published on any host
   openid_configuration: not published — neither brand runs an OAuth/OIDC provider for API access
   api_catalog: not published
   ai_plugin: not published
   agent_card: not published (see a2a — nothing written, correctly)
-  llms_txt: >-
-    published on two hosts — adjoe.io/llms.txt (prose company/product brief) and docs.justtrack.io/llms.txt
+  llms_txt: published on two hosts — adjoe.io/llms.txt (prose company/product brief) and docs.justtrack.io/llms.txt
     (a full link index of the documentation, one entry per page, with .md twins)
+x-mcp-probe:
+  probed: '2026-09-19'
+  issue: roadmap#321, roadmap#337
+  documents:
+  - host: https://mcp.justtrack.io
+    path: /.well-known/oauth-protected-resource
+    file: applike-mcp-oauth-protected-resource.json
+  - host: https://zitadel.justtrack.io
+    path: /.well-known/openid-configuration
+    file: applike-zitadel-openid-configuration.json
+  validated_on: resource (RFC 9728) / issuer (RFC 8414, OIDC)
+  negative_control: one per host; a 2xx JSON object at an impossible path discards the host

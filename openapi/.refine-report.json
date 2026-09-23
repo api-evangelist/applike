@@ -1,35 +1,39 @@
 {
   "provider": "applike",
   "sources": [
-    "applike-app-partner-connection-api-openapi.yml",
-    "applike-appevents-api-openapi.yml",
-    "applike-apps-api-openapi.yml",
-    "applike-bids-api-openapi.yml",
-    "applike-campaigns-api-openapi.yml",
-    "applike-partner-configurations-api-openapi.yml",
-    "applike-partners-api-openapi.yml"
+    "_original/applike-justtrack-app-events-openapi.yml",
+    "_original/applike-justtrack-management-openapi.yml"
   ],
   "outputs": [
-    "applike-app-partner-connection-api-openapi.yml",
     "applike-appevents-api-openapi.yml",
+    "applike-app-partner-connection-api-openapi.yml",
     "applike-apps-api-openapi.yml",
     "applike-bids-api-openapi.yml",
     "applike-campaigns-api-openapi.yml",
     "applike-partner-configurations-api-openapi.yml",
     "applike-partners-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "applike-app-partner-connection-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "applike-appevents-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "applike-apps-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "applike-bids-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "applike-campaigns-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "applike-partner-configurations-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "applike-partners-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "applike-justtrack-app-events-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "applike-justtrack-app-events-openapi.yml: tagged paths POST /appevents/v1 -> Appevents",
+    "applike-justtrack-app-events-openapi.yml: declared missing tag: Appevents",
+    "applike-justtrack-management-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: applike-app-events-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 11 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "applike-app-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "applike-app-partner-connection-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "applike-apps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "applike-bids-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "applike-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "applike-partner-configurations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "applike-partners-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

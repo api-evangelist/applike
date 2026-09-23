@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: AppEvent Appevents API
+  title: Appevents API
   version: v1.0.0
   summary: API to send s2s app events to justtrack
   description: ''
@@ -9,7 +9,7 @@ servers:
 security:
 - ApiKeyAuth: []
 tags:
-- name: Appevents
+- name: App Events
 paths:
   /appevents/v1:
     post:
@@ -36,9 +36,7 @@ paths:
 
         - user identity resolution
 
-        User Identity is determined once for the whole batch for an app user combination, using the newest information which predates the newest event in the batch.
-
-        '
+        User Identity is determined once for the whole batch for an app user combination, using the newest information which predates the newest event in the batch.'
       operationId: postAppEventBatch
       requestBody:
         content:
@@ -76,72 +74,9 @@ paths:
         '502':
           description: Bad Gateway while committing the events, please try again after a short backoff.
       tags:
-      - Appevents
+      - App Events
 components:
   schemas:
-    BatchErrorResponse:
-      type: object
-      required:
-      - batchId
-      - statusCode
-      - error
-      properties:
-        batchId:
-          $ref: '#/components/schemas/BatchId'
-        error:
-          $ref: '#/components/schemas/Error'
-        statusCode:
-          type: integer
-          description: The HTTP status code
-          example: 400
-          x-oapi-codegen-extra-tags:
-            binding: required
-    User:
-      type: object
-      anyOf:
-      - required:
-        - id
-      - required:
-        - installInstanceId
-      - required:
-        - attributionId
-      - required:
-        - deviceId
-      properties:
-        id:
-          type: string
-          description: id of the user, that was provided to the justtrack sdk through SetUserId. It is NOT the legacy justtrack user id.
-          minLength: 1
-          x-oapi-codegen-extra-tags:
-            binding: omitempty,min=1
-        installInstanceId:
-          type: string
-          format: uuid
-          description: 36 character uuid of the installation. Does not change across reinstalls as part of retargeting. Can be retrieved from the justtrack sdk by calling getInstallInstanceId.
-          minLength: 36
-          maxLength: 36
-          x-oapi-codegen-extra-tags:
-            binding: omitempty,uuid4
-        attributionId:
-          type: string
-          format: uuid
-          description: 36 character uuid of the attribution of the user.
-          minLength: 36
-          maxLength: 36
-          x-oapi-codegen-extra-tags:
-            binding: omitempty,uuid4
-        deviceId:
-          type: string
-          description: GAID or IDFA, depending on platform
-          x-oapi-codegen-extra-tags:
-            binding: omitempty,min=36
-      x-oapi-codegen-extra-tags:
-        binding: required
-    InputBatch:
-      type: array
-      description: A batch of AppEvent batches. Follows a bulk processing paradigm where each individual AppEventBatch can fail or succeed independently.
-      items:
-        $ref: '#/components/schemas/AppEventBatch'
     AppEvent:
       type: object
       oneOf:
@@ -230,22 +165,6 @@ components:
           description: when did the event happen?
           x-oapi-codegen-extra-tags:
             binding: required,datetime=2006-01-02T15:04:05.999Z07:00
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    BatchId:
-      type: string
-      format: uuid
-      description: 36 character uuid of the batch
-      minLength: 36
-      maxLength: 36
-      example: efe0d8d2-164b-49b8-b0cd-99e0bb4dca56
-      x-oapi-codegen-extra-tags:
-        binding: required,uuid4
     MultiErrorResponse:
       type: array
       items:
@@ -255,6 +174,23 @@ components:
         error: validation failed
       - batchId: 7890abcd-164b-49b8-b0cd-99e0bb4dca56
         error: invalid format
+    BatchErrorResponse:
+      type: object
+      required:
+      - batchId
+      - statusCode
+      - error
+      properties:
+        batchId:
+          $ref: '#/components/schemas/BatchId'
+        error:
+          $ref: '#/components/schemas/Error'
+        statusCode:
+          type: integer
+          description: The HTTP status code
+          example: 400
+          x-oapi-codegen-extra-tags:
+            binding: required
     AppEventBatch:
       type: object
       description: 'A batch of AppEvents, all for one app user combination. If one event is invalid, the whole batch is rejected.
@@ -294,6 +230,11 @@ components:
           description: The name of the app version
           x-oapi-codegen-extra-tags:
             binding: required,min=1
+    InputBatch:
+      type: array
+      description: A batch of AppEvent batches. Follows a bulk processing paradigm where each individual AppEventBatch can fail or succeed independently.
+      items:
+        $ref: '#/components/schemas/AppEventBatch'
     App:
       type: object
       required:
@@ -308,6 +249,54 @@ components:
           description: The store id of the app
           x-oapi-codegen-extra-tags:
             binding: required,min=1,max=255
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    User:
+      type: object
+      anyOf:
+      - required:
+        - id
+      - required:
+        - installInstanceId
+      - required:
+        - attributionId
+      - required:
+        - deviceId
+      properties:
+        id:
+          type: string
+          description: id of the user, that was provided to the justtrack sdk through SetUserId. It is NOT the legacy justtrack user id.
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: omitempty,min=1
+        installInstanceId:
+          type: string
+          format: uuid
+          description: 36 character uuid of the installation. Does not change across reinstalls as part of retargeting. Can be retrieved from the justtrack sdk by calling getInstallInstanceId.
+          minLength: 36
+          maxLength: 36
+          x-oapi-codegen-extra-tags:
+            binding: omitempty,uuid4
+        attributionId:
+          type: string
+          format: uuid
+          description: 36 character uuid of the attribution of the user.
+          minLength: 36
+          maxLength: 36
+          x-oapi-codegen-extra-tags:
+            binding: omitempty,uuid4
+        deviceId:
+          type: string
+          description: GAID or IDFA, depending on platform
+          x-oapi-codegen-extra-tags:
+            binding: omitempty,min=36
+      x-oapi-codegen-extra-tags:
+        binding: required
     Error:
       type: string
       minLength: 1
@@ -315,6 +304,15 @@ components:
       example: validation failed
       x-oapi-codegen-extra-tags:
         binding: min=1
+    BatchId:
+      type: string
+      format: uuid
+      description: 36 character uuid of the batch
+      minLength: 36
+      maxLength: 36
+      example: efe0d8d2-164b-49b8-b0cd-99e0bb4dca56
+      x-oapi-codegen-extra-tags:
+        binding: required,uuid4
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
