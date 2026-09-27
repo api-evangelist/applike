@@ -107,74 +107,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CreateAppRequest:
-      type: object
-      required:
-      - bundleId
-      - iconUrl
-      - name
-      - platform
-      - storeId
-      properties:
-        bundleId:
-          $ref: '#/components/schemas/RequiredBundleId'
-        iconUrl:
-          type: string
-          minLength: 1
-          x-oapi-codegen-extra-tags:
-            binding: required,min=1
-        name:
-          $ref: '#/components/schemas/RequiredAppName'
-        platform:
-          $ref: '#/components/schemas/RequiredPlatform'
-        storeId:
-          $ref: '#/components/schemas/RequiredStoreId'
-    RequiredAppId:
-      type: integer
-      format: uint
-      description: justtrack's internal ID for the app
-      minimum: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-      example: 1
-    RequiredPage:
-      type: object
-      required:
-      - offset
-      - limit
-      properties:
-        offset:
-          type: integer
-          format: uint
-          minimum: 0
-          description: The number of resources to skip for this filter
-          x-oapi-codegen-extra-tags:
-            binding: gte=0
-        limit:
-          type: integer
-          format: uint
-          minimum: 0
-          maximum: 1000
-          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
-          x-oapi-codegen-extra-tags:
-            binding: min=0,lte=1000
-          example: 100
-      x-oapi-codegen-extra-tags:
-        binding: required
-    RequiredStoreId:
+    RequiredAppName:
       type: string
+      description: the name given to this app
       minLength: 1
       x-oapi-codegen-extra-tags:
         binding: required,min=1
-    RequiredPlatform:
-      type: string
-      description: identifier of the platform
-      enum:
-      - android
-      - ios
-      x-oapi-codegen-extra-tags:
-        binding: required,oneof=android ios
-      example: android
     AppOutput:
       type: object
       required:
@@ -211,35 +149,14 @@ components:
             $ref: '#/components/schemas/AppOutput'
           x-oapi-codegen-extra-tags:
             binding: required,dive
-    RequiredAppName:
-      type: string
-      description: the name given to this app
-      minLength: 1
+    RequiredAppId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the app
+      minimum: 1
       x-oapi-codegen-extra-tags:
         binding: required,min=1
-    RequiredDateTime:
-      type: string
-      format: date-time
-      x-oapi-codegen-extra-tags:
-        binding: required,datetime=2006-01-02T15:16:17Z
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    Error:
-      type: string
-      minLength: 1
-      description: description of the error
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-    RequiredBundleId:
-      type: string
-      minLength: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
+      example: 1
     ListAppsRequest:
       type: object
       required:
@@ -247,6 +164,89 @@ components:
       properties:
         page:
           $ref: '#/components/schemas/RequiredPage'
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    RequiredPlatform:
+      type: string
+      description: identifier of the platform
+      enum:
+      - android
+      - ios
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=android ios
+      example: android
+    RequiredPage:
+      type: object
+      required:
+      - offset
+      - limit
+      properties:
+        offset:
+          type: integer
+          format: uint
+          minimum: 0
+          description: The number of resources to skip for this filter
+          x-oapi-codegen-extra-tags:
+            binding: gte=0
+        limit:
+          type: integer
+          format: uint
+          minimum: 0
+          maximum: 1000
+          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
+          x-oapi-codegen-extra-tags:
+            binding: min=0,lte=1000
+          example: 100
+      x-oapi-codegen-extra-tags:
+        binding: required
+    CreateAppRequest:
+      type: object
+      required:
+      - bundleId
+      - iconUrl
+      - name
+      - platform
+      - storeId
+      properties:
+        bundleId:
+          $ref: '#/components/schemas/RequiredBundleId'
+        iconUrl:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        name:
+          $ref: '#/components/schemas/RequiredAppName'
+        platform:
+          $ref: '#/components/schemas/RequiredPlatform'
+        storeId:
+          $ref: '#/components/schemas/RequiredStoreId'
+    RequiredDateTime:
+      type: string
+      format: date-time
+      x-oapi-codegen-extra-tags:
+        binding: required,datetime=2006-01-02T15:16:17Z
+    RequiredBundleId:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    RequiredStoreId:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

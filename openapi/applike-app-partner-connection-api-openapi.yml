@@ -124,6 +124,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    RequiredCampaignType:
+      type: string
+      enum:
+      - acquisition
+      - retargeting
+      - ctv
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=acquisition retargeting ctv
+      description: The type of campaign you're running. Retargeting campaigns require special set up on partner side to target only existing users.
+      example: acquisition
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
     AppPartnerConnection:
       type: object
       required:
@@ -157,16 +173,6 @@ components:
           description: a unique string to identify this partner among others on tracking urls
           x-oapi-codegen-extra-tags:
             binding: required,min=1
-    RequiredCampaignType:
-      type: string
-      enum:
-      - acquisition
-      - retargeting
-      - ctv
-      x-oapi-codegen-extra-tags:
-        binding: required,oneof=acquisition retargeting ctv
-      description: The type of campaign you're running. Retargeting campaigns require special set up on partner side to target only existing users.
-      example: acquisition
     ErrorResponse:
       type: object
       required:
@@ -174,12 +180,6 @@ components:
       properties:
         error:
           $ref: '#/components/schemas/Error'
-    Error:
-      type: string
-      minLength: 1
-      description: description of the error
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
