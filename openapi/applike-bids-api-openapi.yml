@@ -94,12 +94,168 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    UploadBidsRequest:
+      type: array
+      items:
+        $ref: '#/components/schemas/UploadBidInput'
+      minItems: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1,dive
+    ListBidsRequest:
+      type: object
+      required:
+      - page
+      properties:
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+        filter:
+          $ref: '#/components/schemas/ListBidsFilter'
+    CountryCode:
+      type: string
+      minLength: 2
+      maxLength: 2
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,iso3166_1_alpha2
+      description: ISO 3166-1 alpha-2 of your country, e.g. 'US'
+      example: US
+    Bid:
+      type: number
+      format: double
+      minimum: 0
+      description: bid value in USD
+      x-oapi-codegen-extra-tags:
+        binding: min=0
+    Error:
+      type: string
+      minLength: 1
+      description: description of the error
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    RequiredPage:
+      type: object
+      required:
+      - offset
+      - limit
+      properties:
+        offset:
+          type: integer
+          format: uint
+          minimum: 0
+          description: The number of resources to skip for this filter
+          x-oapi-codegen-extra-tags:
+            binding: gte=0
+        limit:
+          type: integer
+          format: uint
+          minimum: 0
+          maximum: 1000
+          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
+          x-oapi-codegen-extra-tags:
+            binding: min=0,lte=1000
+          example: 100
+      x-oapi-codegen-extra-tags:
+        binding: required
     AdSetId:
       type: string
       description: partner's ID for this adset
       minLength: 1
       x-oapi-codegen-extra-tags:
         binding: omitempty,min=1
+    BidOutput:
+      type: object
+      required:
+      - partnerId
+      - campaignId
+      - status
+      - value
+      properties:
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        campaignId:
+          $ref: '#/components/schemas/RequiredCampaignId'
+        value:
+          $ref: '#/components/schemas/Bid'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        adSetId:
+          $ref: '#/components/schemas/AdSetId'
+        sourceId:
+          $ref: '#/components/schemas/SourceId'
+        status:
+          type: string
+          description: current status of the latest bid operation
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    CampaignId:
+      type: string
+      description: The identifier for the campaign that originated with the partner
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+    RequiredCampaignId:
+      type: string
+      description: The identifier for the campaign that originated with the partner
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    ListBidsFilter:
+      type: object
+      required:
+      - partnerId
+      properties:
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        campaignId:
+          $ref: '#/components/schemas/CampaignId'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        sourceId:
+          $ref: '#/components/schemas/SourceId'
+        adSetId:
+          $ref: '#/components/schemas/AdSetId'
+      x-oapi-codegen-extra-tags:
+        binding: omitempty
+    UploadBidsInvalidBidResponse:
+      type: object
+      required:
+      - error
+      - bidsValidation
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        bidsValidation:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidBidOutput'
+          minItems: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1,dive
+    SourceId:
+      type: string
+      description: identifier provided by the ad network to target specific source app
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+        mold: trim
+    ListBidsResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BidOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
     UploadBidInput:
       type: object
       required:
@@ -123,33 +279,14 @@ components:
           $ref: '#/components/schemas/RequiredPartnerId'
         sourceId:
           $ref: '#/components/schemas/SourceId'
-    ListBidsResponse:
-      type: object
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BidOutput'
-          x-oapi-codegen-extra-tags:
-            binding: required,dive
-    ListBidsRequest:
-      type: object
-      required:
-      - page
-      properties:
-        page:
-          $ref: '#/components/schemas/RequiredPage'
-        filter:
-          $ref: '#/components/schemas/ListBidsFilter'
-    SourceId:
-      type: string
-      description: identifier provided by the ad network to target specific source app
-      minLength: 1
+    RequiredPartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
       x-oapi-codegen-extra-tags:
-        binding: omitempty,min=1
-        mold: trim
+        binding: required,min=1
+      example: 1
     InvalidBidOutput:
       type: object
       required:
@@ -188,143 +325,6 @@ components:
           minLength: 1
           x-oapi-codegen-extra-tags:
             binding: required,min=1
-    Error:
-      type: string
-      minLength: 1
-      description: description of the error
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-    RequiredPage:
-      type: object
-      required:
-      - offset
-      - limit
-      properties:
-        offset:
-          type: integer
-          format: uint
-          minimum: 0
-          description: The number of resources to skip for this filter
-          x-oapi-codegen-extra-tags:
-            binding: gte=0
-        limit:
-          type: integer
-          format: uint
-          minimum: 0
-          maximum: 1000
-          description: The maximum number of resources in a page. If set to 0, we default to a limit of 100.
-          x-oapi-codegen-extra-tags:
-            binding: min=0,lte=1000
-          example: 100
-      x-oapi-codegen-extra-tags:
-        binding: required
-    CountryCode:
-      type: string
-      minLength: 2
-      maxLength: 2
-      x-oapi-codegen-extra-tags:
-        binding: omitempty,iso3166_1_alpha2
-      description: ISO 3166-1 alpha-2 of your country, e.g. 'US'
-      example: US
-    UploadBidsInvalidBidResponse:
-      type: object
-      required:
-      - error
-      - bidsValidation
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-        bidsValidation:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvalidBidOutput'
-          minItems: 1
-          x-oapi-codegen-extra-tags:
-            binding: required,min=1,dive
-    CampaignId:
-      type: string
-      description: The identifier for the campaign that originated with the partner
-      minLength: 1
-      x-oapi-codegen-extra-tags:
-        binding: omitempty,min=1
-    UploadBidsRequest:
-      type: array
-      items:
-        $ref: '#/components/schemas/UploadBidInput'
-      minItems: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1,dive
-    Bid:
-      type: number
-      format: double
-      minimum: 0
-      description: bid value in USD
-      x-oapi-codegen-extra-tags:
-        binding: min=0
-    BidOutput:
-      type: object
-      required:
-      - partnerId
-      - campaignId
-      - status
-      - value
-      properties:
-        partnerId:
-          $ref: '#/components/schemas/RequiredPartnerId'
-        campaignId:
-          $ref: '#/components/schemas/RequiredCampaignId'
-        value:
-          $ref: '#/components/schemas/Bid'
-        countryCode:
-          $ref: '#/components/schemas/CountryCode'
-        adSetId:
-          $ref: '#/components/schemas/AdSetId'
-        sourceId:
-          $ref: '#/components/schemas/SourceId'
-        status:
-          type: string
-          description: current status of the latest bid operation
-          minLength: 1
-          x-oapi-codegen-extra-tags:
-            binding: required,min=1
-    ListBidsFilter:
-      type: object
-      required:
-      - partnerId
-      properties:
-        partnerId:
-          $ref: '#/components/schemas/RequiredPartnerId'
-        campaignId:
-          $ref: '#/components/schemas/CampaignId'
-        countryCode:
-          $ref: '#/components/schemas/CountryCode'
-        sourceId:
-          $ref: '#/components/schemas/SourceId'
-        adSetId:
-          $ref: '#/components/schemas/AdSetId'
-      x-oapi-codegen-extra-tags:
-        binding: omitempty
-    RequiredCampaignId:
-      type: string
-      description: The identifier for the campaign that originated with the partner
-      minLength: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    RequiredPartnerId:
-      type: integer
-      format: uint
-      description: justtrack's internal ID for the partner
-      minimum: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-      example: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
