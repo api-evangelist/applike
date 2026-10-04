@@ -47,22 +47,40 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ListPartnersFilter:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          x-oapi-codegen-extra-tags:
-            binding: omitempty,min=1
+    RequiredDateTime:
+      type: string
+      format: date-time
       x-oapi-codegen-extra-tags:
-        binding: omitempty
+        binding: required,datetime=2006-01-02T15:16:17Z
     Error:
       type: string
       minLength: 1
       description: description of the error
       x-oapi-codegen-extra-tags:
         binding: required,min=1
+    PartnerOutput:
+      type: object
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: integer
+          format: uint
+          minimum: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        name:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1
+        createdAt:
+          $ref: '#/components/schemas/RequiredDateTime'
+        updatedAt:
+          $ref: '#/components/schemas/RequiredDateTime'
     RequiredPage:
       type: object
       required:
@@ -87,13 +105,16 @@ components:
           example: 100
       x-oapi-codegen-extra-tags:
         binding: required
-    ErrorResponse:
+    ListPartnersFilter:
       type: object
-      required:
-      - error
       properties:
-        error:
-          $ref: '#/components/schemas/Error'
+        name:
+          type: string
+          minLength: 1
+          x-oapi-codegen-extra-tags:
+            binding: omitempty,min=1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty
     ListPartnersRequest:
       type: object
       required:
@@ -103,34 +124,13 @@ components:
           $ref: '#/components/schemas/RequiredPage'
         filter:
           $ref: '#/components/schemas/ListPartnersFilter'
-    PartnerOutput:
+    ErrorResponse:
       type: object
       required:
-      - id
-      - name
-      - createdAt
-      - updatedAt
+      - error
       properties:
-        id:
-          type: integer
-          format: uint
-          minimum: 1
-          x-oapi-codegen-extra-tags:
-            binding: required,min=1
-        name:
-          type: string
-          minLength: 1
-          x-oapi-codegen-extra-tags:
-            binding: required,min=1
-        createdAt:
-          $ref: '#/components/schemas/RequiredDateTime'
-        updatedAt:
-          $ref: '#/components/schemas/RequiredDateTime'
-    RequiredDateTime:
-      type: string
-      format: date-time
-      x-oapi-codegen-extra-tags:
-        binding: required,datetime=2006-01-02T15:16:17Z
+        error:
+          $ref: '#/components/schemas/Error'
     ListPartnersResponse:
       type: object
       required:

@@ -149,35 +149,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ListPartnerConfigurationFeaturesRequest:
-      type: object
-      required:
-      - page
-      - filter
-      properties:
-        filter:
-          $ref: '#/components/schemas/ListPartnerConfigurationFeaturesFilter'
-        page:
-          $ref: '#/components/schemas/RequiredPage'
-    Feature:
+    Error:
       type: string
-      enum:
-      - attribution
-      - campaign
-      - creative
-      - spend-import
-      - skad-import
-      - postback
+      minLength: 1
+      description: description of the error
       x-oapi-codegen-extra-tags:
-        binding: omitempty,oneof=attribution campaign creative spend-import skad-import postback
-    PartnerId:
-      type: integer
-      format: uint
-      description: justtrack's internal ID for the partner
-      minimum: 1
-      x-oapi-codegen-extra-tags:
-        binding: omitempty,min=1
-      example: 1
+        binding: required,min=1
     RequiredAppId:
       type: integer
       format: uint
@@ -186,80 +163,16 @@ components:
       x-oapi-codegen-extra-tags:
         binding: required,min=1
       example: 1
-    RequiredPartnerId:
-      type: integer
-      format: uint
-      description: justtrack's internal ID for the partner
-      minimum: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-      example: 1
-    PartnerConfigurationFeatureOutput:
+    PartnerConfigurationFeature:
       type: object
       required:
-      - appId
-      - partnerId
       - key
       - value
       properties:
-        appId:
-          $ref: '#/components/schemas/RequiredAppId'
-        partnerId:
-          $ref: '#/components/schemas/RequiredPartnerId'
         key:
           $ref: '#/components/schemas/PartnerConfigurationFeatureKey'
         value:
           $ref: '#/components/schemas/PartnerConfigurationFeatureValue'
-    PartnerConfigurationFeatureValue:
-      type: string
-      minLength: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-    RequiredFeature:
-      type: string
-      enum:
-      - attribution
-      - campaign
-      - creative
-      - spend-import
-      - skad-import
-      - postback
-      x-oapi-codegen-extra-tags:
-        binding: required,oneof=attribution campaign creative spend-import skad-import postback
-    ListPartnerConfigurationsResponse:
-      type: object
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/PartnerConfigurationOutput'
-          x-oapi-codegen-extra-tags:
-            binding: required,dive
-    Error:
-      type: string
-      minLength: 1
-      description: description of the error
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
-    UpsertPartnerConfigurationFeaturesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/PartnerConfigurationFeatureOutput'
-      minItems: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1,dive
-    ListPartnerConfigurationFeaturesFilter:
-      type: object
-      required:
-      - appId
-      - partnerId
-      properties:
-        appId:
-          $ref: '#/components/schemas/RequiredAppId'
-        partnerId:
-          $ref: '#/components/schemas/RequiredPartnerId'
     ListPartnerConfigurationsFilter:
       type: object
       properties:
@@ -269,33 +182,6 @@ components:
           $ref: '#/components/schemas/Feature'
       x-oapi-codegen-extra-tags:
         binding: omitempty
-    ListPartnerConfigurationsRequest:
-      type: object
-      required:
-      - page
-      properties:
-        filter:
-          $ref: '#/components/schemas/ListPartnerConfigurationsFilter'
-        page:
-          $ref: '#/components/schemas/RequiredPage'
-    UpsertPartnerConfigurationFeaturesRequest:
-      type: object
-      required:
-      - appId
-      - configurations
-      - partnerId
-      properties:
-        appId:
-          $ref: '#/components/schemas/RequiredAppId'
-        configurations:
-          type: array
-          items:
-            $ref: '#/components/schemas/PartnerConfigurationFeature'
-          minItems: 1
-          x-oapi-codegen-extra-tags:
-            binding: required,min=1,dive
-        partnerId:
-          $ref: '#/components/schemas/RequiredPartnerId'
     ListPartnerConfigurationFeaturesResponse:
       type: object
       required:
@@ -307,16 +193,49 @@ components:
             $ref: '#/components/schemas/PartnerConfigurationFeatureOutput'
           x-oapi-codegen-extra-tags:
             binding: required,dive
-    PartnerConfigurationFeature:
+    RequiredPartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+      example: 1
+    Feature:
+      type: string
+      enum:
+      - attribution
+      - campaign
+      - creative
+      - spend-import
+      - skad-import
+      - postback
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,oneof=attribution campaign creative spend-import skad-import postback
+    ListPartnerConfigurationFeaturesFilter:
       type: object
       required:
-      - key
-      - value
+      - appId
+      - partnerId
       properties:
-        key:
-          $ref: '#/components/schemas/PartnerConfigurationFeatureKey'
-        value:
-          $ref: '#/components/schemas/PartnerConfigurationFeatureValue'
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+    PartnerConfigurationFeatureKey:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    ListPartnerConfigurationsRequest:
+      type: object
+      required:
+      - page
+      properties:
+        filter:
+          $ref: '#/components/schemas/ListPartnerConfigurationsFilter'
+        page:
+          $ref: '#/components/schemas/RequiredPage'
     RequiredPage:
       type: object
       required:
@@ -341,18 +260,6 @@ components:
           example: 100
       x-oapi-codegen-extra-tags:
         binding: required
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    PartnerConfigurationFeatureKey:
-      type: string
-      minLength: 1
-      x-oapi-codegen-extra-tags:
-        binding: required,min=1
     PartnerConfigurationOutput:
       type: object
       required:
@@ -368,6 +275,99 @@ components:
           $ref: '#/components/schemas/PartnerConfigurationFeatureKey'
         partnerId:
           $ref: '#/components/schemas/RequiredPartnerId'
+    PartnerConfigurationFeatureValue:
+      type: string
+      minLength: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1
+    ListPartnerConfigurationFeaturesRequest:
+      type: object
+      required:
+      - page
+      - filter
+      properties:
+        filter:
+          $ref: '#/components/schemas/ListPartnerConfigurationFeaturesFilter'
+        page:
+          $ref: '#/components/schemas/RequiredPage'
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    RequiredFeature:
+      type: string
+      enum:
+      - attribution
+      - campaign
+      - creative
+      - spend-import
+      - skad-import
+      - postback
+      x-oapi-codegen-extra-tags:
+        binding: required,oneof=attribution campaign creative spend-import skad-import postback
+    ListPartnerConfigurationsResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartnerConfigurationOutput'
+          x-oapi-codegen-extra-tags:
+            binding: required,dive
+    PartnerConfigurationFeatureOutput:
+      type: object
+      required:
+      - appId
+      - partnerId
+      - key
+      - value
+      properties:
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+        key:
+          $ref: '#/components/schemas/PartnerConfigurationFeatureKey'
+        value:
+          $ref: '#/components/schemas/PartnerConfigurationFeatureValue'
+    UpsertPartnerConfigurationFeaturesRequest:
+      type: object
+      required:
+      - appId
+      - configurations
+      - partnerId
+      properties:
+        appId:
+          $ref: '#/components/schemas/RequiredAppId'
+        configurations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartnerConfigurationFeature'
+          minItems: 1
+          x-oapi-codegen-extra-tags:
+            binding: required,min=1,dive
+        partnerId:
+          $ref: '#/components/schemas/RequiredPartnerId'
+    PartnerId:
+      type: integer
+      format: uint
+      description: justtrack's internal ID for the partner
+      minimum: 1
+      x-oapi-codegen-extra-tags:
+        binding: omitempty,min=1
+      example: 1
+    UpsertPartnerConfigurationFeaturesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PartnerConfigurationFeatureOutput'
+      minItems: 1
+      x-oapi-codegen-extra-tags:
+        binding: required,min=1,dive
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
