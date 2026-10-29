@@ -64,5 +64,145 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-AppLike Group is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/applike-stock
+AppLike Group is a Hamburg, Germany-based company builder in the mobile app economy, founded in 2015 by Jonas Thiemann and Carlo Szelinsky and backed by Bertelsmann. The group operates four independent businesses that cover the mobile app value chain: adjoe (rewarded user acquisition, the Playtime engagement ad format, the Arcade loyalty layer and a programmatic ads platform), justtrack (mobile attribution, user-acquisition automation, cohort and monetization analytics), JustDice (app-discovery products for mobile gamers) and Sunday (mobile game development and publishing). Two of the four brands publish public developer surfaces: justtrack ships OpenAPI 3.1 contracts for its Management and AppEvent APIs plus documented Reporting, Revenue Events and Raw Data Export interfaces, and adjoe publishes SSP reporting APIs and a server-to-server rewarded-payout callback alongside Android, iOS, Unity, Flutter, React Native and Cordova SDKs.
+
+**Areas:** Mobile Attribution · User Acquisition · AdTech · Mobile Advertising · App Monetization · rewarded-advertising · Mobile SDK · Mobile Analytics · Marketing Attribution · Mobile Games · Event Tracking · Company
+
+## AppLike Group on APIs.io
+
+Everything profiled for AppLike Group is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/applike/](https://apis.io/providers/applike/)** — or go straight to one of the APIs or properties below.
+
+### APIs (11)
+
+- [justtrack Reporting API](https://apis.io/apis/applike/justtrack-reporting-api/) — Reporting API exposing the metrics behind the justtrack dashboard — acquisition tables, cohort analysis and event drill-down — as POST endpoints under…
+- [justtrack Revenue Events API](https://apis.io/apis/applike/justtrack-revenue-events-api/) — Server-to-server revenue postback sink. Monetization partners and customers send real-time revenue events as GET requests with query parameters to…
+- [adjoe SSP Revenue API](https://apis.io/apis/applike/adjoe-ssp-revenue-api/) — Publisher-facing reporting API returning daily aggregated Playtime revenue, eCPM, offerwall shows, SDK bootups, first impressions, coin sums and view…
+- [adjoe User Ad Data Report API](https://apis.io/apis/applike/adjoe-user-ad-data-report-api/) — Per-user ad data report download for Playtime publishers. A single GET /v3/ssp-api/user-ad-data-report/sdk/{sdkHash} endpoint returns a text/csv report for…
+- [AppLike Group App Partner Connection API](https://apis.io/apis/applike/applike-app-partner-connection-api/) — With the App Partner Connection API, you can: - View details about an app partner connection - Create a partner connection for an app (This is the API…
+- [AppLike Group Apps API](https://apis.io/apis/applike/applike-apps-api/) — With the App API, you can: - View your list of apps - Create an app
+- [AppLike Group Bids API](https://apis.io/apis/applike/applike-bids-api/) — Bidding operates as a distributed transaction. The sequential flow is as follows: 1. you upload a bid 2. we store it in justtrack -> status: pending 3. we…
+- [AppLike Group Campaigns API](https://apis.io/apis/applike/applike-campaigns-api/) — The Campaigns API from AppLike Group — 2 operation(s) for campaigns.
+- [AppLike Group Partner Configurations API](https://apis.io/apis/applike/applike-partner-configurations-api/) — In justtrack, you integrate your app with the advertising partners that run your campaigns. Depending on the integrated partner, we exchange data for at…
+- [AppLike Group Partners API](https://apis.io/apis/applike/applike-partners-api/) — The Partners API from AppLike Group — 1 operation(s) for partners.
+- [AppLike Group App Events API](https://apis.io/apis/applike/applike-app-events-api/) — The App Events API from AppLike Group — 1 operation(s) for app events.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Applike Webhooks](https://apis.io/asyncapis/applike/applike-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [applike](https://apis.io/servers/applike/applike/)
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [Management App Partner Connection API](https://apis.io/collections/applike/open-applike-app-partner-connection-api/)
+- [AppEvent Appevents API](https://apis.io/collections/applike/open-applike-appevents-api/)
+- [Management Apps API](https://apis.io/collections/applike/open-applike-apps-api/)
+- [Management Bids API](https://apis.io/collections/applike/open-applike-bids-api/)
+- [Management Campaigns API](https://apis.io/collections/applike/open-applike-campaigns-api/)
+- [Management Partner Configurations API](https://apis.io/collections/applike/open-applike-partner-configurations-api/)
+- [Management Partners API](https://apis.io/collections/applike/open-applike-partners-api/)
+
+#### Overlays (2)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Applike Justtrack App Events Overlay](https://apis.io/overlays/applike/applike-justtrack-app-events-overlay/)
+- [Applike Justtrack Management Overlay](https://apis.io/overlays/applike/applike-justtrack-management-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Applike Authentication](https://apis.io/security/applike/applike-authentication/)
+- [Applike Domain Security](https://apis.io/security/applike/applike-domain-security/)
+- [Applike Trust Center](https://apis.io/security/applike/applike-trust-center/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Applike Rate Limits](https://apis.io/rate-limits/applike/applike-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://applike-group.com/)
+- [Documentation](https://docs.justtrack.io/)
+- [Getting started](https://docs.justtrack.io/sdk/setup/)
+- [API reference](https://docs.justtrack.io/api/overview/)
+- [Pricing](https://justtrack.io/pricing/)
+- [Support](https://justtrack.io/contact/)
+- [Changelog](https://docs.justtrack.io/sdk/more/changelog/)
+- [Blog](https://adjoe.io/blog/)
+- [Terms of service](https://justtrack.io/terms-of-service/)
+- [Privacy policy](https://justtrack.io/privacy-notice/)
+- [GitHub](https://github.com/justtrackio)
+- [Status](https://status.justtrack.io/)
+
+## API Evangelist rating
+
+**Kin Score 59.9** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 57.8 |
+| Contract governance | 18.2 |
+| Operational transparency | 71.1 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 53.9 |
+
+**Agent readiness 60.4** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 29.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/applike/](https://apis.io/providers/applike/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for AppLike Group: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/applike/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
